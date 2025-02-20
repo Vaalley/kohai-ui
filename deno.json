@@ -1,0 +1,9 @@
+{
+	"imports": {
+		"@std/async": "jsr:@std/async@^1.0.10"
+	},
+	"fmt": {
+		"indentWidth": 8,
+		"useTabs": true
+	}
+}
