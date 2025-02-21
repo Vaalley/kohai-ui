@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
+	import Button from "../components/atoms/Button/Button.svelte";
 
 	const baseUrl = "http://localhost:2501/";
 
@@ -184,5 +185,9 @@
 				>me</button
 			>
 		</form>
+	</section>
+
+	<section class="css-tests">
+		<Button>Custom Content</Button>
 	</section>
 </main>
