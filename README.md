@@ -1,41 +1,65 @@
-# sv
+# Kohai - Frontend Web Application
 
-Everything you need to build a Svelte project, powered by
-[`sv`](https://github.com/sveltejs/cli).
+A modern web application for tagging movies and video games built with SvelteKit
+and native CSS following atomic design principles.
 
-## Creating a project
+Kohai is a web application that enables users to associate descriptive words
+with movies and video games, creating a crowd-sourced tagging system. Users can
+view aggregated popular tags for each piece of media, providing an organic,
+community-driven description system.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Technologies Used
 
-```bash
-# create a new project in the current directory
-npx sv create
+- [SvelteKit](https://svelte.dev/) - Framework for building high-performance web
+  applications
+- Native CSS with atomic design organization
+- [TMDB API](https://www.themoviedb.org/documentation/api) - For movie data
+- [IGDB API](https://api-docs.igdb.com/) - For video game data
 
-# create a new project in my-app
-npx sv create my-app
+## Features
+
+- User account creation and management
+- Search for movies and video games
+- Add descriptive tags (up to 3 per media)
+- View most popular community tags for each media item
+- Responsive design for all devices
+
+## Project Structure
+
+The project follows atomic design principles:
+
+```text
+src/
+├── lib/
+│   ├── components/
+│   │   ├── atoms/       # Basic building blocks (buttons, inputs, tags)
+│   │   ├── molecules/   # Groups of atoms (search bars, media cards)
+│   │   ├── organisms/   # Groups of molecules (navigation, forms)
+│   │   └── templates/   # Page layouts
+│   ├── services/        # API integration services
+│   └── utils/           # Helper functions
+├── routes/              # SvelteKit pages and API routes
+└── styles/              # Global styles and variables
 ```
 
-## Developing
+## How to Run
 
-Once you've created a project and installed dependencies with `npm install` (or
-`pnpm install` or `yarn`), start a development server:
+1. **Ensure Deno is installed:** If you haven't already, install Deno from
+   [https://deno.com/](https://deno.com/).
+2. **Clone the repository:** `git clone https://github.com/Vaalley/kohai-ui.git`
+   and `cd kohai-ui`.
+3. **Configure environment variables:** Copy the `.env.example` file to `.env`
+   and update the values for API endpoints and keys.
+4. **Install dependencies:**
+
+   ```bash
+   deno install
+   ```
+
+5. **Run the development server:**
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+deno task dev
 ```
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an
-> [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Open in browser: Navigate to `http://localhost:5173` to view the application.
