@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import Button from "../components/atoms/Button/Button.svelte";
+	import TestTubeDiagonal from "lucide-svelte/icons/test-tube-diagonal";
 
 	const baseUrl = "http://localhost:2501/";
 
@@ -106,7 +107,7 @@
 </svelte:head>
 
 <main>
-	<h1>User authentication tests</h1>
+	<h1>User authentication tests <TestTubeDiagonal /></h1>
 
 	<section class="register form">
 		<form
