@@ -35,11 +35,11 @@ src/
 │   │   ├── atoms/       # Basic building blocks (buttons, inputs, tags)
 │   │   ├── molecules/   # Groups of atoms (search bars, media cards)
 │   │   ├── organisms/   # Groups of molecules (navigation, forms)
-│   │   └── templates/   # Page layouts
-│   ├── services/        # API integration services
+│   │   ├── templates/   # Page layouts
+│   │   └── pages/       # Complete pages
 │   └── utils/           # Helper functions
-├── routes/              # SvelteKit pages and API routes
-└── styles/              # Global styles and variables
+├── routes/              # SvelteKit pages
+└── styles/              # Global styles, variables and reset
 ```
 
 ## How to Run
@@ -50,16 +50,7 @@ src/
    and `cd kohai-ui`.
 3. **Configure environment variables:** Copy the `.env.example` file to `.env`
    and update the values for API endpoints and keys.
-4. **Install dependencies:**
+4. **Install dependencies:** `deno install`
+5. **Run the development server:** `deno task dev`
 
-   ```bash
-   deno install
-   ```
-
-5. **Run the development server:**
-
-```bash
-deno task dev
-```
-
-Open in browser: Navigate to `http://localhost:5173` to view the application.
+Open your browser: Navigate to `http://localhost:5173` to view the application.
