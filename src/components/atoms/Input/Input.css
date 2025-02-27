@@ -6,6 +6,13 @@
 	transition: border 0.1s;
 }
 
+.input-container {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	gap: var(--spacing-sm);
+}
+
 /* Sizes */
 .input--sm {
 	font-size: var(--font-size-sm);
@@ -30,15 +37,7 @@
 }
 
 /* Focus */
-.input:active,
 .input:focus {
 	border: 2px solid var(--primary-color);
 	outline: none;
-}
-
-/* Icon */
-.input svg {
-	width: 1rem;
-	height: 1rem;
-	flex-shrink: 0;
 }

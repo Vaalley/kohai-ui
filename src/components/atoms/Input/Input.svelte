@@ -3,12 +3,15 @@
 
 	let {
 		size = "md",
-		icon,
+		children,
 		...rest
 	} = $props();
 </script>
+<div class="input-container">
+	{@render children?.()}
 
-<input
-	class="input input--{size}"
-	{...rest}
-/>
+	<input
+		class="input input--{size}"
+		{...rest}
+	/>
+</div>

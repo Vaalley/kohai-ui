@@ -3,6 +3,8 @@
 	import Button from "../components/atoms/Button/Button.svelte";
 	import Input from "../components/atoms/Input/Input.svelte";
 	import TestTubeDiagonal from "lucide-svelte/icons/test-tube-diagonal";
+	import Mail from "lucide-svelte/icons/mail";
+	import Lock from "lucide-svelte/icons/lock";
 
 	const baseUrl = "http://localhost:2501/";
 
@@ -10,17 +12,17 @@
 		const username = (
 			document.getElementById(
 				"registerUsername",
-			) as HTMLInputElement
+			)
 		)?.value ?? "";
 		const email = (
 			document.getElementById(
 				"registerEmail",
-			) as HTMLInputElement
+			)
 		)?.value ?? "";
 		const password = (
 			document.getElementById(
 				"registerPassword",
-			) as HTMLInputElement
+			)
 		)?.value ?? "";
 
 		await fetch(baseUrl + "auth/register", {
@@ -44,12 +46,12 @@
 		const email = (
 			document.getElementById(
 				"loginEmail",
-			) as HTMLInputElement
+			)
 		)?.value ?? "";
 		const password = (
 			document.getElementById(
 				"loginPassword",
-			) as HTMLInputElement
+			)
 		)?.value ?? "";
 
 		await fetch(baseUrl + "auth/login", {
@@ -115,7 +117,7 @@
 		>
 			<h2>register</h2>
 			<label for="registerUsername">username</label>
-			<input
+			<Input
 				type="text"
 				name="registerUsername"
 				id="registerUsername"
@@ -124,14 +126,14 @@
 			/>
 
 			<label for="registerEmail">email</label>
-			<input
+			<Input
 				type="email"
 				name="registerEmail"
 				id="registerEmail"
 			/>
 
 			<label for="registerPassword">password</label>
-			<input
+			<Input
 				type="password"
 				name="registerPassword"
 				id="registerPassword"
@@ -154,10 +156,10 @@
 		>
 			<h2>login</h2>
 			<label for="loginEmail">email</label>
-			<input type="email" name="loginEmail" id="loginEmail" />
+			<Input type="email" name="loginEmail" id="loginEmail" />
 
 			<label for="loginPassword">password</label>
-			<input
+			<Input
 				type="password"
 				name="loginPassword"
 				id="loginPassword"
@@ -213,13 +215,9 @@
 			<Button variant="ghost">Ghost</Button>
 		</div>
 		<div style="display: flex; align-items: center; gap: 10px">
-			<Input icon="mail" />
+			<Input size="xl"><Mail /></Input>
 
-			<Input
-				icon="lock"
-				type="password"
-				size="xl"
-			/>
+			<Input type="password" size="sm"><Lock /></Input>
 		</div>
 	</section>
 </main>
