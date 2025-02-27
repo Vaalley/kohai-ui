@@ -200,7 +200,15 @@
 		</form>
 	</section>
 
-	<section class="css-tests">
-		<Button>Custom Content</Button>
+	<section
+		class="css-tests"
+		style="display: flex; align-items: center; gap: 10px"
+	>
+		<Button size="icon"><TestTubeDiagonal /></Button>
+		<Button>Some text</Button>
+		<Button variant="secondary" size="lg">Secondary</Button>
+		<Button variant="destructive" size="xl">Destructive</Button>
+		<Button variant="outline">Outline</Button>
+		<Button variant="ghost">Ghost</Button>
 	</section>
 </main>
