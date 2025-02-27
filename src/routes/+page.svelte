@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import Button from "../components/atoms/Button/Button.svelte";
+	import Input from "../components/atoms/Input/Input.svelte";
 	import TestTubeDiagonal from "lucide-svelte/icons/test-tube-diagonal";
+	import Mail from "lucide-svelte/icons/mail";
+	import Lock from "lucide-svelte/icons/lock";
+	import User from "lucide-svelte/icons/user";
 
 	const baseUrl = "http://localhost:2501/";
 
@@ -9,17 +13,17 @@
 		const username = (
 			document.getElementById(
 				"registerUsername",
-			) as HTMLInputElement
+			)
 		)?.value ?? "";
 		const email = (
 			document.getElementById(
 				"registerEmail",
-			) as HTMLInputElement
+			)
 		)?.value ?? "";
 		const password = (
 			document.getElementById(
 				"registerPassword",
-			) as HTMLInputElement
+			)
 		)?.value ?? "";
 
 		await fetch(baseUrl + "auth/register", {
@@ -43,12 +47,12 @@
 		const email = (
 			document.getElementById(
 				"loginEmail",
-			) as HTMLInputElement
+			)
 		)?.value ?? "";
 		const password = (
 			document.getElementById(
 				"loginPassword",
-			) as HTMLInputElement
+			)
 		)?.value ?? "";
 
 		await fetch(baseUrl + "auth/login", {
@@ -98,7 +102,6 @@
 
 	onMount(async () => {
 		await handleMe();
-		console.log(document.cookie);
 	});
 </script>
 
@@ -115,35 +118,36 @@
 		>
 			<h2>register</h2>
 			<label for="registerUsername">username</label>
-			<input
+			<Input
 				type="text"
 				name="registerUsername"
 				id="registerUsername"
 				maxlength="32"
 				minlength="3"
-			/>
+			><User /></Input>
 
 			<label for="registerEmail">email</label>
-			<input
+			<Input
 				type="email"
 				name="registerEmail"
 				id="registerEmail"
-			/>
+			><Mail /></Input>
 
 			<label for="registerPassword">password</label>
-			<input
+			<Input
 				type="password"
 				name="registerPassword"
 				id="registerPassword"
 				minlength="8"
-			/>
+			><Lock /></Input>
 
-			<button
+			<Button
 				type="submit"
-				on:click|preventDefault={handleRegister}
+				onclick={handleRegister}
+				size="sm"
 			>
 				register
-			</button>
+			</Button>
 		</form>
 	</section>
 
@@ -153,22 +157,27 @@
 		>
 			<h2>login</h2>
 			<label for="loginEmail">email</label>
-			<input type="email" name="loginEmail" id="loginEmail" />
+			<Input
+				type="email"
+				name="loginEmail"
+				id="loginEmail"
+			><Mail /></Input>
 
 			<label for="loginPassword">password</label>
-			<input
+			<Input
 				type="password"
 				name="loginPassword"
 				id="loginPassword"
 				minlength="8"
-			/>
+			><Lock /></Input>
 
-			<button
+			<Button
 				type="submit"
-				on:click|preventDefault={handleLogin}
+				onclick={handleLogin}
+				size="sm"
 			>
 				login
-			</button>
+			</Button>
 		</form>
 	</section>
 
@@ -177,12 +186,13 @@
 			style="border: 2px solid black; margin: 10px; padding: 10px"
 		>
 			<h2>logout</h2>
-			<button
+			<Button
 				type="submit"
-				on:click|preventDefault={handleLogout}
+				onclick={handleLogout}
+				size="sm"
 			>
 				logout
-			</button>
+			</Button>
 		</form>
 	</section>
 
@@ -191,16 +201,28 @@
 			style="border: 2px solid black; margin: 10px; padding: 10px"
 		>
 			<h2>me</h2>
-			<button
+			<Button
 				type="submit"
-				on:click|preventDefault={handleMe}
-			>
-				me
-			</button>
+				onclick={handleMe}
+				size="sm"
+			>me</Button>
 		</form>
 	</section>
 
 	<section class="css-tests">
-		<Button>Custom Content</Button>
+		<div style="display: flex; align-items: center; gap: 10px">
+			<Button size="icon"><TestTubeDiagonal /></Button>
+			<Button>Some text</Button>
+			<Button variant="secondary" size="lg">Secondary</Button>
+			<Button variant="destructive" size="xl"
+			>Destructive</Button>
+			<Button variant="outline" size="lg">Outline</Button>
+			<Button variant="ghost">Ghost</Button>
+		</div>
+		<div style="display: flex; align-items: center; gap: 10px">
+			<Input size="xl"><Mail /></Input>
+
+			<Input type="password" size="sm"><Lock /></Input>
+		</div>
 	</section>
 </main>
