@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import Button from "../components/atoms/Button/Button.svelte";
+	import Input from "../components/atoms/Input/Input.svelte";
 	import TestTubeDiagonal from "lucide-svelte/icons/test-tube-diagonal";
 
 	const baseUrl = "http://localhost:2501/";
@@ -201,15 +202,24 @@
 		</form>
 	</section>
 
-	<section
-		class="css-tests"
-		style="display: flex; align-items: center; gap: 10px"
-	>
-		<Button size="icon"><TestTubeDiagonal /></Button>
-		<Button>Some text</Button>
-		<Button variant="secondary" size="lg">Secondary</Button>
-		<Button variant="destructive" size="xl">Destructive</Button>
-		<Button variant="outline" size="lg">Outline</Button>
-		<Button variant="ghost">Ghost</Button>
+	<section class="css-tests">
+		<div style="display: flex; align-items: center; gap: 10px">
+			<Button size="icon"><TestTubeDiagonal /></Button>
+			<Button>Some text</Button>
+			<Button variant="secondary" size="lg">Secondary</Button>
+			<Button variant="destructive" size="xl"
+			>Destructive</Button>
+			<Button variant="outline" size="lg">Outline</Button>
+			<Button variant="ghost">Ghost</Button>
+		</div>
+		<div style="display: flex; align-items: center; gap: 10px">
+			<Input icon="mail" />
+
+			<Input
+				icon="lock"
+				type="password"
+				size="xl"
+			/>
+		</div>
 	</section>
 </main>

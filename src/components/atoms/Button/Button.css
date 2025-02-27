@@ -6,7 +6,6 @@
 	gap: var(--spacing-sm);
 	padding: var(--spacing-md) var(--spacing-lg);
 	border-radius: var(--border-radius-md);
-	font-weight: var(--font-weight-normal);
 	cursor: pointer;
 	color: var(--light-color);
 	transition: background-color 0.2s;

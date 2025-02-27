@@ -14,6 +14,7 @@ pseudo-elements). One common use of this selector is to apply a custom
 *, *::before, *::after {
 	font-family: "Inter", sans-serif;
 	font-size: var(--font-size-md);
+	font-weight: var(--font-weight-normal);
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
