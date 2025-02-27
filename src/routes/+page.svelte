@@ -98,7 +98,6 @@
 
 	onMount(async () => {
 		await handleMe();
-		console.log(document.cookie);
 	});
 </script>
 
@@ -138,12 +137,13 @@
 				minlength="8"
 			/>
 
-			<button
+			<Button
 				type="submit"
-				on:click|preventDefault={handleRegister}
+				onclick={handleRegister}
+				size="sm"
 			>
 				register
-			</button>
+			</Button>
 		</form>
 	</section>
 
@@ -163,12 +163,13 @@
 				minlength="8"
 			/>
 
-			<button
+			<Button
 				type="submit"
-				on:click|preventDefault={handleLogin}
+				onclick={handleLogin}
+				size="sm"
 			>
 				login
-			</button>
+			</Button>
 		</form>
 	</section>
 
@@ -177,12 +178,13 @@
 			style="border: 2px solid black; margin: 10px; padding: 10px"
 		>
 			<h2>logout</h2>
-			<button
+			<Button
 				type="submit"
-				on:click|preventDefault={handleLogout}
+				onclick={handleLogout}
+				size="sm"
 			>
 				logout
-			</button>
+			</Button>
 		</form>
 	</section>
 
@@ -191,12 +193,11 @@
 			style="border: 2px solid black; margin: 10px; padding: 10px"
 		>
 			<h2>me</h2>
-			<button
+			<Button
 				type="submit"
-				on:click|preventDefault={handleMe}
-			>
-				me
-			</button>
+				onclick={handleMe}
+				size="sm"
+			>me</Button>
 		</form>
 	</section>
 

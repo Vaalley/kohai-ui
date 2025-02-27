@@ -13,6 +13,11 @@
 }
 
 /* Sizes */
+.button--sm {
+	font-size: var(--font-size-sm);
+	padding: var(--spacing-sm) var(--spacing-md);
+}
+
 .button--md {
 	font-size: var(--font-size-md);
 }
