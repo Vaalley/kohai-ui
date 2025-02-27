@@ -2,6 +2,7 @@
 /* https://github.com/frontaid/natural-selection */
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap");
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 Universal
@@ -12,6 +13,7 @@ pseudo-elements). One common use of this selector is to apply a custom
 `box-sizing`. */
 *, *::before, *::after {
 	font-family: "Inter", sans-serif;
+	font-size: var(--font-size-md);
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -29,11 +31,21 @@ body {}
 Content sectioning
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-h1, h2, h3, h4, h5, h6 {}
-h1 {}
-h2 {}
-h3 {}
-h4 {}
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Noto Serif", serif;
+}
+h1 {
+	font-size: var(--font-size-3xl);
+}
+h2 {
+	font-size: var(--font-size-2xl);
+}
+h3 {
+	font-size: var(--font-size-xl);
+}
+h4 {
+	font-size: var(--font-size-lg);
+}
 h5 {}
 h6 {}
 
