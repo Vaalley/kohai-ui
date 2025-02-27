@@ -5,6 +5,7 @@
 	import TestTubeDiagonal from "lucide-svelte/icons/test-tube-diagonal";
 	import Mail from "lucide-svelte/icons/mail";
 	import Lock from "lucide-svelte/icons/lock";
+	import User from "lucide-svelte/icons/user";
 
 	const baseUrl = "http://localhost:2501/";
 
@@ -123,14 +124,14 @@
 				id="registerUsername"
 				maxlength="32"
 				minlength="3"
-			/>
+			><User /></Input>
 
 			<label for="registerEmail">email</label>
 			<Input
 				type="email"
 				name="registerEmail"
 				id="registerEmail"
-			/>
+			><Mail /></Input>
 
 			<label for="registerPassword">password</label>
 			<Input
@@ -138,7 +139,7 @@
 				name="registerPassword"
 				id="registerPassword"
 				minlength="8"
-			/>
+			><Lock /></Input>
 
 			<Button
 				type="submit"
@@ -156,7 +157,11 @@
 		>
 			<h2>login</h2>
 			<label for="loginEmail">email</label>
-			<Input type="email" name="loginEmail" id="loginEmail" />
+			<Input
+				type="email"
+				name="loginEmail"
+				id="loginEmail"
+			><Mail /></Input>
 
 			<label for="loginPassword">password</label>
 			<Input
@@ -164,7 +169,7 @@
 				name="loginPassword"
 				id="loginPassword"
 				minlength="8"
-			/>
+			><Lock /></Input>
 
 			<Button
 				type="submit"
