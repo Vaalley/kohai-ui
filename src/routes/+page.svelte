@@ -208,7 +208,7 @@
 		<Button>Some text</Button>
 		<Button variant="secondary" size="lg">Secondary</Button>
 		<Button variant="destructive" size="xl">Destructive</Button>
-		<Button variant="outline">Outline</Button>
+		<Button variant="outline" size="lg">Outline</Button>
 		<Button variant="ghost">Ghost</Button>
 	</section>
 </main>
