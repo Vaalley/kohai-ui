@@ -1,7 +1,7 @@
 <script lang="ts">
-	import "../styles/reset.css";
-	import "../styles/variables.css";
-	import "../styles/global.css";
+	import "../styles/reset.scss";
+	import "../styles/variables.scss";
+	import "../styles/global.scss";
 	let { children } = $props();
 </script>
 
