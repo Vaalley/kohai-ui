@@ -1,18 +1,14 @@
 # Kohai - Frontend Web Application
 
-A modern web application for tagging video games built with SvelteKit and native
-CSS following atomic design principles.
+A modern web application for tagging video games built with SvelteKit and SCSS following atomic design principles.
 
-Kohai is a web application that enables users to associate descriptive words
-with video games, creating a crowdsourced tagging system. Users can view
-aggregated popular tags for each piece of media, providing an organic,
-community-driven description system.
+Kohai is a web application that enables users to associate descriptive words with video games, creating a crowdsourced tagging system. Users can view aggregated
+popular tags for each piece of media, providing an organic, community-driven description system.
 
 ## Technologies Used
 
-- [SvelteKit](https://svelte.dev/) - Framework for building high-performance web
-  applications
-- Native CSS with atomic design organization
+- [SvelteKit](https://svelte.dev/) - Framework for building high-performance web applications
+- SCSS with atomic design organization
 - [IGDB API](https://api-docs.igdb.com/) - For video game data
 
 ## Features
@@ -43,12 +39,9 @@ src/
 
 ## How to Run
 
-1. **Ensure Deno is installed:** If you haven't already, install Deno from
-   [https://deno.com/](https://deno.com/).
-2. **Clone the repository:** `git clone https://github.com/Vaalley/kohai-ui.git`
-   and `cd kohai-ui`.
-3. **Configure environment variables:** Copy the `.env.example` file to `.env`
-   and update the values for API endpoints and keys.
+1. **Ensure Deno is installed:** If you haven't already, install Deno from [https://deno.com/](https://deno.com/).
+2. **Clone the repository:** `git clone https://github.com/Vaalley/kohai-ui.git` and `cd kohai-ui`.
+3. **Configure environment variables:** Copy the `.env.example` file to `.env` and update the values for API endpoints and keys.
 4. **Install dependencies:** `deno install`
 5. **Run the development server:** `deno task dev`
 
