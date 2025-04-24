@@ -12,7 +12,7 @@ pseudo-elements). One common use of this selector is to apply a custom
 `box-sizing`. */
 *, *::before, *::after {
 	font-family: "Raleway", sans-serif;
-	font-weight: 600;
+	font-weight: var(--font-weight-medium);
 	font-size: var(--font-size-md);
 }
 
@@ -21,8 +21,8 @@ Root
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 :root {
-	background-color: var(--light-color);
-	color: var(--dark-color);
+	background-color: var(--background);
+	color: var(--foreground);
 }
 html {}
 body {}
@@ -33,7 +33,7 @@ Content sectioning
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: "Poppins", serif;
-	font-weight: 700;
+	font-weight: var(--font-weight-bold);
 }
 h1 {
 	font-size: var(--font-size-3xl);
