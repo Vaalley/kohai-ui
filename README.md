@@ -1,6 +1,6 @@
 # Kohai - Frontend Web Application
 
-A modern web application for tagging video games built with SvelteKit and native CSS following atomic design principles.
+A modern web application for tagging video games built with SvelteKit and SCSS following atomic design principles.
 
 Kohai is a web application that enables users to associate descriptive words with video games, creating a crowdsourced tagging system. Users can view aggregated
 popular tags for each piece of media, providing an organic, community-driven description system.
@@ -8,7 +8,7 @@ popular tags for each piece of media, providing an organic, community-driven des
 ## Technologies Used
 
 - [SvelteKit](https://svelte.dev/) - Framework for building high-performance web applications
-- Native CSS with atomic design organization
+- SCSS with atomic design organization
 - [IGDB API](https://api-docs.igdb.com/) - For video game data
 
 ## Features
