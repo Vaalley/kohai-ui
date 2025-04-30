@@ -1,15 +1,23 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
+	import type { Icon } from "lucide-svelte";
 
-	let { children, size = "md", color = "default", clickAction }: {
+	let { children, size = "md", color = "default", clickAction, disabled, icon }: {
 		children: Snippet;
 		size?: "lg" | "md" | "sm";
 		color?: "default" | "primary" | "destructive";
 		clickAction?: () => void;
+		disabled?: boolean;
+		icon?: Icon;
 	} = $props();
+
+	const IconComponent: any = $derived(icon);
 </script>
 
-<button onclick={clickAction} class="button--{size} button--{color}">
+<button {disabled} onclick={clickAction} class="button--{size} button--{color}">
+	{#if IconComponent}
+		<IconComponent size="1em" />
+	{/if}
 	{@render children()}
 </button>
 
