@@ -1,5 +1,7 @@
 <script lang="ts">
 	console.log("Hello world");
+
+	import Button from "$lib/components/atoms/button/button.svelte";
 </script>
 
 <svelte:head>
@@ -15,4 +17,6 @@
 		Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem, laudantium atque. Perspiciatis, maxime temporibus nemo assumenda doloremque quasi
 		tempore laboriosam?
 	</p>
+
+	<Button>Test button</Button>
 </main>
