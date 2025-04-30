@@ -199,7 +199,16 @@ label {}
 :focus::placeholder {}
 
 /* Overall styling, e.g. vertical spacing */
-input, textarea, select, button {}
+input, textarea, select, button {
+	outline: none;
+	border: var(--border-width) solid var(--gray);
+	background-color: var(--background);
+	color: var(--foreground);
+	border-radius: var(--border-radius-full);
+	cursor: pointer;
+	padding: var(--spacing-md) var(--spacing-lg);
+	transition: all 0.2s ease-in-out;
+}
 
 /* `textarea` and `input` elements that share a similar look and similar styling
 capabilities */

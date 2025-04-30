@@ -18,5 +18,15 @@
 		tempore laboriosam?
 	</p>
 
-	<Button>Test button</Button>
+	<section title="Button sizes">
+		<Button size="lg">Test button lg</Button>
+		<Button>Test button md</Button>
+		<Button size="sm">Test button sm</Button>
+	</section>
+
+	<section title="Button colors">
+		<Button color="default">Test button default</Button>
+		<Button color="primary">Test button primary</Button>
+		<Button color="destructive">Test button destructive</Button>
+	</section>
 </main>
