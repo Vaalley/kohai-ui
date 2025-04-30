@@ -1,11 +1,9 @@
 <script lang="ts">
-	console.log("Hello world");
+	import Button from "$lib/components/atoms/button.svelte";
 
 	function clickTest() {
 		console.log("clicked");
 	}
-
-	import Button from "$lib/components/atoms/button/button.svelte";
 </script>
 
 <svelte:head>
@@ -34,5 +32,7 @@
 		<Button color="destructive">Test button destructive</Button>
 	</section>
 
-	<input type="text">
+	<section title="Links">
+		<a href="/">Test link</a>
+	</section>
 </main>

@@ -17,6 +17,7 @@
 	// Button sizes
 	.button--lg {
 		font-size: var(--font-size-lg);
+		padding: var(--spacing-md) var(--spacing-xl);
 	}
 
 	.button--md {

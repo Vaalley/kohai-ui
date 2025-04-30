@@ -111,10 +111,16 @@ dd {}
 Inline text semantics
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-a {}
-a:visited {}
-a:hover {}
-a:active {}
+a {
+	color: var(--foreground);
+	text-decoration: underline var(--gray) 2px;
+	cursor: url("/cursors/pointer.svg") 4 4, auto;
+	transition: all 0.2s ease-in-out;
+
+	&:hover {
+		text-decoration: underline var(--primary) 2px;
+	}
+}
 
 strong {}
 b {}
