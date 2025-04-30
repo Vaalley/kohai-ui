@@ -24,7 +24,10 @@ Root
 	background-color: var(--background);
 	color: var(--foreground);
 }
-html {}
+html {
+	cursor: url('/cursors/mouse-pointer.svg') 4 4, auto;
+
+}
 body {}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -208,6 +211,8 @@ input, textarea, select, button {
 	cursor: pointer;
 	padding: var(--spacing-md) var(--spacing-lg);
 	transition: all 0.2s ease-in-out;
+	cursor: url('/cursors/pointer.svg') 4 4, auto;
+
 }
 
 /* `textarea` and `input` elements that share a similar look and similar styling
@@ -225,7 +230,9 @@ input[type="date"],
 input[type="datetime-local"],
 input[type="month"],
 input[type="week"],
-input[type="time"] {}
+input[type="time"] {
+	cursor: url('/cursors/text-cursor.svg') 4 4, auto;
+}
 /* - individual styling */
 textarea {}
 input[type="text"] {}
