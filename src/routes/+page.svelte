@@ -1,5 +1,10 @@
 <script lang="ts">
-	console.log("Hello world");
+	import Button from "$lib/components/atoms/button.svelte";
+	import Mail from "lucide-svelte/icons/mail";
+
+	function clickTest() {
+		console.log("clicked");
+	}
 </script>
 
 <svelte:head>
@@ -15,4 +20,20 @@
 		Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem, laudantium atque. Perspiciatis, maxime temporibus nemo assumenda doloremque quasi
 		tempore laboriosam?
 	</p>
+
+	<section title="Button sizes">
+		<Button size="lg" Icon={Mail}>Test button lg</Button>
+		<Button clickAction={clickTest} Icon={Mail}>Test button md</Button>
+		<Button size="sm" Icon={Mail} clickAction={clickTest} disabled>Test button sm</Button>
+	</section>
+
+	<section title="Button colors">
+		<Button color="default">Test button default</Button>
+		<Button color="primary">Test button primary</Button>
+		<Button color="destructive">Test button destructive</Button>
+	</section>
+
+	<section title="Links">
+		<a href="/">Test link</a>
+	</section>
 </main>

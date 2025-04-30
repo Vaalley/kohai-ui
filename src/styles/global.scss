@@ -1,7 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
 /* using this: */
 /* https://github.com/frontaid/natural-selection */
-
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 Universal
@@ -24,7 +24,9 @@ Root
 	background-color: var(--background);
 	color: var(--foreground);
 }
-html {}
+html {
+	cursor: url("/cursors/mouse-pointer.svg") 4 4, auto;
+}
 body {}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -109,10 +111,16 @@ dd {}
 Inline text semantics
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-a {}
-a:visited {}
-a:hover {}
-a:active {}
+a {
+	color: var(--foreground);
+	text-decoration: underline var(--gray) 2px;
+	cursor: url("/cursors/pointer.svg") 4 4, auto;
+	transition: all 0.2s ease-in-out;
+
+	&:hover {
+		text-decoration: underline var(--primary) 2px;
+	}
+}
 
 strong {}
 b {}
@@ -199,7 +207,24 @@ label {}
 :focus::placeholder {}
 
 /* Overall styling, e.g. vertical spacing */
-input, textarea, select, button {}
+input, textarea, select, button {
+	outline: none;
+	border: var(--border-width) solid var(--gray);
+	background-color: var(--background);
+	color: var(--foreground);
+	border-radius: var(--border-radius-full);
+	padding: var(--spacing-md) var(--spacing-lg);
+	transition: all 0.2s ease-in-out;
+	cursor: url("/cursors/pointer.svg") 4 4, auto;
+	display: inline-flex;
+	align-items: center;
+	gap: var(--spacing-sm);
+
+	&:disabled {
+		cursor: url("/cursors/mouse-pointer-ban.svg") 4 4, auto;
+		opacity: 0.6;
+	}
+}
 
 /* `textarea` and `input` elements that share a similar look and similar styling
 capabilities */
@@ -216,7 +241,12 @@ input[type="date"],
 input[type="datetime-local"],
 input[type="month"],
 input[type="week"],
-input[type="time"] {}
+input[type="time"] {
+	cursor: url("/cursors/text-cursor.svg") 4 4, auto;
+	&:focus {
+		border-color: var(--light-gray);
+	}
+}
 /* - individual styling */
 textarea {}
 input[type="text"] {}
