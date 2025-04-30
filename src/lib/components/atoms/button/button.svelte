@@ -1,12 +1,15 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 
-	// Declare the children prop which receives the snippet
-	let { children, size = "md", color = "default" }: { children: Snippet; size?: "lg" | "md" | "sm"; color?: "default" | "primary" | "destructive" } =
-		$props();
+	let { children, size = "md", color = "default", clickAction }: {
+		children: Snippet;
+		size?: "lg" | "md" | "sm";
+		color?: "default" | "primary" | "destructive";
+		clickAction?: () => void;
+	} = $props();
 </script>
 
-<button onclick={() => console.log("Button clicked")} class="button--{size} button--{color}">
+<button onclick={clickAction} class="button--{size} button--{color}">
 	{@render children()}
 </button>
 

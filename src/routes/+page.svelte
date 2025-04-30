@@ -1,6 +1,10 @@
 <script lang="ts">
 	console.log("Hello world");
 
+	function clickTest() {
+		console.log("clicked");
+	}
+
 	import Button from "$lib/components/atoms/button/button.svelte";
 </script>
 
@@ -20,7 +24,7 @@
 
 	<section title="Button sizes">
 		<Button size="lg">Test button lg</Button>
-		<Button>Test button md</Button>
+		<Button clickAction={clickTest}>Test button md</Button>
 		<Button size="sm">Test button sm</Button>
 	</section>
 
