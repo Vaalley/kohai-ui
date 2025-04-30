@@ -208,7 +208,6 @@ input, textarea, select, button {
 	background-color: var(--background);
 	color: var(--foreground);
 	border-radius: var(--border-radius-full);
-	cursor: pointer;
 	padding: var(--spacing-md) var(--spacing-lg);
 	transition: all 0.2s ease-in-out;
 	cursor: url('/cursors/pointer.svg') 4 4, auto;

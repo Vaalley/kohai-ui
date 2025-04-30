@@ -29,4 +29,6 @@
 		<Button color="primary">Test button primary</Button>
 		<Button color="destructive">Test button destructive</Button>
 	</section>
+
+	<input type="text">
 </main>
