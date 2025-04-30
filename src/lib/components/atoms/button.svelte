@@ -1,21 +1,19 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 
-	let { children, size = "md", color = "default", clickAction, disabled, icon }: {
+	let { children, size = "md", color = "default", clickAction, disabled, Icon }: {
 		children: Snippet;
 		size?: "lg" | "md" | "sm";
 		color?: "default" | "primary" | "destructive";
 		clickAction?: () => void;
 		disabled?: boolean;
-		icon?: any;
+		Icon?: any;
 	} = $props();
-
-	const IconComponent = $derived(icon);
 </script>
 
 <button {disabled} onclick={clickAction} class="button--{size} button--{color}">
-	{#if IconComponent}
-		<IconComponent size="1em" />
+	{#if Icon}
+		<Icon size="1em" />
 	{/if}
 	{@render children()}
 </button>

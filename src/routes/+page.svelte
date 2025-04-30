@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Button from "$lib/components/atoms/button.svelte";
-	import Mail from "lucide-svelte/icons/mail"; // Import an icon
+	import Mail from "lucide-svelte/icons/mail";
 
 	function clickTest() {
 		console.log("clicked");
@@ -22,9 +22,9 @@
 	</p>
 
 	<section title="Button sizes">
-		<Button size="lg" icon={Mail}>Test button lg</Button>
-		<Button clickAction={clickTest} icon={Mail}>Test button md</Button>
-		<Button size="sm" icon={Mail} clickAction={clickTest} disabled>Test button sm</Button>
+		<Button size="lg" Icon={Mail}>Test button lg</Button>
+		<Button clickAction={clickTest} Icon={Mail}>Test button md</Button>
+		<Button size="sm" Icon={Mail} clickAction={clickTest} disabled>Test button sm</Button>
 	</section>
 
 	<section title="Button colors">
