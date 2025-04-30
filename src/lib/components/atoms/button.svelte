@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
-	import type { Icon } from "lucide-svelte";
 
 	let { children, size = "md", color = "default", clickAction, disabled, icon }: {
 		children: Snippet;
@@ -8,10 +7,10 @@
 		color?: "default" | "primary" | "destructive";
 		clickAction?: () => void;
 		disabled?: boolean;
-		icon?: Icon;
+		icon?: any;
 	} = $props();
 
-	const IconComponent: any = $derived(icon);
+	const IconComponent = $derived(icon);
 </script>
 
 <button {disabled} onclick={clickAction} class="button--{size} button--{color}">
