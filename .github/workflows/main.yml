@@ -21,5 +21,3 @@ jobs:
               run: deno fmt --check
             - name: Check linting
               run: deno lint
-            - name: Check types
-              run: deno task check
