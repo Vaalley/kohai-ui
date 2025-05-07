@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Button from "$lib/components/atoms/button.svelte";
 	import Mail from "lucide-svelte/icons/mail";
+	import Input from "$lib/components/atoms/input.svelte";
 
 	function clickTest() {
 		console.log("clicked");
@@ -35,5 +36,11 @@
 
 	<section title="Links">
 		<a href="/">Test link</a>
+	</section>
+
+	<section title="Inputs">
+		<Input placeholder="Test input" size="lg" />
+		<Input placeholder="Test input" size="md" />
+		<Input placeholder="Test input" size="sm" />
 	</section>
 </main>
