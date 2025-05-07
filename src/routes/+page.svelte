@@ -22,15 +22,15 @@
 	</p>
 
 	<section title="Button sizes">
-		<Button size="lg" Icon={Mail}>Test button lg</Button>
-		<Button clickAction={clickTest} Icon={Mail}>Test button md</Button>
-		<Button size="sm" Icon={Mail} clickAction={clickTest} disabled>Test button sm</Button>
+		<Button size="lg"><Mail size="1em" /> Test button lg</Button>
+		<Button clickAction={clickTest}><Mail size="1em" /> Test button md</Button>
+		<Button size="sm" clickAction={clickTest} disabled><Mail size="1em" /> Test button sm</Button>
 	</section>
 
 	<section title="Button colors">
-		<Button color="default">Test button default</Button>
-		<Button color="primary">Test button primary</Button>
-		<Button color="destructive">Test button destructive</Button>
+		<Button color="default"><Mail size="1em" /> Test button default</Button>
+		<Button color="primary"><Mail size="1em" /> Test button primary</Button>
+		<Button color="destructive"><Mail size="1em" /> Test button destructive</Button>
 	</section>
 
 	<section title="Links">
