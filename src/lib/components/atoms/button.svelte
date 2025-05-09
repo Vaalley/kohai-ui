@@ -1,20 +1,16 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 
-	let { children, size = "md", color = "default", clickAction, disabled, Icon }: {
+	let { children, size = "md", color = "default", clickAction, disabled }: {
 		children: Snippet;
 		size?: "lg" | "md" | "sm";
 		color?: "default" | "primary" | "destructive";
 		clickAction?: () => void;
 		disabled?: boolean;
-		Icon?: any;
 	} = $props();
 </script>
 
 <button {disabled} onclick={clickAction} class="button--{size} button--{color}">
-	{#if Icon}
-		<Icon size="1em" />
-	{/if}
 	{@render children()}
 </button>
 
