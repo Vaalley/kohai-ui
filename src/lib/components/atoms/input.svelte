@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { placeholder, size = "md", disabled, icon, type = "text" }: {
+	let { placeholder, size = "md", disabled, icon: Icon, type = "text" }: {
 		placeholder?: string;
 		size?: "lg" | "md" | "sm";
 		disabled?: boolean;
@@ -7,7 +7,7 @@
 		type?: string;
 	} = $props();
 </script>
-<div class="input-container">
+<label class="input-container input-container--{size}{Icon ? ' has-icon' : ''}">
 	<input
 		{disabled}
 		{placeholder}
@@ -15,37 +15,30 @@
 		class="input--{size}"
 	/>
 
-	{#if icon}
-		{@const Icon = icon}
+	{#if Icon}
 		<div class="icon icon--{size}">
 			<Icon size={size === "lg" ? "20px" : size === "md" ? "16px" : "14px"} />
 		</div>
 	{/if}
-</div>
+</label>
 
 <style lang="scss">
-	.input-container {
-		position: relative;
-		display: inline-flex;
+	label {
+		display: flex;
 		align-items: center;
+		border: var(--border-width) solid var(--gray);
+		border-radius: var(--border-radius-full);
+		width: fit-content;
+		transition: all 0.2s ease-in-out;
+
+		&:focus-within {
+			border-color: var(--light-gray);
+		}
 	}
 
-	.icon {
-		position: absolute;
-		pointer-events: none;
-	}
-
-	// Icon sizes
-	.icon--lg {
-		right: var(--spacing-xl);
-	}
-
-	.icon--md {
-		right: var(--spacing-lg);
-	}
-
-	.icon--sm {
-		right: var(--spacing-md);
+	.input-container input {
+		border: none;
+		outline: none;
 	}
 
 	// Input sizes
@@ -61,5 +54,18 @@
 	.input--sm {
 		font-size: var(--font-size-sm);
 		padding: var(--spacing-sm) var(--spacing-md);
+	}
+
+	// icon inside label right padding
+	.has-icon.input-container--lg {
+		padding-right: var(--spacing-lg);
+	}
+
+	.has-icon.input-container--md {
+		padding-right: var(--spacing-md);
+	}
+
+	.has-icon.input-container--sm {
+		padding-right: var(--spacing-sm);
 	}
 </style>

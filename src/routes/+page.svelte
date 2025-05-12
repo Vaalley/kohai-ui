@@ -1,16 +1,11 @@
 <script lang="ts">
-	import Button from "$lib/components/atoms/button.svelte";
+	import Button from "$lib/components/atoms/Button.svelte";
 	import Mail from "lucide-svelte/icons/mail";
-	import Input from "$lib/components/atoms/input.svelte";
-	// Import icons for the input examples
+	import Input from "$lib/components/atoms/Input.svelte";
 	import Search from "lucide-svelte/icons/search";
 	import User from "lucide-svelte/icons/user";
 	import Bell from "lucide-svelte/icons/bell";
-	import Calendar from "lucide-svelte/icons/calendar";
-
-	function clickTest() {
-		console.log("clicked");
-	}
+	import Navbar from "$lib/components/organisms/Navbar.svelte";
 </script>
 
 <svelte:head>
@@ -18,6 +13,7 @@
 </svelte:head>
 
 <main>
+	<Navbar />
 	<section title="Logo">
 		<img src="Logo.svg" alt="Logo">
 	</section>
@@ -38,8 +34,8 @@
 
 	<section title="Button sizes">
 		<Button size="lg"><Mail size="1em" /> Test button lg</Button>
-		<Button clickAction={clickTest}><Mail size="1em" /> Test button md</Button>
-		<Button size="sm" clickAction={clickTest} disabled><Mail size="1em" /> Test button sm</Button>
+		<Button><Mail size="1em" /> Test button md</Button>
+		<Button size="sm" disabled><Mail size="1em" /> Test button sm</Button>
 	</section>
 
 	<section title="Button colors">

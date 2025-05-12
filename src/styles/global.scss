@@ -25,7 +25,6 @@ Root
 	color: var(--foreground);
 }
 html {
-	cursor: url("/cursors/mouse-pointer.svg") 4 4, auto;
 }
 body {}
 
@@ -114,7 +113,6 @@ Inline text semantics
 a {
 	color: var(--foreground);
 	text-decoration: underline var(--gray) 2px;
-	cursor: url("/cursors/pointer.svg") 4 4, auto;
 	transition: all 0.2s ease-in-out;
 
 	&:hover {
@@ -215,13 +213,11 @@ input, textarea, select, button {
 	border-radius: var(--border-radius-full);
 	padding: var(--spacing-md) var(--spacing-lg);
 	transition: all 0.2s ease-in-out;
-	cursor: url("/cursors/pointer.svg") 4 4, auto;
 	display: inline-flex;
 	align-items: center;
 	gap: var(--spacing-sm);
 
 	&:disabled {
-		cursor: url("/cursors/mouse-pointer-ban.svg") 4 4, auto;
 		opacity: 0.6;
 	}
 }
@@ -242,7 +238,6 @@ input[type="datetime-local"],
 input[type="month"],
 input[type="week"],
 input[type="time"] {
-	cursor: url("/cursors/text-cursor.svg") 4 4, auto;
 	&:focus {
 		border-color: var(--light-gray);
 	}
