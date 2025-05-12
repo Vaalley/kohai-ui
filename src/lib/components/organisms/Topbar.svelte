@@ -5,7 +5,7 @@
 	import Input from "../atoms/Input.svelte";
 </script>
 
-<div class="topbar">
+<section class="topbar">
 	<div>
 		<img src="Logo.svg" alt="Logo">
 	</div>
@@ -15,7 +15,7 @@
 	<div>
 		<Button><User /></Button>
 	</div>
-</div>
+</section>
 
 <style lang="scss">
 	.topbar {

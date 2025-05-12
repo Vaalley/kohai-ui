@@ -1,12 +1,12 @@
 <script lang="ts">
 </script>
 
-<div class="footer">
+<section class="footer">
 	<img src="Logo.svg" alt="Logo">
 	<p>
 		Made with <span>❤️</span> by <a href="https://github.com/vaalley" target="_blank" rel="noopener noreferrer">Valentin</a>
 	</p>
-</div>
+</section>
 
 <style lang="scss">
 	.footer {
