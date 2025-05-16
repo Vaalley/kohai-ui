@@ -1,10 +1,11 @@
 <script lang="ts">
-	let { placeholder, size = "md", disabled, icon: Icon, type = "text" }: {
+	let { placeholder, size = "md", disabled, icon: Icon, type = "text", onInput }: {
 		placeholder?: string;
 		size?: "lg" | "md" | "sm";
 		disabled?: boolean;
 		icon?: any;
 		type?: string;
+		onInput?: (event: Event) => void;
 	} = $props();
 </script>
 <label class="input-container input-container--{size}{Icon ? ' has-icon' : ''}">
@@ -12,6 +13,7 @@
 		{disabled}
 		{placeholder}
 		{type}
+		oninput={onInput}
 		class="input--{size}"
 	/>
 
