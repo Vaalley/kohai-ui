@@ -47,12 +47,12 @@
 				profileMenuLinks = [
 					{ label: "Profile", url: "/profile", icon: User },
 					{ label: "Logout", url: "/logout", icon: LogOut },
-				];
+				] as never[];
 			} else {
 				profileMenuLinks = [
 					{ label: "Login", url: "/login", icon: LogIn },
 					{ label: "Register", url: "/register", icon: UserPlus },
-				];
+				] as never[];
 			}
 
 			profile.showMenu = !profile.showMenu;
@@ -83,7 +83,7 @@
 			links={searchResults.data.map((game) => ({
 				label: game.name,
 				url: `/games/${game.slug}`,
-			}))}
+			})) as never[]}
 		/>
 	{/if}
 
