@@ -14,15 +14,15 @@
 		"tidy": "deno fmt && deno lint --fix"
 	},
 	"dependencies": {
-		"lucide-svelte": "^0.507.0"
+		"lucide-svelte": "^0.511.0"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^6.0.0",
-		"@sveltejs/kit": "^2.20.8",
+		"@sveltejs/adapter-auto": "^6.0.1",
+		"@sveltejs/kit": "^2.21.1",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
-		"sass-embedded": "^1.87.0",
-		"svelte": "^5.28.2",
-		"svelte-check": "^4.1.7",
+		"sass-embedded": "^1.89.0",
+		"svelte": "^5.31.1",
+		"svelte-check": "^4.2.1",
 		"typescript": "^5.8.3",
 		"vite": "^6.3.5"
 	}
