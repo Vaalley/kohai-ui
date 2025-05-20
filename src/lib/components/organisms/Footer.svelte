@@ -2,7 +2,7 @@
 </script>
 
 <section class="footer">
-	<img src="Logo.svg" alt="Logo" width="80px">
+	<img src="/Logo.svg" alt="Logo" width="80px">
 	<div>
 		<p>Source code available on <a href="https://github.com/vaalley/kohai-ui" target="_blank" rel="noopener noreferrer">GitHub</a></p>
 		<p>

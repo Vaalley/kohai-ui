@@ -61,9 +61,9 @@
 </script>
 
 <section class="topbar">
-	<div>
-		<img src="Logo.svg" alt="Logo" />
-	</div>
+	<a href="/">
+		<img src="/Logo.svg" alt="Logo" />
+	</a>
 	<div>
 		<Input
 			type="text"
