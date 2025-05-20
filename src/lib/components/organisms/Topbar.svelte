@@ -1,13 +1,19 @@
 <script lang="ts">
 	import User from "lucide-svelte/icons/user";
+	import LogIn from "lucide-svelte/icons/log-in";
+	import LogOut from "lucide-svelte/icons/log-out";
+	import UserPlus from "lucide-svelte/icons/user-plus";
+
 	import Search from "lucide-svelte/icons/search";
 	import Button from "$lib/components/atoms/Button.svelte";
 	import Input from "$lib/components/atoms/Input.svelte";
 	import LinkList from "$lib/components/molecules/LinkList.svelte";
+
 	import { debounce } from "$lib";
-	import { searchResults } from "$lib/store.svelte";
+	import { profile, searchResults } from "$lib/store.svelte";
 
 	let query = $state("");
+	let profileMenuLinks = $state([]);
 
 	const debouncedSearch = debounce(handleSearch);
 	async function handleSearch() {
@@ -30,6 +36,26 @@
 			console.table(searchResults);
 		} catch (error) {
 			console.error("Search failed:", error);
+		}
+	}
+
+	function handleProfileClick() {
+		console.log(profile);
+
+		if (profile) {
+			if (profile.isLoggedIn) {
+				profileMenuLinks = [
+					{ label: "Profile", url: "/profile", icon: User },
+					{ label: "Logout", url: "/logout", icon: LogOut },
+				];
+			} else {
+				profileMenuLinks = [
+					{ label: "Login", url: "/login", icon: LogIn },
+					{ label: "Register", url: "/register", icon: UserPlus },
+				];
+			}
+
+			profile.showMenu = !profile.showMenu;
 		}
 	}
 </script>
@@ -62,7 +88,10 @@
 	{/if}
 
 	<div>
-		<Button><User /></Button>
+		<Button clickAction={handleProfileClick}><User /></Button>
+		{#if profile?.showMenu}
+			<LinkList floating={true} links={profileMenuLinks} />
+		{/if}
 	</div>
 </section>
 

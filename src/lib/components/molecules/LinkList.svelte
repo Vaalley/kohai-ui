@@ -5,7 +5,12 @@
 
 <div class="link-list {floating ? 'floating' : ''}">
 	{#each links as link}
-		<a href={link.url}>{link.label}</a>
+		<a href={link.url}>
+			{#if link.icon}
+				<link.icon />
+			{/if}
+			{link.label}
+		</a>
 		{#if link !== links[links.length - 1]}
 			<Separator width="100%" />
 		{/if}
@@ -21,6 +26,13 @@
 		border: var(--border-width) solid var(--gray);
 		border-radius: var(--border-radius-lg);
 		background-color: var(--background);
+		min-width: 150px;
+
+		a {
+			display: flex;
+			align-items: center;
+			gap: var(--spacing-sm);
+		}
 	}
 
 	.floating {
