@@ -6,7 +6,7 @@
 	import { debounce } from "$lib";
 
 	let query = $state("");
-	let results = $state([]);
+	let searchResults = $state([]);
 
 	const debouncedSearch = debounce(handleSearch);
 	async function handleSearch() {
@@ -21,8 +21,8 @@
 				body: `search "${query}"; fields name,slug; limit 10;`,
 			});
 			const data = await response.json();
-			results = data.data;
-			console.table(results);
+			searchResults = data.data;
+			console.table(searchResults);
 		} catch (error) {
 			console.error("Search failed:", error);
 		}
