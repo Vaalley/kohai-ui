@@ -27,6 +27,18 @@
 			<a href="/games/risk-of-rain-2">
 				<img src="/images/hero/4.webp" alt="Risk of Rain 2 cover">
 			</a>
+			<a href="/games/minecraft">
+				<img src="/images/hero/2.webp" alt="Minecraft cover">
+			</a>
+			<a href="/games/risk-of-rain-2">
+				<img src="/images/hero/4.webp" alt="Risk of Rain 2 cover">
+			</a>
+			<a href="/games/breath-of-the-wild">
+				<img src="/images/hero/1.webp" alt="Breath of the Wild cover">
+			</a>
+			<a href="/games/red-dead-redemption-2">
+				<img src="/images/hero/3.webp" alt="Red Dead Redemption 2 cover">
+			</a>
 		</div>
 	</section>
 </section>
@@ -54,8 +66,8 @@
 	}
 
 	.images {
-		display: flex;
-		flex-wrap: wrap;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
 		gap: var(--spacing-xl);
 	}
 
