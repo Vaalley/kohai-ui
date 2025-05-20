@@ -1,8 +1,9 @@
 <script lang="ts">
 	import User from "lucide-svelte/icons/user";
 	import Search from "lucide-svelte/icons/search";
-	import Button from "../atoms/Button.svelte";
-	import Input from "../atoms/Input.svelte";
+	import Button from "$lib/components/atoms/Button.svelte";
+	import Input from "$lib/components/atoms/Input.svelte";
+	import LinkList from "$lib/components/molecules/LinkList.svelte";
 	import { debounce } from "$lib";
 	import { searchResults } from "$lib/store.svelte";
 
@@ -45,6 +46,17 @@
 			}}
 		/>
 	</div>
+
+	{#if searchResults.data.length > 0}
+		<LinkList
+			floating={true}
+			links={searchResults.data.map((game) => ({
+				label: game.name,
+				url: `/games/${game.slug}`,
+			}))}
+		/>
+	{/if}
+
 	<div>
 		<Button><User /></Button>
 	</div>
