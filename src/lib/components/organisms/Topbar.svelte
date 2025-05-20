@@ -33,15 +33,12 @@
 			});
 			const data = await response.json();
 			searchResults.data = data.data;
-			console.table(searchResults);
 		} catch (error) {
 			console.error("Search failed:", error);
 		}
 	}
 
 	function handleProfileClick() {
-		console.log(profile);
-
 		if (profile) {
 			if (profile.isLoggedIn) {
 				profileMenuLinks = [
