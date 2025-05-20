@@ -11,6 +11,24 @@
 		Kohai is a web application that enables users to associate descriptive words with video games, creating a crowdsourced tagging system. Users can view
 		aggregated popular tags for each piece of media, providing an organic, community-driven description system.
 	</p>
+
+	<section class="popular-games">
+		<h2>Popular games:</h2>
+		<div class="images">
+			<a href="/games/breath-of-the-wild">
+				<img src="/images/hero/1.webp" alt="Breath of the Wild cover">
+			</a>
+			<a href="/games/red-dead-redemption-2">
+				<img src="/images/hero/2.webp" alt="Red Dead Redemption 2 cover">
+			</a>
+			<a href="/games/risk-of-rain-2">
+				<img src="/images/hero/3.webp" alt="Risk of Rain 2 cover">
+			</a>
+			<a href="/games/minecraft">
+				<img src="/images/hero/4.webp" alt="Minecraft cover">
+			</a>
+		</div>
+	</section>
 </section>
 
 <style lang="scss">
@@ -19,11 +37,30 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		height: 400px;
+		margin: var(--spacing-xl) 0;
 	}
 
 	.hero p {
 		text-align: center;
 		max-width: 800px;
+	}
+
+	.popular-games {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-xl);
+		margin: var(--spacing-2xl) 0;
+	}
+
+	.images {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-xl);
+	}
+
+	.images img {
+		width: 150px;
+		object-fit: cover;
 	}
 </style>
