@@ -20,9 +20,7 @@
 		padding: var(--spacing-md);
 		border: var(--border-width) solid var(--gray);
 		border-radius: var(--border-radius-lg);
-
-		// background should be blurred
-		backdrop-filter: blur(5px);
+		background-color: var(--background);
 	}
 
 	.floating {
