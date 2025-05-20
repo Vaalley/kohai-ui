@@ -11,7 +11,11 @@
 
 	const debouncedSearch = debounce(handleSearch);
 	async function handleSearch() {
-		if (!query) return;
+		if (!query) {
+			searchResults.data = [];
+			return;
+		}
+
 		try {
 			const response = await fetch("http://127.0.0.1:2501/games/search", {
 				method: "POST",
