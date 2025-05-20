@@ -4,9 +4,9 @@
 	import Button from "../atoms/Button.svelte";
 	import Input from "../atoms/Input.svelte";
 	import { debounce } from "$lib";
+	import { searchResults } from "$lib/store.svelte";
 
 	let query = $state("");
-	let searchResults = $state([]);
 
 	const debouncedSearch = debounce(handleSearch);
 	async function handleSearch() {
@@ -21,7 +21,7 @@
 				body: `search "${query}"; fields name,slug; limit 10;`,
 			});
 			const data = await response.json();
-			searchResults = data.data;
+			searchResults.data = data.data;
 			console.table(searchResults);
 		} catch (error) {
 			console.error("Search failed:", error);
@@ -40,8 +40,7 @@
 			icon={Search}
 			size="md"
 			onInput={(event) => {
-				const value = (event.target as HTMLInputElement).value;
-				query = value;
+				query = (event.target as HTMLInputElement).value;
 				debouncedSearch();
 			}}
 		/>

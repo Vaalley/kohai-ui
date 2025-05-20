@@ -5,4 +5,4 @@
 	<title>Test page</title>
 </svelte:head>
 
-<p>test</p>
+<h2>test</h2>
