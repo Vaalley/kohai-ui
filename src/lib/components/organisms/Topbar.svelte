@@ -7,13 +7,22 @@
 	import Search from "lucide-svelte/icons/search";
 	import Button from "$lib/components/atoms/Button.svelte";
 	import Input from "$lib/components/atoms/Input.svelte";
-	import LinkList from "$lib/components/molecules/LinkList.svelte";
+	import DialogBox from "$lib/components/molecules/DialogBox.svelte";
+	import Separator from "$lib/components/atoms/Separator.svelte";
 
 	import { debounce } from "$lib";
 	import { profile, searchResults } from "$lib/store.svelte";
+	import { onMount } from "svelte";
 
 	let query = $state("");
 	let profileMenuLinks = $state([]);
+	let searchMenu = $state<HTMLDialogElement | null>(null);
+	let profileMenu = $state<HTMLDialogElement | null>(null);
+
+	onMount(() => {
+		searchMenu = document.getElementById("search") as HTMLDialogElement;
+		profileMenu = document.getElementById("profile") as HTMLDialogElement;
+	});
 
 	const debouncedSearch = debounce(handleSearch);
 	async function handleSearch() {
@@ -36,6 +45,8 @@
 		} catch (error) {
 			console.error("Search failed:", error);
 		}
+
+		searchMenu?.showModal();
 	}
 
 	function handleProfileClick() {
@@ -51,9 +62,9 @@
 					{ label: "Register", url: "/register", icon: UserPlus },
 				] as never[];
 			}
-
-			profile.showMenu = !profile.showMenu;
 		}
+
+		profileMenu?.showModal();
 	}
 </script>
 
@@ -72,23 +83,26 @@
 				debouncedSearch();
 			}}
 		/>
+		<DialogBox id="search">
+			{#each searchResults.data as game}
+				<a href={`/games/${game.slug}`}>{game.name}</a>
+				{#if game !== searchResults.data[searchResults.data.length - 1]}
+					<Separator width="100%" />
+				{/if}
+			{/each}
+		</DialogBox>
 	</div>
-
-	{#if searchResults.data.length > 0}
-		<LinkList
-			floating={true}
-			links={searchResults.data.map((game) => ({
-				label: game.name,
-				url: `/games/${game.slug}`,
-			})) as never[]}
-		/>
-	{/if}
 
 	<div>
 		<Button clickAction={handleProfileClick}><User /></Button>
-		{#if profile?.showMenu}
-			<LinkList floating={true} links={profileMenuLinks} />
-		{/if}
+		<DialogBox id="profile">
+			{#each profileMenuLinks as link}
+				<a href={link.url}><link.icon />{link.label}</a>
+				{#if link !== profileMenuLinks[profileMenuLinks.length - 1]}
+					<Separator width="100%" />
+				{/if}
+			{/each}
+		</DialogBox>
 	</div>
 </section>
 

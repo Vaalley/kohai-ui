@@ -317,8 +317,19 @@ details[open] {}
 summary {}
 details[open] summary {}
 
-dialog {}
-dialog::backdrop {}
+dialog {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-sm);
+	padding: var(--spacing-md);
+	border: var(--border-width) solid var(--gray);
+	border-radius: var(--border-radius-lg);
+	background-color: var(--background);
+	min-width: 150px;
+}
+dialog::backdrop {
+	background-color: rgba(25, 25, 25, 0.75);
+}
 
 /* Some form fields, `details`, elements with `tabindex`, and possibly other
 elements can be focussed. You should use `:focus-visible` instead of `:focus`
