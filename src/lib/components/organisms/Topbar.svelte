@@ -11,7 +11,7 @@
 	import Separator from "$lib/components/atoms/Separator.svelte";
 
 	import { debounce } from "$lib";
-	import { profile, searchResults } from "$lib/store.svelte";
+	import { profile, searchResults } from "$lib/stores.svelte";
 	import { onMount } from "svelte";
 
 	let query = $state("");
