@@ -11,7 +11,7 @@
 
 	import { debounce, type ProfileMenuLink } from "$lib";
 	import { profile, searchResults } from "$lib/stores.svelte";
-	import { onMount } from "svelte";
+	import { type Component, onMount } from "svelte";
 
 	let query = $state("");
 	let profileMenuLinks = $state<ProfileMenuLink[]>([]);
@@ -52,13 +52,13 @@
 		if (profile) {
 			if (profile.isLoggedIn) {
 				profileMenuLinks = [
-					{ label: "Profile", url: "/profile", icon: User },
-					{ label: "Logout", url: "/logout", icon: LogOut },
+					{ label: "Profile", url: "/profile", icon: User as unknown as Component },
+					{ label: "Logout", url: "/logout", icon: LogOut as unknown as Component },
 				];
 			} else {
 				profileMenuLinks = [
-					{ label: "Login", url: "/login", icon: LogIn },
-					{ label: "Register", url: "/register", icon: UserPlus },
+					{ label: "Login", url: "/login", icon: LogIn as unknown as Component },
+					{ label: "Register", url: "/register", icon: UserPlus as unknown as Component },
 				];
 			}
 		}

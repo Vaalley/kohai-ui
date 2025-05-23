@@ -1,9 +1,9 @@
-import type { Icon } from "lucide-svelte";
+import type { Component } from "svelte";
 
 export type ProfileMenuLink = {
 	label: string;
 	url: string;
-	icon: Icon;
+	icon: Component;
 };
 
 export type Results = {
@@ -11,8 +11,8 @@ export type Results = {
 		name: string;
 		slug: string;
 	}[];
-}
+};
 
 export type Profile = {
 	isLoggedIn: boolean;
-}
+};
