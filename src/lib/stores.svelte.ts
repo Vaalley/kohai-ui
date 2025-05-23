@@ -1,13 +1,4 @@
-interface Results {
-	data: {
-		name: string;
-		slug: string;
-	}[];
-}
-
-interface Profile {
-	isLoggedIn: boolean;
-}
+import type { Profile, Results } from "./types.ts";
 
 export const searchResults = $state<Results>({ data: [] });
 

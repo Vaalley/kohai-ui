@@ -9,12 +9,12 @@
 	import Input from "$lib/components/atoms/Input.svelte";
 	import Separator from "$lib/components/atoms/Separator.svelte";
 
-	import { debounce } from "$lib";
+	import { debounce, type ProfileMenuLink } from "$lib";
 	import { profile, searchResults } from "$lib/stores.svelte";
 	import { onMount } from "svelte";
 
 	let query = $state("");
-	let profileMenuLinks = $state([]);
+	let profileMenuLinks = $state<ProfileMenuLink[]>([]);
 	let searchMenu = $state<HTMLDialogElement | null>(null);
 	let profileMenu = $state<HTMLDialogElement | null>(null);
 
@@ -54,12 +54,12 @@
 				profileMenuLinks = [
 					{ label: "Profile", url: "/profile", icon: User },
 					{ label: "Logout", url: "/logout", icon: LogOut },
-				] as never[];
+				];
 			} else {
 				profileMenuLinks = [
 					{ label: "Login", url: "/login", icon: LogIn },
 					{ label: "Register", url: "/register", icon: UserPlus },
-				] as never[];
+				];
 			}
 		}
 
