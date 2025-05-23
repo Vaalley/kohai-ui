@@ -7,7 +7,6 @@
 	import Search from "lucide-svelte/icons/search";
 	import Button from "$lib/components/atoms/Button.svelte";
 	import Input from "$lib/components/atoms/Input.svelte";
-	import DialogBox from "$lib/components/molecules/DialogBox.svelte";
 	import Separator from "$lib/components/atoms/Separator.svelte";
 
 	import { debounce } from "$lib";
@@ -83,26 +82,26 @@
 				debouncedSearch();
 			}}
 		/>
-		<DialogBox id="search">
+		<dialog id="search">
 			{#each searchResults.data as game}
 				<a href={`/games/${game.slug}`}>{game.name}</a>
 				{#if game !== searchResults.data[searchResults.data.length - 1]}
 					<Separator width="100%" />
 				{/if}
 			{/each}
-		</DialogBox>
+		</dialog>
 	</div>
 
 	<div>
 		<Button clickAction={handleProfileClick}><User /></Button>
-		<DialogBox id="profile">
+		<dialog id="profile">
 			{#each profileMenuLinks as link}
 				<a href={link.url}><link.icon />{link.label}</a>
 				{#if link !== profileMenuLinks[profileMenuLinks.length - 1]}
 					<Separator width="100%" />
 				{/if}
 			{/each}
-		</DialogBox>
+		</dialog>
 	</div>
 </section>
 
