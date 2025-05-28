@@ -65,10 +65,8 @@
 	function handleProfileClick() {
 		if (profileMenuOpen) {
 			profileMenu?.close();
-			profileMenuOpen = false;
 		} else {
 			profileMenu?.showModal();
-			profileMenuOpen = true;
 		}
 	}
 </script>
@@ -77,18 +75,17 @@
 	<a href="/">
 		<img src="/Logo.svg" alt="Logo" />
 	</a>
-	<div>
-		<Input
-			type="text"
-			placeholder="Search"
-			icon={Search}
-			size="md"
-			onInput={(event) => {
-				searchQuery = (event.target as HTMLInputElement).value;
-				debouncedSearch();
-			}}
-		/>
-		<!-- <dialog id="search" open={searchResults.data.length > 0}>
+	<Input
+		type="text"
+		placeholder="Search"
+		icon={Search}
+		size="md"
+		onInput={(event) => {
+			searchQuery = (event.target as HTMLInputElement).value;
+			debouncedSearch();
+		}}
+	/>
+	<!-- <dialog id="search" open={searchResults.data.length > 0}>
 			{#each searchResults.data as game}
 				<a href={`/games/${game.slug}`}>{game.name}</a>
 				{#if game !== searchResults.data[searchResults.data.length - 1]}
@@ -96,21 +93,16 @@
 				{/if}
 			{/each}
 		</dialog> -->
-	</div>
 
-	<div>
-		<Button clickAction={handleProfileClick}><User /></Button>
-		{#if profileMenuOpen}
-			<dialog id="profile" open={profileMenuOpen}>
-				{#each profileMenuLinks as link}
-					<a href={link.url}><link.icon />{link.label}</a>
-					{#if link !== profileMenuLinks[profileMenuLinks.length - 1]}
-						<Separator width="100%" />
-					{/if}
-				{/each}
-			</dialog>
-		{/if}
-	</div>
+	<Button clickAction={handleProfileClick}><User /></Button>
+	<dialog id="profile">
+		{#each profileMenuLinks as link}
+			<a href={link.url}><link.icon />{link.label}</a>
+			{#if link !== profileMenuLinks[profileMenuLinks.length - 1]}
+				<Separator width="100%" />
+			{/if}
+		{/each}
+	</dialog>
 </section>
 
 <style lang="scss">

@@ -118,6 +118,13 @@ a {
 	&:hover {
 		text-decoration: underline var(--primary) 2px;
 	}
+
+	// if there's more than one child, add gap
+	&:has(*) {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-md);
+	}
 }
 
 strong {}
@@ -320,7 +327,7 @@ details[open] summary {}
 dialog {
 	display: flex;
 	flex-direction: column;
-	gap: var(--spacing-sm);
+	gap: var(--spacing-md);
 	padding: var(--spacing-md);
 	border: var(--border-width) solid var(--gray);
 	border-radius: var(--border-radius-lg);
