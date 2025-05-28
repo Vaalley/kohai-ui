@@ -6,7 +6,7 @@ export type ProfileMenuLink = {
 	icon: Component;
 };
 
-export type Results = {
+export type SearchResults = {
 	data: {
 		name: string;
 		slug: string;
