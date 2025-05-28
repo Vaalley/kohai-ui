@@ -17,8 +17,6 @@
 	let profileMenuLinks = $state<ProfileMenuLink[]>([]);
 	let searchMenu = $state<HTMLDialogElement | null>(null);
 	let profileMenu = $state<HTMLDialogElement | null>(null);
-	let searchMenuOpen = $state(false);
-	let profileMenuOpen = $state(false);
 
 	onMount(() => {
 		searchMenu = document.getElementById("search") as HTMLDialogElement;
@@ -63,11 +61,7 @@
 	}
 
 	function handleProfileClick() {
-		if (profileMenuOpen) {
-			profileMenu?.close();
-		} else {
-			profileMenu?.showModal();
-		}
+		profileMenu?.showModal();
 	}
 </script>
 
@@ -85,19 +79,19 @@
 			debouncedSearch();
 		}}
 	/>
-	<!-- <dialog id="search" open={searchResults.data.length > 0}>
-			{#each searchResults.data as game}
-				<a href={`/games/${game.slug}`}>{game.name}</a>
-				{#if game !== searchResults.data[searchResults.data.length - 1]}
-					<Separator width="100%" />
-				{/if}
-			{/each}
-		</dialog> -->
+	<dialog id="search">
+		{#each searchResults.data as game}
+			<a onclick={() => searchMenu?.close()} href={`/games/${game.slug}`}>{game.name}</a>
+			{#if game !== searchResults.data[searchResults.data.length - 1]}
+				<Separator width="100%" />
+			{/if}
+		{/each}
+	</dialog>
 
 	<Button clickAction={handleProfileClick}><User /></Button>
 	<dialog id="profile">
 		{#each profileMenuLinks as link}
-			<a href={link.url}><link.icon />{link.label}</a>
+			<a onclick={() => profileMenu?.close()} href={link.url}><link.icon />{link.label}</a>
 			{#if link !== profileMenuLinks[profileMenuLinks.length - 1]}
 				<Separator width="100%" />
 			{/if}
