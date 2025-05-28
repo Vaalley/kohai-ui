@@ -325,17 +325,25 @@ summary {}
 details[open] summary {}
 
 dialog {
-	display: flex;
-	flex-direction: column;
-	gap: var(--spacing-md);
-	padding: var(--spacing-md);
-	border: var(--border-width) solid var(--gray);
-	border-radius: var(--border-radius-lg);
-	background-color: var(--background);
-	min-width: 150px;
+    /* Styles that can be set regardless of open/closed state */
+    padding: var(--spacing-md);
+    border: var(--border-width) solid var(--gray);
+    border-radius: var(--border-radius-lg);
+    background-color: var(--background);
+    min-width: 150px;
+    /* DO NOT put display: flex here if you want it hidden by default */
 }
+
+dialog[open] {
+    /* Styles to apply ONLY when the dialog is open */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    /* Any other styles that should only apply when open */
+}
+
 dialog::backdrop {
-	background-color: rgba(25, 25, 25, 0.75);
+    background-color: rgba(25, 25, 25, 0.75);
 }
 
 /* Some form fields, `details`, elements with `tabindex`, and possibly other
