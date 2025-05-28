@@ -1,10 +1,10 @@
 <script lang="ts">
+	import Search from "lucide-svelte/icons/search";
 	import User from "lucide-svelte/icons/user";
-	import LogIn from "lucide-svelte/icons/log-in";
 	import LogOut from "lucide-svelte/icons/log-out";
 	import UserPlus from "lucide-svelte/icons/user-plus";
+	import LogIn from "lucide-svelte/icons/log-in";
 
-	import Search from "lucide-svelte/icons/search";
 	import Button from "$lib/components/atoms/Button.svelte";
 	import Input from "$lib/components/atoms/Input.svelte";
 	import Separator from "$lib/components/atoms/Separator.svelte";
@@ -13,19 +13,33 @@
 	import { profile, searchResults } from "$lib/stores.svelte";
 	import { type Component, onMount } from "svelte";
 
-	let query = $state("");
+	let searchQuery = $state("");
 	let profileMenuLinks = $state<ProfileMenuLink[]>([]);
 	let searchMenu = $state<HTMLDialogElement | null>(null);
 	let profileMenu = $state<HTMLDialogElement | null>(null);
+	let searchMenuOpen = $state(false);
+	let profileMenuOpen = $state(false);
 
 	onMount(() => {
 		searchMenu = document.getElementById("search") as HTMLDialogElement;
 		profileMenu = document.getElementById("profile") as HTMLDialogElement;
+
+		if (profile.isLoggedIn) {
+			profileMenuLinks = [
+				{ label: "Profile", url: "/profile", icon: User as unknown as Component },
+				{ label: "Logout", url: "/logout", icon: LogOut as unknown as Component },
+			];
+		} else {
+			profileMenuLinks = [
+				{ label: "Login", url: "/login", icon: LogIn as unknown as Component },
+				{ label: "Register", url: "/register", icon: UserPlus as unknown as Component },
+			];
+		}
 	});
 
 	const debouncedSearch = debounce(handleSearch);
 	async function handleSearch() {
-		if (!query) {
+		if (!searchQuery) {
 			searchResults.data = [];
 			return;
 		}
@@ -37,7 +51,7 @@
 					"Content-Type": "application/json",
 					Accept: "application/json",
 				},
-				body: `search "${query}"; fields name,slug; limit 10;`,
+				body: `search "${searchQuery}"; fields name,slug; limit 10;`,
 			});
 			const data = await response.json();
 			searchResults.data = data.data;
@@ -49,21 +63,13 @@
 	}
 
 	function handleProfileClick() {
-		if (profile) {
-			if (profile.isLoggedIn) {
-				profileMenuLinks = [
-					{ label: "Profile", url: "/profile", icon: User as unknown as Component },
-					{ label: "Logout", url: "/logout", icon: LogOut as unknown as Component },
-				];
-			} else {
-				profileMenuLinks = [
-					{ label: "Login", url: "/login", icon: LogIn as unknown as Component },
-					{ label: "Register", url: "/register", icon: UserPlus as unknown as Component },
-				];
-			}
+		if (profileMenuOpen) {
+			profileMenu?.close();
+			profileMenuOpen = false;
+		} else {
+			profileMenu?.showModal();
+			profileMenuOpen = true;
 		}
-
-		profileMenu?.showModal();
 	}
 </script>
 
@@ -78,30 +84,32 @@
 			icon={Search}
 			size="md"
 			onInput={(event) => {
-				query = (event.target as HTMLInputElement).value;
+				searchQuery = (event.target as HTMLInputElement).value;
 				debouncedSearch();
 			}}
 		/>
-		<dialog id="search">
+		<!-- <dialog id="search" open={searchResults.data.length > 0}>
 			{#each searchResults.data as game}
 				<a href={`/games/${game.slug}`}>{game.name}</a>
 				{#if game !== searchResults.data[searchResults.data.length - 1]}
 					<Separator width="100%" />
 				{/if}
 			{/each}
-		</dialog>
+		</dialog> -->
 	</div>
 
 	<div>
 		<Button clickAction={handleProfileClick}><User /></Button>
-		<dialog id="profile">
-			{#each profileMenuLinks as link}
-				<a href={link.url}><link.icon />{link.label}</a>
-				{#if link !== profileMenuLinks[profileMenuLinks.length - 1]}
-					<Separator width="100%" />
-				{/if}
-			{/each}
-		</dialog>
+		{#if profileMenuOpen}
+			<dialog id="profile" open={profileMenuOpen}>
+				{#each profileMenuLinks as link}
+					<a href={link.url}><link.icon />{link.label}</a>
+					{#if link !== profileMenuLinks[profileMenuLinks.length - 1]}
+						<Separator width="100%" />
+					{/if}
+				{/each}
+			</dialog>
+		{/if}
 	</div>
 </section>
 
