@@ -24,9 +24,7 @@ Root
 	background-color: var(--background);
 	color: var(--foreground);
 }
-html {
-	cursor: url("/cursors/mouse-pointer.svg") 4 4, auto;
-}
+html {}
 body {}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -114,11 +112,18 @@ Inline text semantics
 a {
 	color: var(--foreground);
 	text-decoration: underline var(--gray) 2px;
-	cursor: url("/cursors/pointer.svg") 4 4, auto;
 	transition: all 0.2s ease-in-out;
+	width: fit-content;
 
 	&:hover {
 		text-decoration: underline var(--primary) 2px;
+	}
+
+	// if there's more than one child, add gap
+	&:has(*) {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-md);
 	}
 }
 
@@ -215,13 +220,11 @@ input, textarea, select, button {
 	border-radius: var(--border-radius-full);
 	padding: var(--spacing-md) var(--spacing-lg);
 	transition: all 0.2s ease-in-out;
-	cursor: url("/cursors/pointer.svg") 4 4, auto;
 	display: inline-flex;
 	align-items: center;
 	gap: var(--spacing-sm);
 
 	&:disabled {
-		cursor: url("/cursors/mouse-pointer-ban.svg") 4 4, auto;
 		opacity: 0.6;
 	}
 }
@@ -242,7 +245,6 @@ input[type="datetime-local"],
 input[type="month"],
 input[type="week"],
 input[type="time"] {
-	cursor: url("/cursors/text-cursor.svg") 4 4, auto;
 	&:focus {
 		border-color: var(--light-gray);
 	}
@@ -280,9 +282,13 @@ option:checked {}
 datalist {}
 
 button,
-input[type="submit"] {}
+input[type="submit"] {
+	cursor: pointer;
+}
 button:disabled,
-input[type="submit"]:disabled {}
+input[type="submit"]:disabled {
+	cursor: not-allowed;
+}
 button.secondary {}
 button.secondary:disabled {}
 
@@ -318,8 +324,27 @@ details[open] {}
 summary {}
 details[open] summary {}
 
-dialog {}
-dialog::backdrop {}
+dialog {
+	/* Styles that can be set regardless of open/closed state */
+	padding: var(--spacing-md);
+	border: var(--border-width) solid var(--gray);
+	border-radius: var(--border-radius-lg);
+	background-color: var(--background);
+	min-width: 150px;
+	/* DO NOT put display: flex here if you want it hidden by default */
+}
+
+dialog[open] {
+	/* Styles to apply ONLY when the dialog is open */
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-md);
+	/* Any other styles that should only apply when open */
+}
+
+dialog::backdrop {
+	background-color: rgba(25, 25, 25, 0.75);
+}
 
 /* Some form fields, `details`, elements with `tabindex`, and possibly other
 elements can be focussed. You should use `:focus-visible` instead of `:focus`
