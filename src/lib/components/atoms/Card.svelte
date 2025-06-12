@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
+	import Separator from "$lib/components/atoms/Separator.svelte";
 
 	let { title, children }: { title?: string; children: Snippet } = $props();
 </script>
@@ -7,6 +8,7 @@
 <div class="card">
 	{#if title}
 		<h2>{title}</h2>
+		<Separator width="100%" />
 	{/if}
 	{@render children()}
 </div>
@@ -19,5 +21,9 @@
 		width: fit-content;
 		min-width: 300px;
 		max-width: 800px;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-md);
 	}
 </style>
