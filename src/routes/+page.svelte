@@ -5,10 +5,8 @@
 		return fetch(import.meta.env.VITE_KOHAI_API_URL + "/auth/me", {
 			method: "GET",
 			credentials: "include",
-			mode: "cors",
 			headers: {
 				"Content-Type": "application/json",
-				"Accept": "application/json",
 			},
 		})
 			.then((response) => {
@@ -19,6 +17,28 @@
 			})
 			.then((data) => {
 				console.log("user data: ", data);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	}
+
+	async function logout() {
+		return fetch(import.meta.env.VITE_KOHAI_API_URL + "/auth/logout", {
+			method: "POST",
+			credentials: "include",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Logout failed");
+				}
+				return response.json();
+			})
+			.then((data) => {
+				console.log("Logout successful", data);
 			})
 			.catch((error) => {
 				console.error(error);
@@ -39,6 +59,7 @@
 
 	<section class="test">
 		<Button color="primary" width="fit-content" clickAction={me}>Me</Button>
+		<Button color="destructive" width="fit-content" clickAction={logout}>Logout</Button>
 	</section>
 
 	<section class="popular-games">
