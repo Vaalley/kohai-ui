@@ -8,6 +8,7 @@
 		onInput?: (event: Event) => void;
 	} = $props();
 </script>
+
 <label class="input-container input-container--{size}{Icon ? ' has-icon' : ''}">
 	<input
 		{disabled}
