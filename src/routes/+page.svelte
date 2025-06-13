@@ -1,4 +1,29 @@
 <script lang="ts">
+	import Button from "$lib/components/atoms/Button.svelte";
+
+	async function me() {
+		return fetch(import.meta.env.VITE_KOHAI_API_URL + "/auth/me", {
+			method: "GET",
+			credentials: "include",
+			mode: "cors",
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "application/json",
+			},
+		})
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Not authenticated");
+				}
+				return response.json();
+			})
+			.then((data) => {
+				console.log("user data: ", data);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	}
 </script>
 
 <svelte:head>
@@ -11,6 +36,10 @@
 		Kohai is a web application that enables users to associate descriptive words with video games, creating a crowdsourced tagging system. Users can view
 		aggregated popular tags for each piece of media, providing an organic, community-driven description system.
 	</p>
+
+	<section class="test">
+		<Button color="primary" width="fit-content" clickAction={me}>Me</Button>
+	</section>
 
 	<section class="popular-games">
 		<h2>Popular games:</h2>

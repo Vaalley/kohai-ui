@@ -11,17 +11,23 @@
 		event.preventDefault();
 		fetch(import.meta.env.VITE_KOHAI_API_URL + "/auth/login", {
 			method: "POST",
+			credentials: "include",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({
-				email: email,
-				password: password,
-			}),
+			body: JSON.stringify({ email, password }),
 		})
-			.then((response) => response.json())
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Login failed");
+				}
+				return response.json();
+			})
+			.then((data) => {
+				console.log("Login successful", data);
+			})
 			.catch((error) => {
-				console.error(error);
+				console.error("Login error:", error);
 			});
 	}
 </script>
