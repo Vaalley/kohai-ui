@@ -8,23 +8,40 @@
 	let email = $state("");
 	let password = $state("");
 
-	function register() {
-		console.log("Register");
+	function register(event: Event) {
+		event.preventDefault();
+		fetch(import.meta.env.VITE_KOHAI_API_URL + "/auth/register", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				username: username,
+				email: email,
+				password: password,
+			}),
+		})
+			.then((response) => response.json())
+			.catch((error) => {
+				console.error(error);
+			});
 	}
 </script>
 
 <section class="register">
 	<Card title="Register">
-		<Formfield label="Username">
-			<Input placeholder="Username" />
-		</Formfield>
-		<Formfield label="Email">
-			<Input placeholder="Email" type="email" />
-		</Formfield>
-		<Formfield label="Password">
-			<Input placeholder="Password" type="password" />
-		</Formfield>
-		<Button color="primary" width="fit-content" clickAction={register}>Register</Button>
+		<form action="" onsubmit={register}>
+			<Formfield label="Username">
+				<Input placeholder="Username" onInput={(e) => username = (e.target as HTMLInputElement).value || ""} />
+			</Formfield>
+			<Formfield label="Email">
+				<Input placeholder="Email" type="email" onInput={(e) => email = (e.target as HTMLInputElement).value || ""} />
+			</Formfield>
+			<Formfield label="Password">
+				<Input placeholder="Password" type="password" onInput={(e) => password = (e.target as HTMLInputElement).value || ""} />
+			</Formfield>
+			<Button color="primary" width="fit-content">Register</Button>
+		</form>
 	</Card>
 </section>
 
