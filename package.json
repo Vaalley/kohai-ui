@@ -14,7 +14,8 @@
 		"tidy": "deno fmt && deno lint --fix"
 	},
 	"dependencies": {
-		"lucide-svelte": "^0.511.0"
+		"lucide-svelte": "^0.511.0",
+		"svelte-sonner": "^1.0.5"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^6.0.1",

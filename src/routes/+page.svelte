@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from "$lib/components/atoms/Button.svelte";
+	import { toast, Toaster } from "svelte-sonner";
 
 	let userData = $state();
 
@@ -19,10 +20,12 @@
 			})
 			.then((data) => {
 				console.log("user data: ", data);
+				toast.success("Fetched user data successfully");
 				userData = data.user;
 			})
 			.catch((error) => {
 				console.error(error);
+				toast.error("Failed to fetch user data");
 			});
 	}
 
@@ -42,9 +45,12 @@
 			})
 			.then((data) => {
 				console.log("Logout successful", data);
+				toast.success("Logout successful");
+				userData = null;
 			})
 			.catch((error) => {
 				console.error(error);
+				toast.error("Logout failed");
 			});
 	}
 </script>
@@ -53,25 +59,22 @@
 	<title>Kohai</title>
 </svelte:head>
 
+<Toaster />
+
 <section class="hero">
 	<h1>Welcome to Kohai</h1>
 	<p>
-		Kohai is a web application that enables users to associate descriptive
-		words with video games, creating a crowdsourced tagging system. Users
-		can view aggregated popular tags for each piece of media, providing an
-		organic, community-driven description system.
+		Kohai is a web application that enables users to associate descriptive words with video games, creating a crowdsourced tagging system. Users can view
+		aggregated popular tags for each piece of media, providing an organic, community-driven description system.
 	</p>
 
 	<section class="test">
 		<Button color="primary" width="fit-content" clickAction={me}>Me</Button>
-		<Button color="destructive" width="fit-content" clickAction={logout}
-			>Logout</Button
-		>
+		<Button color="destructive" width="fit-content" clickAction={logout}>Logout</Button>
 		<div>
 			<h2>user info:</h2>
 			{#if userData}
-				<p>Name: {userData.username}</p>
-				<p>Email: {userData.email}</p>
+				<pre>{JSON.stringify(userData, null, 2)}</pre>
 			{/if}
 		</div>
 	</section>

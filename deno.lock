@@ -7,6 +7,7 @@
     "npm:lucide-svelte@0.511": "0.511.0_svelte@5.31.1__acorn@8.14.1",
     "npm:sass-embedded@^1.89.0": "1.89.0",
     "npm:svelte-check@^4.2.1": "4.2.1_svelte@5.31.1__acorn@8.14.1_typescript@5.8.3",
+    "npm:svelte-sonner@^1.0.5": "1.0.5_svelte@5.31.1__acorn@8.14.1",
     "npm:svelte@^5.31.1": "5.31.1_acorn@8.14.1",
     "npm:typescript@^5.8.3": "5.8.3",
     "npm:vite@^6.3.5": "6.3.5_sass-embedded@1.89.0_picomatch@4.0.2"
@@ -845,6 +846,13 @@
       ],
       "bin": true
     },
+    "runed@0.28.0_svelte@5.31.1__acorn@8.14.1": {
+      "integrity": "sha512-k2xx7RuO9hWcdd9f+8JoBeqWtYrm5CALfgpkg2YDB80ds/QE4w0qqu34A7fqiAwiBBSBQOid7TLxwxVC27ymWQ==",
+      "dependencies": [
+        "esm-env",
+        "svelte"
+      ]
+    },
     "rxjs@7.8.2": {
       "integrity": "sha512-dhKf903U/PQZY6boNNtAGdWbG85WAbjT/1xYoZIC7FAY0yWapOBQVsVrDl58W86//e1VpMNBtRV4MaXfdMySFA==",
       "dependencies": [
@@ -1126,6 +1134,13 @@
       ],
       "bin": true
     },
+    "svelte-sonner@1.0.5_svelte@5.31.1__acorn@8.14.1": {
+      "integrity": "sha512-9dpGPFqKb/QWudYqGnEz93vuY+NgCEvyNvxoCLMVGw6sDN/3oVeKV1xiEirW2E1N3vJEyj5imSBNOGltQHA7mg==",
+      "dependencies": [
+        "runed",
+        "svelte"
+      ]
+    },
     "svelte@5.31.1_acorn@8.14.1": {
       "integrity": "sha512-09fup3U7NQobUCUJnLhed6pxG6MzUS8rPsALB5Jr8m8u3pVKITs0ejYiKS/wsVjfkXHvKc2g260KA8o7dWypHA==",
       "dependencies": [
@@ -1215,6 +1230,7 @@
         "npm:lucide-svelte@0.511",
         "npm:sass-embedded@^1.89.0",
         "npm:svelte-check@^4.2.1",
+        "npm:svelte-sonner@^1.0.5",
         "npm:svelte@^5.31.1",
         "npm:typescript@^5.8.3",
         "npm:vite@^6.3.5"

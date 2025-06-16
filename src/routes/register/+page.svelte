@@ -3,6 +3,7 @@
 	import Formfield from "$lib/components/atoms/Formfield.svelte";
 	import Input from "$lib/components/atoms/Input.svelte";
 	import Button from "$lib/components/atoms/Button.svelte";
+	import { toast, Toaster } from "svelte-sonner";
 
 	let username = $state("");
 	let email = $state("");
@@ -22,11 +23,18 @@
 			}),
 		})
 			.then((response) => response.json())
+			.then((data) => {
+				console.log("user data: ", data);
+				toast.success("User registered successfully");
+			})
 			.catch((error) => {
 				console.error(error);
+				toast.error("Failed to register user");
 			});
 	}
 </script>
+
+<Toaster />
 
 <section class="register">
 	<Card title="Register">
