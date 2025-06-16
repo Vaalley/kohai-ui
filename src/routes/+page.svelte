@@ -74,7 +74,7 @@
 		<div>
 			<h2>user info:</h2>
 			{#if userData}
-				<pre>{JSON.stringify(userData, null, 2)}</pre>
+				<pre>{JSON.stringify(userData, null, 4)}</pre>
 			{/if}
 		</div>
 	</section>
