@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Button from "$lib/components/atoms/Button.svelte";
 
+	let userData = $state();
+
 	async function me() {
 		return fetch(import.meta.env.VITE_KOHAI_API_URL + "/auth/me", {
 			method: "GET",
@@ -17,6 +19,7 @@
 			})
 			.then((data) => {
 				console.log("user data: ", data);
+				userData = data.user;
 			})
 			.catch((error) => {
 				console.error(error);
@@ -53,41 +56,58 @@
 <section class="hero">
 	<h1>Welcome to Kohai</h1>
 	<p>
-		Kohai is a web application that enables users to associate descriptive words with video games, creating a crowdsourced tagging system. Users can view
-		aggregated popular tags for each piece of media, providing an organic, community-driven description system.
+		Kohai is a web application that enables users to associate descriptive
+		words with video games, creating a crowdsourced tagging system. Users
+		can view aggregated popular tags for each piece of media, providing an
+		organic, community-driven description system.
 	</p>
 
 	<section class="test">
 		<Button color="primary" width="fit-content" clickAction={me}>Me</Button>
-		<Button color="destructive" width="fit-content" clickAction={logout}>Logout</Button>
+		<Button color="destructive" width="fit-content" clickAction={logout}
+			>Logout</Button
+		>
+		<div>
+			<h2>user info:</h2>
+			{#if userData}
+				<p>Name: {userData.username}</p>
+				<p>Email: {userData.email}</p>
+			{/if}
+		</div>
 	</section>
 
 	<section class="popular-games">
 		<h2>Popular games:</h2>
 		<div class="images">
 			<a href="/games/breath-of-the-wild">
-				<img src="/images/hero/1.webp" alt="Breath of the Wild cover">
+				<img src="/images/hero/1.webp" alt="Breath of the Wild cover" />
 			</a>
 			<a href="/games/minecraft">
-				<img src="/images/hero/2.webp" alt="Minecraft cover">
+				<img src="/images/hero/2.webp" alt="Minecraft cover" />
 			</a>
 			<a href="/games/red-dead-redemption-2">
-				<img src="/images/hero/3.webp" alt="Red Dead Redemption 2 cover">
+				<img
+					src="/images/hero/3.webp"
+					alt="Red Dead Redemption 2 cover"
+				/>
 			</a>
 			<a href="/games/risk-of-rain-2">
-				<img src="/images/hero/4.webp" alt="Risk of Rain 2 cover">
+				<img src="/images/hero/4.webp" alt="Risk of Rain 2 cover" />
 			</a>
 			<a href="/games/minecraft">
-				<img src="/images/hero/2.webp" alt="Minecraft cover">
+				<img src="/images/hero/2.webp" alt="Minecraft cover" />
 			</a>
 			<a href="/games/risk-of-rain-2">
-				<img src="/images/hero/4.webp" alt="Risk of Rain 2 cover">
+				<img src="/images/hero/4.webp" alt="Risk of Rain 2 cover" />
 			</a>
 			<a href="/games/breath-of-the-wild">
-				<img src="/images/hero/1.webp" alt="Breath of the Wild cover">
+				<img src="/images/hero/1.webp" alt="Breath of the Wild cover" />
 			</a>
 			<a href="/games/red-dead-redemption-2">
-				<img src="/images/hero/3.webp" alt="Red Dead Redemption 2 cover">
+				<img
+					src="/images/hero/3.webp"
+					alt="Red Dead Redemption 2 cover"
+				/>
 			</a>
 		</div>
 	</section>
