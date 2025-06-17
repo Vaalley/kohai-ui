@@ -11,14 +11,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 			const response = await getUser(event);
 			if (response) {
 				event.locals.user = response;
-				console.log("User authenticated:", response);
 			} else {
-				console.log("Authentication failed, clearing session");
 				event.cookies.delete("access_token", { path: "/", httpOnly: true });
 				event.cookies.delete("refresh_token", { path: "/", httpOnly: true });
 			}
-		} catch (error: unknown) {
-			console.error("Error during authentication:", error);
+		} catch (_error: unknown) {
 			// Clear invalid session on error
 			event.cookies.delete("access_token", { path: "/", httpOnly: true });
 			event.cookies.delete("refresh_token", { path: "/", httpOnly: true });

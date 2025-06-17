@@ -10,8 +10,9 @@
 	import Separator from "$lib/components/atoms/Separator.svelte";
 
 	import { debounce, type ProfileMenuLink } from "$lib";
-	import { profile, searchResults } from "$lib/stores.svelte";
+	import { searchResults } from "$lib/stores.svelte";
 	import { type Component, onMount } from "svelte";
+	import { page } from "$app/state";
 
 	let searchQuery = $state("");
 	let profileMenuLinks = $state<ProfileMenuLink[]>([]);
@@ -22,15 +23,31 @@
 		searchMenu = document.getElementById("search") as HTMLDialogElement;
 		profileMenu = document.getElementById("profile") as HTMLDialogElement;
 
-		if (profile.isLoggedIn) {
+		if (page.data.user) {
 			profileMenuLinks = [
-				{ label: "Profile", url: "/profile", icon: User as unknown as Component },
-				{ label: "Logout", url: "/logout", icon: LogOut as unknown as Component },
+				{
+					label: "Profile",
+					url: "/profile",
+					icon: User as unknown as Component,
+				},
+				{
+					label: "Logout",
+					url: "/logout",
+					icon: LogOut as unknown as Component,
+				},
 			];
 		} else {
 			profileMenuLinks = [
-				{ label: "Login", url: "/login", icon: LogIn as unknown as Component },
-				{ label: "Register", url: "/register", icon: UserPlus as unknown as Component },
+				{
+					label: "Login",
+					url: "/login",
+					icon: LogIn as unknown as Component,
+				},
+				{
+					label: "Register",
+					url: "/register",
+					icon: UserPlus as unknown as Component,
+				},
 			];
 		}
 	});
