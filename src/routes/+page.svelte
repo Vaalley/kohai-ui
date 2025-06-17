@@ -5,7 +5,7 @@
 	let userData = $state();
 
 	async function me() {
-		return fetch(import.meta.env.VITE_KOHAI_API_URL + "/auth/me", {
+		await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/me`, {
 			method: "GET",
 			credentials: "include",
 			headers: {
@@ -30,7 +30,7 @@
 	}
 
 	async function logout() {
-		return fetch(import.meta.env.VITE_KOHAI_API_URL + "/auth/logout", {
+		await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/logout`, {
 			method: "POST",
 			credentials: "include",
 			headers: {

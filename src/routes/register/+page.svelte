@@ -11,7 +11,7 @@
 
 	function register(event: Event) {
 		event.preventDefault();
-		fetch(import.meta.env.VITE_KOHAI_API_URL + "/auth/register", {
+		fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/register`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

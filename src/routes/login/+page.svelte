@@ -10,7 +10,7 @@
 
 	function login(event: Event) {
 		event.preventDefault();
-		fetch(import.meta.env.VITE_KOHAI_API_URL + "/auth/login", {
+		fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/login`, {
 			method: "POST",
 			credentials: "include",
 			headers: {
