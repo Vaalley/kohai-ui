@@ -1,4 +1,5 @@
-import type { Handle, RequestEvent } from "@sveltejs/kit";
+import type { Handle } from "@sveltejs/kit";
+import { getUser } from "$lib/utils";
 
 export const handle: Handle = async ({ event, resolve }) => {
 	// Get cookies from the incoming request
@@ -26,22 +27,3 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const response = await resolve(event);
 	return response;
 };
-
-async function getUser(event: RequestEvent) {
-	const cookieHeader = event.request.headers.get("cookie") || "";
-
-	const response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/me`, {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-			"Cookie": cookieHeader, // Forward the cookies manually
-		},
-	});
-
-	if (response.ok) {
-		const data = await response.json();
-		return data.user;
-	} else {
-		return null;
-	}
-}

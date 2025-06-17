@@ -6,6 +6,7 @@
 	},
 	"unstable": ["fmt-component"],
 	"imports": {
-		"$types": "./.svelte-kit/types/src/routes/$types.d.ts"
+		"$types": "./.svelte-kit/types/src/routes/$types.d.ts",
+		"$lib/utils": "./src/lib/utils.ts"
 	}
 }

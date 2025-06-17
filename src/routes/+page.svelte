@@ -28,31 +28,6 @@
 				toast.error("Failed to fetch user data");
 			});
 	}
-
-	async function logout() {
-		await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/logout`, {
-			method: "POST",
-			credentials: "include",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error("Logout failed");
-				}
-				return response.json();
-			})
-			.then((data) => {
-				console.log("Logout successful", data);
-				toast.success("Logout successful");
-				userData = null;
-			})
-			.catch((error) => {
-				console.error(error);
-				toast.error("Logout failed");
-			});
-	}
 </script>
 
 <svelte:head>
@@ -70,7 +45,6 @@
 
 	<section class="test">
 		<Button color="primary" width="fit-content" clickAction={me}>Me</Button>
-		<Button color="destructive" width="fit-content" clickAction={logout}>Logout</Button>
 		<div>
 			<h2>user info:</h2>
 			{#if userData}
