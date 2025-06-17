@@ -29,7 +29,3 @@ export type SearchResults = {
 		slug: string;
 	}[];
 };
-
-export type Profile = {
-	isLoggedIn: boolean;
-};
