@@ -36,13 +36,13 @@ The project follows atomic design principles for component organization:
 ```
 src/
 ├── lib/
-│   ├── components/     # Reusable UI components (organized with atomic design principles)
+│   ├── components/      # Reusable UI components (organized with atomic design principles)
 │   ├── stores.svelte.ts # Svelte stores for state management
-│   ├── utils.ts        # Helper functions and utilities
-│   └── types.ts        # TypeScript type definitions
-├── routes/             # Application routes and pages
-├── static/             # Static assets (images, fonts)
-└── styles/             # Global styles and design tokens
+│   ├── utils.ts         # Helper functions and utilities
+│   └── types.ts         # TypeScript type definitions
+├── routes/              # Application routes and pages
+├── static/              # Static assets (images, fonts)
+└── styles/              # Global styles and design tokens
 ```
 
 ## 🛠️ Getting Started
