@@ -25,8 +25,15 @@
 		})
 			.then(async (response) => {
 				if (!response.ok) {
-					console.error(response);
-					toast.error(`Failed to register user: ${response.statusText}`);
+					const errorData = await response.json();
+					console.error(errorData);
+					if (errorData.issues && errorData.issues.length > 0) {
+						errorData.issues.forEach((issue: { message: string }) => {
+							toast.error(issue.message);
+						});
+					} else {
+						toast.error(`Failed to register user: ${response.statusText}`);
+					}
 					return;
 				}
 
