@@ -3,7 +3,7 @@
 	import Formfield from "$lib/components/atoms/Formfield.svelte";
 	import Input from "$lib/components/atoms/Input.svelte";
 	import Button from "$lib/components/atoms/Button.svelte";
-	import { toast, Toaster } from "svelte-sonner";
+	import { toast } from "svelte-sonner";
 
 	let username = $state("");
 	let email = $state("");
@@ -33,8 +33,6 @@
 			});
 	}
 </script>
-
-<Toaster />
 
 <section class="register">
 	<Card title="Register">

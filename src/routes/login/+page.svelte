@@ -3,14 +3,15 @@
 	import Formfield from "$lib/components/atoms/Formfield.svelte";
 	import Input from "$lib/components/atoms/Input.svelte";
 	import Button from "$lib/components/atoms/Button.svelte";
-	import { toast, Toaster } from "svelte-sonner";
+	import { toast } from "svelte-sonner";
+	import { goto } from "$app/navigation";
 
 	let email = $state("");
 	let password = $state("");
 
-	function login(event: Event) {
+	async function login(event: Event) {
 		event.preventDefault();
-		fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/login`, {
+		await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/login`, {
 			method: "POST",
 			credentials: "include",
 			headers: {
@@ -18,24 +19,15 @@
 			},
 			body: JSON.stringify({ email, password }),
 		})
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error("Login failed");
-				}
-				return response.json();
-			})
-			.then((data) => {
-				console.log("Login successful", data);
+			.then(async () => {
 				toast.success("Login successful");
+				await goto("/");
 			})
-			.catch((error) => {
-				console.error("Login error:", error);
+			.catch(() => {
 				toast.error("Login failed");
 			});
 	}
 </script>
-
-<Toaster />
 
 <section class="login">
 	<Card title="Login">

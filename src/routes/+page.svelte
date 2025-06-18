@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Button from "$lib/components/atoms/Button.svelte";
-	import { toast, Toaster } from "svelte-sonner";
+	import { toast } from "svelte-sonner";
 
 	let userData = $state();
 
@@ -33,8 +33,6 @@
 <svelte:head>
 	<title>Kohai</title>
 </svelte:head>
-
-<Toaster />
 
 <section class="hero">
 	<h1>Welcome to Kohai</h1>
