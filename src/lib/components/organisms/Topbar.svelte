@@ -20,7 +20,6 @@
 	let profileMenu = $state<HTMLDialogElement | null>(null);
 
 	$effect(() => {
-
 		searchMenu = document.getElementById("search") as HTMLDialogElement;
 		profileMenu = document.getElementById("profile") as HTMLDialogElement;
 		if (page.data.user) {
