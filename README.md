@@ -36,13 +36,13 @@ The project follows atomic design principles for component organization:
 ```
 src/
 ├── lib/
-│   ├── components/     # Reusable UI components (organized with atomic design principles)
+│   ├── components/      # Reusable UI components (organized with atomic design principles)
 │   ├── stores.svelte.ts # Svelte stores for state management
-│   ├── utils.ts        # Helper functions and utilities
-│   └── types.ts        # TypeScript type definitions
-├── routes/             # Application routes and pages
-├── static/             # Static assets (images, fonts)
-└── styles/             # Global styles and design tokens
+│   ├── utils.ts         # Helper functions and utilities
+│   └── types.ts         # TypeScript type definitions
+├── routes/              # Application routes and pages
+├── static/              # Static assets (images, fonts)
+└── styles/              # Global styles and design tokens
 ```
 
 ## 🛠️ Getting Started
@@ -104,8 +104,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🌟 Acknowledgments
 
-- Built with ❤️ using SvelteKit
-- Game data provided by IGDB
+- Built with ❤️ using [SvelteKit](https://svelte.dev/)
+- Game data provided by [IGDB](https://api-docs.igdb.com/)
+- Iconography provided by [Lucide](https://lucide.dev/)
+- Toast notifications provided by [Svelte Sonner](https://github.com/wobsoriano/svelte-sonner)
 
 ---
 

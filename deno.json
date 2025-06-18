@@ -4,5 +4,9 @@
 		"useTabs": true,
 		"lineWidth": 160
 	},
-	"unstable": ["fmt-component"]
+	"unstable": ["fmt-component"],
+	"imports": {
+		"$types": "./.svelte-kit/types/src/routes/$types.d.ts",
+		"$lib/utils": "./src/lib/utils.ts"
+	}
 }

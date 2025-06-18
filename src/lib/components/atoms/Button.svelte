@@ -1,20 +1,25 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 
-	let { children, size = "md", color = "default", clickAction, disabled }: {
+	let { children, size = "md", color = "default", clickAction, disabled, width = "auto" }: {
 		children: Snippet;
 		size?: "lg" | "md" | "sm";
 		color?: "default" | "primary" | "destructive";
 		clickAction?: () => void;
 		disabled?: boolean;
+		width?: string;
 	} = $props();
 </script>
 
-<button {disabled} onclick={clickAction} class="button--{size} button--{color}">
+<button {disabled} onclick={clickAction} class="button--{size} button--{color}" style="--width: {width}">
 	{@render children()}
 </button>
 
 <style lang="scss">
+	button {
+		width: var(--width);
+	}
+
 	// Button sizes
 	.button--lg {
 		font-size: var(--font-size-lg);

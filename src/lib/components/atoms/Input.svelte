@@ -8,6 +8,7 @@
 		onInput?: (event: Event) => void;
 	} = $props();
 </script>
+
 <label class="input-container input-container--{size}{Icon ? ' has-icon' : ''}">
 	<input
 		{disabled}
@@ -25,6 +26,12 @@
 </label>
 
 <style lang="scss">
+	input {
+		@media (max-width: 768px) {
+			width: 100px;
+		}
+	}
+
 	label {
 		display: flex;
 		align-items: center;

@@ -1,3 +1,5 @@
+import type { RequestEvent } from "@sveltejs/kit";
+
 /**
  * Creates a debounced version of a function that delays its execution until after
  * the specified delay has elapsed since the last time it was invoked.
@@ -23,4 +25,32 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
 			fn.apply(this, args);
 		}, delay);
 	};
+}
+
+/**
+ * Fetches the current user from the API by sending the request with the
+ * cookie header.
+ *
+ * @param event - The request event
+ * @returns The user object or null if the user is not authenticated
+ */
+export async function getUser(event: RequestEvent) {
+	const cookieHeader = event.request.headers.get("cookie") || "";
+
+	// We cannot use credentials: "include" because it will not send the cookies
+	// So instead we manually send the cookies
+	const response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/me`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+			"Cookie": cookieHeader,
+		},
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		return data.user;
+	} else {
+		return null;
+	}
 }
