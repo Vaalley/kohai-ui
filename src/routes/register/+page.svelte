@@ -4,14 +4,15 @@
 	import Input from "$lib/components/atoms/Input.svelte";
 	import Button from "$lib/components/atoms/Button.svelte";
 	import { toast } from "svelte-sonner";
+	import { goto, invalidateAll } from "$app/navigation";
 
 	let username = $state("");
 	let email = $state("");
 	let password = $state("");
 
-	function register(event: Event) {
+	async function register(event: Event) {
 		event.preventDefault();
-		fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/register`, {
+		await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/register`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -22,14 +23,20 @@
 				password: password,
 			}),
 		})
-			.then((response) => response.json())
-			.then((data) => {
-				console.log("user data: ", data);
+			.then(async (response) => {
+				if (!response.ok) {
+					console.error(response);
+					toast.error(`Failed to register user: ${response.statusText}`);
+					return;
+				}
+
 				toast.success("User registered successfully");
+				await invalidateAll();
+				await goto("/");
 			})
 			.catch((error) => {
 				console.error(error);
-				toast.error("Failed to register user");
+				toast.error(`Failed to register user: ${error}`);
 			});
 	}
 </script>
@@ -57,5 +64,11 @@
 		justify-content: center;
 		align-items: center;
 		height: 60vh;
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-md);
 	}
 </style>

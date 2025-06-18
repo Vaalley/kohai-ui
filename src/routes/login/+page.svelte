@@ -51,4 +51,10 @@
 		align-items: center;
 		height: 60vh;
 	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-md);
+	}
 </style>
