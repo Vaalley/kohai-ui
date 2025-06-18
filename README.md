@@ -104,8 +104,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🌟 Acknowledgments
 
-- Built with ❤️ using SvelteKit
-- Game data provided by IGDB
+- Built with ❤️ using [SvelteKit](https://svelte.dev/)
+- Game data provided by [IGDB](https://api-docs.igdb.com/)
+- Iconography provided by [Lucide](https://lucide.dev/)
+- Toast notifications provided by [Svelte Sonner](https://github.com/wobsoriano/svelte-sonner)
 
 ---
 
