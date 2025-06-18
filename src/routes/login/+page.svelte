@@ -4,7 +4,7 @@
 	import Input from "$lib/components/atoms/Input.svelte";
 	import Button from "$lib/components/atoms/Button.svelte";
 	import { toast } from "svelte-sonner";
-	import { goto } from "$app/navigation";
+	import { goto, invalidateAll } from "$app/navigation";
 
 	let email = $state("");
 	let password = $state("");
@@ -21,6 +21,7 @@
 		})
 			.then(async () => {
 				toast.success("Login successful");
+				await invalidateAll();
 				await goto("/");
 			})
 			.catch(() => {

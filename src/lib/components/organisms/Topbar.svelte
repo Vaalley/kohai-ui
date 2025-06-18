@@ -19,10 +19,10 @@
 	let searchMenu = $state<HTMLDialogElement | null>(null);
 	let profileMenu = $state<HTMLDialogElement | null>(null);
 
-	onMount(() => {
+	$effect(() => {
+
 		searchMenu = document.getElementById("search") as HTMLDialogElement;
 		profileMenu = document.getElementById("profile") as HTMLDialogElement;
-
 		if (page.data.user) {
 			profileMenuLinks = [
 				{
