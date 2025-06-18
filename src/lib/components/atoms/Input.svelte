@@ -26,6 +26,12 @@
 </label>
 
 <style lang="scss">
+	input {
+		@media (max-width: 768px) {
+			width: 100px;
+		}
+	}
+
 	label {
 		display: flex;
 		align-items: center;

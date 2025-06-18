@@ -96,6 +96,7 @@
 			debouncedSearch();
 		}}
 	/>
+
 	<dialog id="search">
 		{#each searchResults.data as game}
 			<a onclick={() => searchMenu?.close()} href={`/games/${game.slug}`}>{game.name}</a>

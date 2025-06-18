@@ -1,33 +1,4 @@
 <script lang="ts">
-	import Button from "$lib/components/atoms/Button.svelte";
-	import { toast } from "svelte-sonner";
-
-	let userData = $state();
-
-	async function me() {
-		await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/me`, {
-			method: "GET",
-			credentials: "include",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error("Not authenticated");
-				}
-				return response.json();
-			})
-			.then((data) => {
-				console.log("user data: ", data);
-				toast.success("Fetched user data successfully");
-				userData = data.user;
-			})
-			.catch((error) => {
-				console.error(error);
-				toast.error("Failed to fetch user data");
-			});
-	}
 </script>
 
 <svelte:head>
@@ -40,16 +11,6 @@
 		Kohai is a web application that enables users to associate descriptive words with video games, creating a crowdsourced tagging system. Users can view
 		aggregated popular tags for each piece of media, providing an organic, community-driven description system.
 	</p>
-
-	<section class="test">
-		<Button color="primary" width="fit-content" clickAction={me}>Me</Button>
-		<div>
-			<h2>user info:</h2>
-			{#if userData}
-				<pre>{JSON.stringify(userData, null, 4)}</pre>
-			{/if}
-		</div>
-	</section>
 
 	<section class="popular-games">
 		<h2>Popular games:</h2>
@@ -102,6 +63,12 @@
 		max-width: 800px;
 	}
 
+	.hero h1 {
+		@media (max-width: 768px) {
+			font-size: var(--font-size-2xl);
+		}
+	}
+
 	.popular-games {
 		display: flex;
 		flex-direction: column;
@@ -114,6 +81,10 @@
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
 		gap: var(--spacing-xl);
+
+		@media (max-width: 768px) {
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 
 	.images img {
