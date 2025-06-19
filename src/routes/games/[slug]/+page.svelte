@@ -11,17 +11,21 @@
 	let game: Game | null = $state(null);
 	let tags: string[] = $state([]);
 
-	onMount(async () => {
-		const response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/games/gameInfo/${data.slug}`, {
-			credentials: "include",
-			headers: {
-				"Content-Type": "application/json",
-				"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
-			},
-			method: "GET",
-		});
-		const result = await response.json();
-		game = result?.data[0];
+	$effect(() => {
+		async function fetchGameData() {
+			const response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/games/gameInfo/${data.slug}`, {
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+					"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+				},
+				method: "GET",
+			});
+			const result = await response.json();
+			game = result?.data[0];
+		}
+
+		fetchGameData();
 	});
 
 	$inspect(game);

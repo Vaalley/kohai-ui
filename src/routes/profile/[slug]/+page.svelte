@@ -12,16 +12,20 @@
 	let currentUser: any = $derived(page.data.user);
 	let deleteModal: HTMLDialogElement;
 
-	onMount(async () => {
-		const response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/api/users/${data.slug}`, {
-			credentials: "include",
-			headers: {
-				"Content-Type": "application/json",
-				"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
-			},
-		});
-		user = await response.json();
-		user = user.data;
+	$effect(() => {
+		async function fetchUserData() {
+			const response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/api/users/${data.slug}`, {
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+					"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+				},
+			});
+			let userData = await response.json();
+			user = userData.data;
+		}
+
+		fetchUserData();
 	});
 
 	function handleDeleteClick() {
