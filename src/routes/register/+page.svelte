@@ -76,6 +76,6 @@
 	form {
 		display: flex;
 		flex-direction: column;
-		gap: var(--spacing-md);
+		gap: var(--spacing-lg);
 	}
 </style>
