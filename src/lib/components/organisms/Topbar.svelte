@@ -65,7 +65,7 @@
 					"Content-Type": "application/json",
 					Accept: "application/json",
 				},
-				body: `search "${searchQuery}"; fields name,slug; limit 10;`,
+				body: `search "${searchQuery}"; fields name,id; limit 10;`,
 			});
 			const data = await response.json();
 			searchResults.data = data.data;
@@ -98,7 +98,7 @@
 
 	<dialog id="search">
 		{#each searchResults.data as game}
-			<a onclick={() => searchMenu?.close()} href={`/games/${game.slug}`}>{game.name}</a>
+			<a onclick={() => searchMenu?.close()} href={`/games/${game.id}`}>{game.name}</a>
 			{#if game !== searchResults.data[searchResults.data.length - 1]}
 				<Separator width="100%" />
 			{/if}
