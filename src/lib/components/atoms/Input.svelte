@@ -1,11 +1,13 @@
 <script lang="ts">
-	let { placeholder, size = "md", disabled, icon: Icon, type = "text", onInput }: {
+	let { placeholder, size = "md", disabled, icon: Icon, type = "text", onInput, onKeyPress, iconClass }: {
 		placeholder?: string;
 		size?: "lg" | "md" | "sm";
 		disabled?: boolean;
 		icon?: any;
 		type?: string;
 		onInput?: (event: Event) => void;
+		onKeyPress?: (event: KeyboardEvent) => void;
+		iconClass?: string;
 	} = $props();
 </script>
 
@@ -15,11 +17,12 @@
 		{placeholder}
 		{type}
 		oninput={onInput}
+		onkeypress={onKeyPress}
 		class="input--{size}"
 	/>
 
 	{#if Icon}
-		<div class="icon icon--{size}">
+		<div class="icon icon--{size} {iconClass || ''}">
 			<Icon size={size === "lg" ? "20px" : size === "md" ? "16px" : "14px"} />
 		</div>
 	{/if}
@@ -76,5 +79,11 @@
 
 	.has-icon.input-container--sm {
 		padding-right: var(--spacing-sm);
+	}
+
+	.icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 </style>

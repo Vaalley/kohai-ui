@@ -4,8 +4,6 @@
 	import Button from "$lib/components/atoms/Button.svelte";
 	import Input from "$lib/components/atoms/Input.svelte";
 
-	import { onMount } from "svelte";
-
 	let { data } = $props<{ data: { slug: string } }>();
 
 	let game: Game | null = $state(null);
