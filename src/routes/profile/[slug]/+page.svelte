@@ -2,14 +2,16 @@
 	import { onMount } from "svelte";
 	import { page } from "$app/state";
 	import Button from "$lib/components/atoms/Button.svelte";
+	import { goto, invalidateAll } from "$app/navigation";
+	import { toast } from "svelte-sonner";
 
 	let { data } = $props<{ data: { slug: string } }>();
 	let user: any = $state(null);
 	let currentUser: any = $derived(page.data.user);
 
 	onMount(async () => {
-		// Fetch user data from backend using data.slug
 		const response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/api/users/${data.slug}`, {
+			credentials: "include",
 			headers: {
 				"Content-Type": "application/json",
 				"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
@@ -20,8 +22,28 @@
 	});
 
 	async function deleteAccount() {
-		// TODO: Delete account
-		console.log("Deleting account");
+		let response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/api/users/${data.slug}`, {
+			method: "DELETE",
+			credentials: "include",
+			headers: {
+				"Content-Type": "application/json",
+				"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+			},
+		});
+
+		response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/logout`, {
+			method: "POST",
+			credentials: "include",
+		});
+
+		if (response.ok) {
+			toast.success("Account deleted");
+		} else {
+			toast.error("Account deletion failed");
+		}
+
+		await invalidateAll();
+		await goto("/");
 	}
 </script>
 
