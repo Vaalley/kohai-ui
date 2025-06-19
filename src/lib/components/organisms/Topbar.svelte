@@ -67,7 +67,7 @@
 					"Content-Type": "application/json",
 					Accept: "application/json",
 				},
-				body: `search "${searchQuery}"; fields name,id; limit 10;`,
+				body: `search "${searchQuery}"; fields name,id; where category = 0; limit 10;`,
 			});
 			const data = await response.json();
 			searchResults.data = data.data;
@@ -99,7 +99,7 @@
 		type="text"
 		placeholder="Search"
 		icon={isLoading ? LoaderCircle : Search}
-		iconClass={isLoading ? 'animate-spin' : ''}
+		iconClass={isLoading ? "animate-spin" : ""}
 		size="md"
 		onInput={(event) => {
 			searchQuery = (event.target as HTMLInputElement).value;
