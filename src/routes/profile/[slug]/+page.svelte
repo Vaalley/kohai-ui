@@ -29,10 +29,12 @@
 	{#if user}
 		<h1>{user.username}</h1>
 
-		<Button clickAction={() => navigator.clipboard.writeText(window.location.href)} color="primary">Copy profile link</Button>
-		{#if currentUser && currentUser.id === user._id}
-			<Button clickAction={deleteAccount} color="destructive">Delete Account</Button>
-		{/if}
+		<div class="buttons">
+			<Button clickAction={() => navigator.clipboard.writeText(window.location.href)} color="primary">Copy profile link</Button>
+			{#if currentUser && currentUser.id === user._id}
+				<Button clickAction={deleteAccount} color="destructive">Delete Account</Button>
+			{/if}
+		</div>
 	{:else}
 		<p>Loading user data...</p>
 	{/if}
@@ -45,5 +47,11 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+	}
+
+	.buttons {
+		display: flex;
+		gap: var(--spacing-lg);
+		margin-top: var(--spacing-xl);
 	}
 </style>
