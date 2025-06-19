@@ -73,12 +73,12 @@
 				<h2>Most used words</h2>
 				<ItemsList items={mostUsedWords} />
 			</div>
-			<VerticalSeparator height="100px" />
+			<VerticalSeparator />
 			<div class="stat">
 				<h2>Historic</h2>
 				<ItemsList items={mostUsedWords} />
 			</div>
-			<VerticalSeparator height="100px" />
+			<VerticalSeparator />
 			<div class="stat">
 				<h2>Other Statistics</h2>
 				<ItemsList items={mostUsedWords} />
