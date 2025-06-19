@@ -4,6 +4,8 @@
 	import Button from "$lib/components/atoms/Button.svelte";
 	import { goto, invalidateAll } from "$app/navigation";
 	import { toast } from "svelte-sonner";
+	import VerticalSeparator from "$lib/components/atoms/VerticalSeparator.svelte";
+	import ItemsList from "$lib/components/atoms/ItemsList.svelte";
 
 	let { data } = $props<{ data: { slug: string } }>();
 	let user: any = $state(null);
@@ -51,6 +53,8 @@
 		await invalidateAll();
 		await goto("/");
 	}
+
+	const mostUsedWords = ["hello", "world", "svelte", "kohai"];
 </script>
 
 <section class="profile">
@@ -63,6 +67,23 @@
 				<Button clickAction={handleDeleteClick} color="destructive">Delete Account</Button>
 			{/if}
 		</div>
+
+		<section class="stats">
+			<div class="stat">
+				<h2>Most used words</h2>
+				<ItemsList items={mostUsedWords} />
+			</div>
+			<VerticalSeparator height="100px" />
+			<div class="stat">
+				<h2>Historic</h2>
+				<ItemsList items={mostUsedWords} />
+			</div>
+			<VerticalSeparator height="100px" />
+			<div class="stat">
+				<h2>Other Statistics</h2>
+				<ItemsList items={mostUsedWords} />
+			</div>
+		</section>
 	{:else}
 		<p>Loading user data...</p>
 	{/if}
@@ -92,14 +113,17 @@
 		margin-top: var(--spacing-xl);
 	}
 
-	dialog {
-		background-color: var(--background-color);
-		color: var(--text-color);
-		padding: var(--spacing-xl);
-		.modal-actions {
-			display: flex;
-			gap: var(--spacing-md);
-			margin-top: var(--spacing-lg);
+	.stats {
+		margin-top: var(--spacing-2xl);
+		display: flex;
+		justify-content: space-evenly;
+		width: 100%;
+		gap: var(--spacing-lg);
+	}
+
+	.stat {
+		h2 {
+			margin-bottom: var(--spacing-xl);
 		}
 	}
 </style>
