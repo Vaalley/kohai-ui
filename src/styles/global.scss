@@ -114,6 +114,7 @@ a {
 	text-decoration: underline var(--gray) 2px;
 	transition: all 0.2s ease-in-out;
 	width: fit-content;
+	cursor: pointer;
 
 	&:hover {
 		text-decoration: underline var(--primary) 2px;

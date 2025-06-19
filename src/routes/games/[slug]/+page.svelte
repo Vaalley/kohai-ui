@@ -27,12 +27,36 @@
 	});
 
 	$inspect(game);
+
+	let isExpanded = $state(false);
+	const maxLength = 200;
+
+	let displayedSummary = $state("");
+
+	$effect(() => {
+		if (game && game.summary) {
+			if (isExpanded || game.summary.length <= maxLength) {
+				displayedSummary = game.summary;
+			} else {
+				displayedSummary = game.summary.substring(0, maxLength) + "...";
+			}
+		} else {
+			displayedSummary = "";
+		}
+	});
 </script>
 
 <section class="game">
 	{#if game}
 		<h1>{game.name}</h1>
-		<p>{game.summary}</p>
+		{#if game && game.summary}
+			<p>{displayedSummary}</p>
+			{#if game.summary.length > maxLength}
+				<Button clickAction={() => (isExpanded = !isExpanded)} width="fit-content" size="sm">
+					{isExpanded ? "Read less" : "Read more"}
+				</Button>
+			{/if}
+		{/if}
 		<!-- <img src="//images.igdb.com/igdb/image/upload/t_720p/{game.cover.image_id}.jpg" alt={game.name}> -->
 	{/if}
 
@@ -53,6 +77,7 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		gap: var(--spacing-md);
 
 		p {
 			text-align: center;
