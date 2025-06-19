@@ -27,11 +27,11 @@
 	$inspect(game);
 </script>
 
-<section>
+<section class="game">
 	{#if game}
 		<h1>{game.name}</h1>
 		<p>{game.summary}</p>
-		<img src="//images.igdb.com/igdb/image/upload/t_720p/{game.cover.image_id}.jpg" alt={game.name}>
+		<!-- <img src="//images.igdb.com/igdb/image/upload/t_720p/{game.cover.image_id}.jpg" alt={game.name}> -->
 	{/if}
 
 	<form action="">
@@ -40,13 +40,34 @@
 			<Input placeholder="Add a tag" />
 			<Input placeholder="Add a tag" />
 		</div>
-		<Button color="primary">Update my tags</Button>
+		<Button clickAction={() => console.log("TODO: implement update tags")} width="fit-content" color="primary">Update my tags</Button>
 	</form>
 </section>
 
 <style lang="scss">
-	.tag-inputs {
+	.game {
+		padding: 2rem;
 		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		p {
+			text-align: center;
+			max-width: 60ch;
+		}
+	}
+
+	form {
+		.tag-inputs {
+			margin-top: var(--spacing-2xl);
+			display: flex;
+			gap: var(--spacing-xl);
+		}
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 		gap: var(--spacing-xl);
 	}
 </style>
