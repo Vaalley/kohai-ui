@@ -8,6 +8,7 @@
 	let { data } = $props<{ data: { slug: string } }>();
 	let user: any = $state(null);
 	let currentUser: any = $derived(page.data.user);
+	let deleteModal: HTMLDialogElement;
 
 	onMount(async () => {
 		const response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/api/users/${data.slug}`, {
@@ -21,7 +22,12 @@
 		user = user.data;
 	});
 
-	async function deleteAccount() {
+	function handleDeleteClick() {
+		deleteModal.showModal();
+	}
+
+	async function confirmDelete() {
+		deleteModal.close();
 		let response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/api/users/${data.slug}`, {
 			method: "DELETE",
 			credentials: "include",
@@ -54,13 +60,22 @@
 		<div class="buttons">
 			<Button clickAction={() => navigator.clipboard.writeText(window.location.href)} color="primary">Copy profile link</Button>
 			{#if currentUser && currentUser.id === user._id}
-				<Button clickAction={deleteAccount} color="destructive">Delete Account</Button>
+				<Button clickAction={handleDeleteClick} color="destructive">Delete Account</Button>
 			{/if}
 		</div>
 	{:else}
 		<p>Loading user data...</p>
 	{/if}
 </section>
+
+<dialog id="delete-modal" bind:this={deleteModal}>
+	<h2>Confirm Account Deletion</h2>
+	<p>Are you sure you want to delete your account? This action cannot be undone.</p>
+	<div class="modal-actions">
+		<Button clickAction={confirmDelete} color="destructive">Confirm</Button>
+		<Button clickAction={() => deleteModal.close()} color="primary">Cancel</Button>
+	</div>
+</dialog>
 
 <style lang="scss">
 	.profile {
@@ -75,5 +90,16 @@
 		display: flex;
 		gap: var(--spacing-lg);
 		margin-top: var(--spacing-xl);
+	}
+
+	dialog {
+		background-color: var(--background-color);
+		color: var(--text-color);
+		padding: var(--spacing-xl);
+		.modal-actions {
+			display: flex;
+			gap: var(--spacing-md);
+			margin-top: var(--spacing-lg);
+		}
 	}
 </style>

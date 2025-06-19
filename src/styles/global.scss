@@ -326,11 +326,20 @@ details[open] summary {}
 
 dialog {
 	/* Styles that can be set regardless of open/closed state */
-	padding: var(--spacing-md);
 	border: var(--border-width) solid var(--gray);
 	border-radius: var(--border-radius-lg);
 	background-color: var(--background);
 	min-width: 150px;
+	color: var(--text-color);
+	padding: var(--spacing-xl);
+	outline: none;
+
+
+	.modal-actions {
+		display: flex;
+		gap: var(--spacing-md);
+		margin-top: var(--spacing-lg);
+	}
 	/* DO NOT put display: flex here if you want it hidden by default */
 }
 
