@@ -97,8 +97,8 @@
 	<h2>Confirm Account Deletion</h2>
 	<p>Are you sure you want to delete your account? This action cannot be undone.</p>
 	<div class="modal-actions">
-		<Button clickAction={confirmDelete} color="destructive">Confirm</Button>
 		<Button clickAction={() => deleteModal.close()} color="primary">Cancel</Button>
+		<Button clickAction={confirmDelete} color="destructive">Confirm</Button>
 	</div>
 </dialog>
 
