@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Game } from "$lib";
-
 	import Button from "$lib/components/atoms/Button.svelte";
 	import Input from "$lib/components/atoms/Input.svelte";
 
@@ -8,6 +7,13 @@
 
 	let game: Game | null = $state(null);
 	let tags: string[] = $state([]);
+	let isExpanded = $state(false);
+	let displayedSummary = $state("");
+
+	$inspect(game);
+	$inspect(tags);
+
+	const summaryMaxLength = 200;
 
 	$effect(() => {
 		async function fetchGameData() {
@@ -22,23 +28,15 @@
 			const result = await response.json();
 			game = result?.data[0];
 		}
-
 		fetchGameData();
 	});
 
-	$inspect(game);
-
-	let isExpanded = $state(false);
-	const maxLength = 200;
-
-	let displayedSummary = $state("");
-
 	$effect(() => {
 		if (game && game.summary) {
-			if (isExpanded || game.summary.length <= maxLength) {
+			if (isExpanded || game.summary.length <= summaryMaxLength) {
 				displayedSummary = game.summary;
 			} else {
-				displayedSummary = game.summary.substring(0, maxLength) + "...";
+				displayedSummary = game.summary.substring(0, summaryMaxLength) + "...";
 			}
 		} else {
 			displayedSummary = "";
@@ -56,13 +54,13 @@
 		<h1>{game.name}</h1>
 		{#if game && game.summary}
 			<p>{displayedSummary}</p>
-			{#if game.summary.length > maxLength}
+			{#if game.summary.length > summaryMaxLength}
 				<Button clickAction={() => (isExpanded = !isExpanded)} width="fit-content" size="sm">
 					{isExpanded ? "Read less" : "Read more"}
 				</Button>
 			{/if}
 		{/if}
-		<!-- <img src="//images.igdb.com/igdb/image/upload/t_720p/{game.cover.image_id}.jpg" alt={game.name}> -->
+		<!-- <img src="//images.igdb.com/igdb/image/upload/t_cover_big/{game.cover.image_id}.jpg" alt={game.name}> -->
 	{/if}
 
 	<form action="">
@@ -86,7 +84,7 @@
 				placeholder="Add a tag"
 			/>
 		</div>
-		<Button clickAction={() => console.log("TODO: implement update tags", tags)} width="fit-content" color="primary">Update my tags</Button>
+		<Button clickAction={() => console.log("TODO: implement update tags")} width="fit-content" color="primary">Update my tags</Button>
 	</form>
 </section>
 
