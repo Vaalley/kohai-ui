@@ -78,7 +78,7 @@
 		<div class="summary-cover">
 			<img src="//images.igdb.com/igdb/image/upload/t_cover_small_2x/{game.cover.image_id}.jpg" alt={game.name}>
 			{#if isMobile}
-				<Separator />
+				<Separator width="200px" />
 			{:else}
 				<VerticalSeparator height="200px" />
 			{/if}
@@ -135,6 +135,10 @@
 	}
 
 	form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-xl);
 		.tag-inputs {
 			margin-top: var(--spacing-2xl);
 			display: flex;
@@ -145,11 +149,6 @@
 				gap: var(--spacing-md);
 			}
 		}
-
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: var(--spacing-xl);
 	}
 
 	.summary-cover {
