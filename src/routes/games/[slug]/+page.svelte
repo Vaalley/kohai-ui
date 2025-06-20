@@ -2,6 +2,9 @@
 	import type { Game } from "$lib";
 	import Button from "$lib/components/atoms/Button.svelte";
 	import Input from "$lib/components/atoms/Input.svelte";
+	import VerticalSeparator from "$lib/components/atoms/VerticalSeparator.svelte";
+	import Separator from "$lib/components/atoms/Separator.svelte";
+	import { browser } from "$app/environment";
 
 	let { data } = $props<{ data: { slug: string } }>();
 
@@ -9,12 +12,14 @@
 	let tags: string[] = $state([]);
 	let isExpanded = $state(false);
 	let displayedSummary = $state("");
+	let isMobile = $state(false);
 
 	$inspect(game);
 	$inspect(tags);
 
 	const summaryMaxLength = 200;
 
+	// Fetch game data
 	$effect(() => {
 		async function fetchGameData() {
 			const response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/games/gameInfo/${data.slug}`, {
@@ -31,6 +36,7 @@
 		fetchGameData();
 	});
 
+	// Update displayed summary
 	$effect(() => {
 		if (game && game.summary) {
 			if (isExpanded || game.summary.length <= summaryMaxLength) {
@@ -43,6 +49,23 @@
 		}
 	});
 
+	// Handle screen size changes
+	$effect(() => {
+		if (browser) {
+			checkScreenSize();
+			window.addEventListener("resize", checkScreenSize);
+			return () => {
+				window.removeEventListener("resize", checkScreenSize);
+			};
+		}
+	});
+
+	function checkScreenSize() {
+		if (browser) {
+			isMobile = window.innerWidth <= 768;
+		}
+	}
+
 	function handleTagInput(event: Event, index: number) {
 		const target = event.target as HTMLInputElement;
 		tags[index] = target.value;
@@ -52,15 +75,24 @@
 <section class="game">
 	{#if game}
 		<h1>{game.name}</h1>
-		{#if game && game.summary}
-			<p>{displayedSummary}</p>
-			{#if game.summary.length > summaryMaxLength}
-				<Button clickAction={() => (isExpanded = !isExpanded)} width="fit-content" size="sm">
-					{isExpanded ? "Read less" : "Read more"}
-				</Button>
+		<div class="summary-cover">
+			<img src="//images.igdb.com/igdb/image/upload/t_cover_small_2x/{game.cover.image_id}.jpg" alt={game.name}>
+			{#if isMobile}
+				<Separator />
+			{:else}
+				<VerticalSeparator height="200px" />
 			{/if}
-		{/if}
-		<!-- <img src="//images.igdb.com/igdb/image/upload/t_cover_big/{game.cover.image_id}.jpg" alt={game.name}> -->
+			<div class="summary">
+				{#if game && game.summary}
+					<p>{displayedSummary}</p>
+					{#if game.summary.length > summaryMaxLength}
+						<Button clickAction={() => (isExpanded = !isExpanded)} width="fit-content" size="sm">
+							{isExpanded ? "Read less" : "Read more"}
+						</Button>
+					{/if}
+				{/if}
+			</div>
+		</div>
 	{/if}
 
 	<form action="">
@@ -98,7 +130,6 @@
 		gap: var(--spacing-md);
 
 		p {
-			text-align: center;
 			max-width: 60ch;
 		}
 	}
@@ -108,11 +139,35 @@
 			margin-top: var(--spacing-2xl);
 			display: flex;
 			gap: var(--spacing-xl);
+
+			@media (max-width: 1024px) {
+				flex-direction: column;
+				gap: var(--spacing-md);
+			}
 		}
 
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		gap: var(--spacing-xl);
+	}
+
+	.summary-cover {
+		display: flex;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+		gap: var(--spacing-xl);
+
+		@media (max-width: 768px) {
+			flex-direction: column;
+			gap: var(--spacing-md);
+		}
+	}
+
+	.summary {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-md);
 	}
 </style>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { height = "auto" }: { height?: string } = $props();
+	let { height = "100px" }: { height?: string } = $props();
 </script>
 
 <div class="separator" style="--height: {height}"></div>
