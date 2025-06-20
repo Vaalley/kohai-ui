@@ -14,6 +14,8 @@ popular tags for each game, providing an organic, community-driven description s
 
 ## ✨ Features
 
+The backend for this application is available at [https://github.com/Vaalley/kohai](https://github.com/Vaalley/kohai).
+
 - Secure authentication and profile management
 - Activity history and contributions
 - Search through thousands of video games

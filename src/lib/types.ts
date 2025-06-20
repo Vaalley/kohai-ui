@@ -27,5 +27,15 @@ export type SearchResults = {
 	data: {
 		name: string;
 		slug: string;
+		id: string;
 	}[];
 };
+
+export interface Game {
+	name: string;
+	slug: string;
+	summary: string;
+	cover: {
+		image_id: string;
+	};
+}

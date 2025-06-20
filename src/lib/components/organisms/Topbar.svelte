@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Search from "lucide-svelte/icons/search";
+	import LoaderCircle from "lucide-svelte/icons/loader-circle";
 	import User from "lucide-svelte/icons/user";
 	import LogOut from "lucide-svelte/icons/log-out";
 	import UserPlus from "lucide-svelte/icons/user-plus";
@@ -9,12 +10,14 @@
 	import Input from "$lib/components/atoms/Input.svelte";
 	import Separator from "$lib/components/atoms/Separator.svelte";
 
-	import { debounce, type ProfileMenuLink } from "$lib";
+	import { type ProfileMenuLink } from "$lib";
 	import { searchResults } from "$lib/stores.svelte";
-	import { type Component, onMount } from "svelte";
+	import { type Component } from "svelte";
 	import { page } from "$app/state";
+	import { toast } from "svelte-sonner";
 
 	let searchQuery = $state("");
+	let isLoading = $state(false);
 	let profileMenuLinks = $state<ProfileMenuLink[]>([]);
 	let searchMenu = $state<HTMLDialogElement | null>(null);
 	let profileMenu = $state<HTMLDialogElement | null>(null);
@@ -51,13 +54,13 @@
 		}
 	});
 
-	const debouncedSearch = debounce(handleSearch);
 	async function handleSearch() {
 		if (!searchQuery) {
 			searchResults.data = [];
 			return;
 		}
 
+		isLoading = true;
 		try {
 			const response = await fetch("http://127.0.0.1:2501/games/search", {
 				method: "POST",
@@ -65,19 +68,30 @@
 					"Content-Type": "application/json",
 					Accept: "application/json",
 				},
-				body: `search "${searchQuery}"; fields name,slug; limit 10;`,
+				body: `search "${searchQuery}"; fields name,id; where category = 0; limit 10;`,
 			});
 			const data = await response.json();
 			searchResults.data = data.data;
+			if (searchResults.data.length > 0) {
+				searchMenu?.showModal();
+			} else {
+				toast.info("No results found");
+			}
 		} catch (error) {
-			console.error("Search failed:", error);
+			toast.error("Search failed");
+		} finally {
+			isLoading = false;
 		}
-
-		searchMenu?.showModal();
 	}
 
 	function handleProfileClick() {
 		profileMenu?.showModal();
+	}
+
+	function handleKeyPress(event: KeyboardEvent) {
+		if (event.key === "Enter") {
+			handleSearch();
+		}
 	}
 </script>
 
@@ -88,17 +102,18 @@
 	<Input
 		type="text"
 		placeholder="Search"
-		icon={Search}
+		icon={isLoading ? LoaderCircle : Search}
+		iconClass={isLoading ? "animate-spin" : ""}
 		size="md"
 		onInput={(event) => {
 			searchQuery = (event.target as HTMLInputElement).value;
-			debouncedSearch();
 		}}
+		onKeyPress={handleKeyPress}
 	/>
 
 	<dialog id="search">
 		{#each searchResults.data as game}
-			<a onclick={() => searchMenu?.close()} href={`/games/${game.slug}`}>{game.name}</a>
+			<a onclick={() => searchMenu?.close()} href={`/game/${game.id}`}>{game.name}</a>
 			{#if game !== searchResults.data[searchResults.data.length - 1]}
 				<Separator width="100%" />
 			{/if}
@@ -124,5 +139,18 @@
 		align-items: center;
 		padding: var(--spacing-xl);
 		border-bottom: var(--border-width) solid var(--gray);
+	}
+
+	@keyframes spin {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	:global(.animate-spin) {
+		animation: spin 1s linear infinite;
 	}
 </style>
