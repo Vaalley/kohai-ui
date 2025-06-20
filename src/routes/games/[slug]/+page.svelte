@@ -44,6 +44,11 @@
 			displayedSummary = "";
 		}
 	});
+
+	function handleTagInput(event: Event, index: number) {
+		const target = event.target as HTMLInputElement;
+		tags[index] = target.value;
+	}
 </script>
 
 <section class="game">
@@ -62,11 +67,26 @@
 
 	<form action="">
 		<div class="tag-inputs">
-			<Input placeholder="Add a tag" />
-			<Input placeholder="Add a tag" />
-			<Input placeholder="Add a tag" />
+			<Input
+				onInput={(event) => {
+					handleTagInput(event, 0);
+				}}
+				placeholder="Add a tag"
+			/>
+			<Input
+				onInput={(event) => {
+					handleTagInput(event, 1);
+				}}
+				placeholder="Add a tag"
+			/>
+			<Input
+				onInput={(event) => {
+					handleTagInput(event, 2);
+				}}
+				placeholder="Add a tag"
+			/>
 		</div>
-		<Button clickAction={() => console.log("TODO: implement update tags")} width="fit-content" color="primary">Update my tags</Button>
+		<Button clickAction={() => console.log("TODO: implement update tags", tags)} width="fit-content" color="primary">Update my tags</Button>
 	</form>
 </section>
 
