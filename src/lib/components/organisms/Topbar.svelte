@@ -109,7 +109,7 @@
 
 	<dialog id="search">
 		{#each searchResults.data as game}
-			<a onclick={() => searchMenu?.close()} href={`/games/${game.id}`}>{game.name}</a>
+			<a onclick={() => searchMenu?.close()} href={`/game/${game.id}`}>{game.name}</a>
 			{#if game !== searchResults.data[searchResults.data.length - 1]}
 				<Separator width="100%" />
 			{/if}

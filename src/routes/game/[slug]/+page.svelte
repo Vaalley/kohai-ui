@@ -1,3 +1,7 @@
+<svelte-head>
+	<title>{game?.name}</title>
+</svelte-head>
+
 <script lang="ts">
 	import type { Game } from "$lib";
 	import Button from "$lib/components/atoms/Button.svelte";

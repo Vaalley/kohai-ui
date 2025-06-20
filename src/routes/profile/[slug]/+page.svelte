@@ -1,5 +1,8 @@
+<svelte-head>
+	<title>{user?.username}</title>
+</svelte-head>
+
 <script lang="ts">
-	import { onMount } from "svelte";
 	import { page } from "$app/state";
 	import Button from "$lib/components/atoms/Button.svelte";
 	import { goto, invalidateAll } from "$app/navigation";
