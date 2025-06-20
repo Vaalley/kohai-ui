@@ -14,6 +14,7 @@
 	import { searchResults } from "$lib/stores.svelte";
 	import { type Component } from "svelte";
 	import { page } from "$app/state";
+	import { toast } from "svelte-sonner";
 
 	let searchQuery = $state("");
 	let isLoading = $state(false);
@@ -71,13 +72,16 @@
 			});
 			const data = await response.json();
 			searchResults.data = data.data;
+			if (searchResults.data.length > 0) {
+				searchMenu?.showModal();
+			} else {
+				toast.info("No results found");
+			}
 		} catch (error) {
-			console.error("Search failed:", error);
+			toast.error("Search failed");
 		} finally {
 			isLoading = false;
 		}
-
-		searchMenu?.showModal();
 	}
 
 	function handleProfileClick() {

@@ -26,7 +26,6 @@
 			.then(async (response) => {
 				if (!response.ok) {
 					const errorData = await response.json();
-					console.error(errorData);
 					if (errorData.issues && errorData.issues.length > 0) {
 						errorData.issues.forEach((issue: { message: string }) => {
 							toast.error(issue.message);
@@ -42,7 +41,6 @@
 				await goto("/");
 			})
 			.catch((error) => {
-				console.error(error);
 				toast.error(`Failed to register user: ${error}`);
 			});
 	}
