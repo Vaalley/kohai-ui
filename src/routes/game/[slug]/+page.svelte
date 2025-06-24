@@ -1,7 +1,3 @@
-<svelte-head>
-	<title>{game?.name}</title>
-</svelte-head>
-
 <script lang="ts">
 	import type { Game } from "$lib";
 	import Button from "$lib/components/atoms/Button.svelte";
@@ -26,14 +22,17 @@
 	// Fetch game data
 	$effect(() => {
 		async function fetchGameData() {
-			const response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/games/gameInfo/${data.slug}`, {
-				credentials: "include",
-				headers: {
-					"Content-Type": "application/json",
-					"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+			const response = await fetch(
+				`${import.meta.env.VITE_KOHAI_API_URL}/games/gameInfo/${data.slug}`,
+				{
+					credentials: "include",
+					headers: {
+						"Content-Type": "application/json",
+						"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+					},
+					method: "GET",
 				},
-				method: "GET",
-			});
+			);
 			const result = await response.json();
 			game = result?.data[0];
 		}
@@ -74,13 +73,25 @@
 		const target = event.target as HTMLInputElement;
 		tags[index] = target.value;
 	}
+
+	function updateTags() {
+		console.log(tags);
+	}
 </script>
+
+<svelte-head>
+	<title>{game?.name}</title>
+</svelte-head>
 
 <section class="game">
 	{#if game}
 		<h1>{game.name}</h1>
 		<div class="summary-cover">
-			<img src="//images.igdb.com/igdb/image/upload/t_cover_small_2x/{game.cover.image_id}.jpg" alt={game.name}>
+			<img
+				src="//images.igdb.com/igdb/image/upload/t_cover_small_2x/{game
+					.cover.image_id}.jpg"
+				alt={game.name}
+			/>
 			{#if isMobile}
 				<Separator width="200px" />
 			{:else}
@@ -90,7 +101,11 @@
 				{#if game && game.summary}
 					<p>{displayedSummary}</p>
 					{#if game.summary.length > summaryMaxLength}
-						<Button clickAction={() => (isExpanded = !isExpanded)} width="fit-content" size="sm">
+						<Button
+							clickAction={() => (isExpanded = !isExpanded)}
+							width="fit-content"
+							size="sm"
+						>
 							{isExpanded ? "Read less" : "Read more"}
 						</Button>
 					{/if}
@@ -120,7 +135,7 @@
 				placeholder="Add a tag"
 			/>
 		</div>
-		<Button clickAction={() => console.log("TODO: implement update tags")} width="fit-content" color="primary">Update my tags</Button>
+		<Button clickAction={updateTags} width="fit-content" color="primary">Update my tags</Button>
 	</form>
 </section>
 
