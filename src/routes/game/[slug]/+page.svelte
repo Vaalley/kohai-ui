@@ -4,7 +4,7 @@
 	import Input from "$lib/components/atoms/Input.svelte";
 	import VerticalSeparator from "$lib/components/atoms/VerticalSeparator.svelte";
 	import Separator from "$lib/components/atoms/Separator.svelte";
-	import { browser } from "$app/environment";
+	import { isMobile } from "$lib/stores.svelte";
 
 	let { data } = $props<{ data: { slug: string } }>();
 
@@ -12,7 +12,6 @@
 	let tags: string[] = $state([]);
 	let isExpanded = $state(false);
 	let displayedSummary = $state("");
-	let isMobile = $state(false);
 
 	$inspect(game);
 	$inspect(tags);
@@ -52,22 +51,7 @@
 		}
 	});
 
-	// Handle screen size changes
-	$effect(() => {
-		if (browser) {
-			checkScreenSize();
-			window.addEventListener("resize", checkScreenSize);
-			return () => {
-				window.removeEventListener("resize", checkScreenSize);
-			};
-		}
-	});
 
-	function checkScreenSize() {
-		if (browser) {
-			isMobile = window.innerWidth <= 768;
-		}
-	}
 
 	function handleTagInput(event: Event, index: number) {
 		const target = event.target as HTMLInputElement;
@@ -92,7 +76,7 @@
 					.cover.image_id}.jpg"
 				alt={game.name}
 			/>
-			{#if isMobile}
+			{#if $isMobile}
 				<Separator width="200px" />
 			{:else}
 				<VerticalSeparator height="200px" />

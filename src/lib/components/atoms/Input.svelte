@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { placeholder, size = "md", disabled, icon: Icon, type = "text", onInput, onKeyPress, iconClass }: {
+	let { placeholder, size = "md", disabled, icon: Icon, type = "text", onInput, onKeyPress, iconClass, width = "300px" }: {
 		placeholder?: string;
 		size?: "lg" | "md" | "sm";
 		disabled?: boolean;
@@ -8,6 +8,7 @@
 		onInput?: (event: Event) => void;
 		onKeyPress?: (event: KeyboardEvent) => void;
 		iconClass?: string;
+		width?: string;
 	} = $props();
 </script>
 
@@ -19,6 +20,7 @@
 		oninput={onInput}
 		onkeypress={onKeyPress}
 		class="input--{size}"
+		style="--width: {width}"
 	/>
 
 	{#if Icon}
@@ -45,6 +47,7 @@
 	.input-container input {
 		border: none;
 		outline: none;
+		width: var(--width);
 	}
 
 	// Input sizes

@@ -15,6 +15,7 @@
 	import { type Component } from "svelte";
 	import { page } from "$app/state";
 	import { toast } from "svelte-sonner";
+	import { isMobile } from "$lib/stores.svelte";
 
 	let searchQuery = $state("");
 	let isLoading = $state(false);
@@ -104,7 +105,8 @@
 		placeholder="Search"
 		icon={isLoading ? LoaderCircle : Search}
 		iconClass={isLoading ? "animate-spin" : ""}
-		size="md"
+		size={$isMobile ? "sm" : "md"}
+		width={$isMobile ? "100px" : "300px"}
 		onInput={(event) => {
 			searchQuery = (event.target as HTMLInputElement).value;
 		}}
