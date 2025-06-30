@@ -51,8 +51,6 @@
 		}
 	});
 
-
-
 	function handleTagInput(event: Event, index: number) {
 		const target = event.target as HTMLInputElement;
 		tags[index] = target.value;
