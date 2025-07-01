@@ -70,6 +70,9 @@
 
 		<div class="buttons">
 			<Button clickAction={() => navigator.clipboard.writeText(window.location.href)} color="primary">Copy profile link</Button>
+			{#if currentUser && currentUser.isadmin}
+				<Button clickAction={() => goto(`/admin`)} color="primary">Admin Panel</Button>
+			{/if}
 			{#if currentUser && currentUser.id === user._id}
 				<Button clickAction={handleDeleteClick} color="destructive">Delete Account</Button>
 			{/if}
