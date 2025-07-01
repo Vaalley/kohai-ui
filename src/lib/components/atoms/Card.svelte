@@ -2,12 +2,17 @@
 	import type { Snippet } from "svelte";
 	import Separator from "$lib/components/atoms/Separator.svelte";
 
-	let { title, children }: { title?: string; children: Snippet } = $props();
+	interface Props {
+		title?: string;
+		children: Snippet;
+	}
+
+	let { title, children }: Props = $props();
 </script>
 
-<div class="card">
+<div class="card" role="region">
 	{#if title}
-		<h2>{title}</h2>
+		<h2 aria-label={title}>{title}</h2>
 		<Separator width="100%" />
 	{/if}
 	{@render children()}

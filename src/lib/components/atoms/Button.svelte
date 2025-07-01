@@ -1,17 +1,28 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 
-	let { children, size = "md", color = "default", clickAction, disabled, width = "auto" }: {
+	interface Props {
 		children: Snippet;
+		type?: "button" | "submit" | "reset";
 		size?: "lg" | "md" | "sm";
 		color?: "default" | "primary" | "destructive";
 		clickAction?: () => void;
 		disabled?: boolean;
 		width?: string;
-	} = $props();
+	}
+
+	let {
+		children,
+		type = "button",
+		size = "md",
+		color = "default",
+		clickAction,
+		disabled,
+		width = "auto",
+	}: Props = $props();
 </script>
 
-<button {disabled} onclick={clickAction} class="button--{size} button--{color}" style="--width: {width}">
+<button {disabled} {type} onclick={clickAction} class="button--{size} button--{color}" style="--width: {width}">
 	{@render children()}
 </button>
 

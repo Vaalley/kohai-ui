@@ -1,12 +1,29 @@
 <script lang="ts">
-	let { placeholder, size = "md", disabled, icon: Icon, type = "text", onInput }: {
+	interface Props {
+		required?: boolean;
 		placeholder?: string;
 		size?: "lg" | "md" | "sm";
 		disabled?: boolean;
 		icon?: any;
 		type?: string;
 		onInput?: (event: Event) => void;
-	} = $props();
+		onKeyPress?: (event: KeyboardEvent) => void;
+		iconClass?: string;
+		width?: string;
+	}
+
+	let {
+		placeholder,
+		required,
+		size = "md",
+		disabled,
+		icon: Icon,
+		type = "text",
+		onInput,
+		onKeyPress,
+		iconClass,
+		width = "300px",
+	}: Props = $props();
 </script>
 
 <label class="input-container input-container--{size}{Icon ? ' has-icon' : ''}">
@@ -15,23 +32,21 @@
 		{placeholder}
 		{type}
 		oninput={onInput}
+		onkeypress={onKeyPress}
 		class="input--{size}"
+		style="--width: {width}"
+		aria-label={placeholder || "Input field"}
+		{required}
 	/>
 
 	{#if Icon}
-		<div class="icon icon--{size}">
+		<div class="icon icon--{size} {iconClass || ''}">
 			<Icon size={size === "lg" ? "20px" : size === "md" ? "16px" : "14px"} />
 		</div>
 	{/if}
 </label>
 
 <style lang="scss">
-	input {
-		@media (max-width: 768px) {
-			width: 100px;
-		}
-	}
-
 	label {
 		display: flex;
 		align-items: center;
@@ -48,6 +63,7 @@
 	.input-container input {
 		border: none;
 		outline: none;
+		width: var(--width);
 	}
 
 	// Input sizes
@@ -76,5 +92,11 @@
 
 	.has-icon.input-container--sm {
 		padding-right: var(--spacing-sm);
+	}
+
+	.icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 </style>

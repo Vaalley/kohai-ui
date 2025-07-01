@@ -26,7 +26,6 @@
 			.then(async (response) => {
 				if (!response.ok) {
 					const errorData = await response.json();
-					console.error(errorData);
 					if (errorData.issues && errorData.issues.length > 0) {
 						errorData.issues.forEach((issue: { message: string }) => {
 							toast.error(issue.message);
@@ -42,7 +41,6 @@
 				await goto("/");
 			})
 			.catch((error) => {
-				console.error(error);
 				toast.error(`Failed to register user: ${error}`);
 			});
 	}
@@ -50,15 +48,15 @@
 
 <section class="register">
 	<Card title="Register">
-		<form action="" onsubmit={register}>
+		<form action="" onsubmit={register} aria-label="Register form">
 			<Formfield label="Username">
-				<Input placeholder="Username" onInput={(e) => username = (e.target as HTMLInputElement).value || ""} />
+				<Input required placeholder="Username" onInput={(e) => username = (e.target as HTMLInputElement).value || ""} />
 			</Formfield>
 			<Formfield label="Email">
-				<Input placeholder="Email" type="email" onInput={(e) => email = (e.target as HTMLInputElement).value || ""} />
+				<Input required placeholder="Email" type="email" onInput={(e) => email = (e.target as HTMLInputElement).value || ""} />
 			</Formfield>
 			<Formfield label="Password">
-				<Input placeholder="Password" type="password" onInput={(e) => password = (e.target as HTMLInputElement).value || ""} />
+				<Input required placeholder="Password" type="password" onInput={(e) => password = (e.target as HTMLInputElement).value || ""} />
 			</Formfield>
 			<Button color="primary" width="fit-content">Register</Button>
 		</form>
@@ -76,6 +74,6 @@
 	form {
 		display: flex;
 		flex-direction: column;
-		gap: var(--spacing-md);
+		gap: var(--spacing-lg);
 	}
 </style>

@@ -1,12 +1,17 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 
-	let { label, children }: { label?: string; children: Snippet } = $props();
+	interface Props {
+		label?: string;
+		children: Snippet;
+	}
+
+	let { label, children }: Props = $props();
 </script>
 
-<div class="formfield">
+<div class="formfield" role="group">
 	{#if label}
-		<label for={label}>{label}</label>
+		<label for={label} aria-label={label}>{label}</label>
 	{/if}
 	{@render children()}
 </div>

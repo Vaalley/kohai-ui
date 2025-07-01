@@ -1,8 +1,12 @@
 <script lang="ts">
-	let { width = "100px" }: { width?: string } = $props();
+	interface Props {
+		width?: string;
+	}
+
+	let { width = "100px" }: Props = $props();
 </script>
 
-<div class="separator" style="--width: {width}"></div>
+<div class="separator" role="separator" style="--width: {width}" aria-orientation="horizontal"></div>
 
 <style lang="scss">
 	.separator {
