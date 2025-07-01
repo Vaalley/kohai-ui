@@ -96,24 +96,25 @@
 	}
 </script>
 
-<section class="topbar">
-	<a href="/">
-		<img src="/Logo.svg" alt="Logo" />
+<section class="topbar" role="banner">
+	<a href="/" aria-label="Home">
+		<img src="/Logo.svg" alt="Kohai Logo" />
 	</a>
-	<Input
-		type="text"
-		placeholder="Search"
-		icon={isLoading ? LoaderCircle : Search}
-		iconClass={isLoading ? "animate-spin" : ""}
-		size={$isMobile ? "sm" : "md"}
-		width={$isMobile ? "100px" : "300px"}
-		onInput={(event) => {
-			searchQuery = (event.target as HTMLInputElement).value;
-		}}
-		onKeyPress={handleKeyPress}
-	/>
-
-	<dialog id="search">
+	<div role="search">
+		<Input
+			type="search"
+			placeholder="Search"
+			icon={isLoading ? LoaderCircle : Search}
+			iconClass={isLoading ? "animate-spin" : ""}
+			size={$isMobile ? "sm" : "md"}
+			width={$isMobile ? "100px" : "300px"}
+			onInput={(event) => {
+				searchQuery = (event.target as HTMLInputElement).value;
+			}}
+			onKeyPress={handleKeyPress}
+		/>
+	</div>
+	<dialog id="search" aria-label="Search results">
 		{#each searchResults.data as game}
 			<a onclick={() => searchMenu?.close()} href={`/game/${game.id}`}>{game.name}</a>
 			{#if game !== searchResults.data[searchResults.data.length - 1]}
@@ -122,8 +123,10 @@
 		{/each}
 	</dialog>
 
-	<Button clickAction={handleProfileClick}><User /></Button>
-	<dialog id="profile">
+	<Button clickAction={handleProfileClick}>
+		<User aria-hidden="true" />
+	</Button>
+	<dialog id="profile" aria-label="User menu">
 		{#each profileMenuLinks as link}
 			<a onclick={() => profileMenu?.close()} href={link.url}><link.icon />{link.label}</a>
 			{#if link !== profileMenuLinks[profileMenuLinks.length - 1]}

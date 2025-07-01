@@ -201,7 +201,9 @@ td {}
 Forms
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-fieldset {}
+fieldset {
+	border: none;
+}
 fieldset:disabled {}
 legend {}
 

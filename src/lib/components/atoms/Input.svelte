@@ -1,5 +1,6 @@
 <script lang="ts">
-	let { placeholder, size = "md", disabled, icon: Icon, type = "text", onInput, onKeyPress, iconClass, width = "300px" }: {
+	interface Props {
+		required?: boolean;
 		placeholder?: string;
 		size?: "lg" | "md" | "sm";
 		disabled?: boolean;
@@ -9,7 +10,20 @@
 		onKeyPress?: (event: KeyboardEvent) => void;
 		iconClass?: string;
 		width?: string;
-	} = $props();
+	}
+
+	let {
+		placeholder,
+		required,
+		size = "md",
+		disabled,
+		icon: Icon,
+		type = "text",
+		onInput,
+		onKeyPress,
+		iconClass,
+		width = "300px",
+	}: Props = $props();
 </script>
 
 <label class="input-container input-container--{size}{Icon ? ' has-icon' : ''}">
@@ -21,6 +35,8 @@
 		onkeypress={onKeyPress}
 		class="input--{size}"
 		style="--width: {width}"
+		aria-label={placeholder || "Input field"}
+		{required}
 	/>
 
 	{#if Icon}

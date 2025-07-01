@@ -48,15 +48,15 @@
 
 <section class="register">
 	<Card title="Register">
-		<form action="" onsubmit={register}>
+		<form action="" onsubmit={register} aria-label="Register form">
 			<Formfield label="Username">
-				<Input placeholder="Username" onInput={(e) => username = (e.target as HTMLInputElement).value || ""} />
+				<Input required placeholder="Username" onInput={(e) => username = (e.target as HTMLInputElement).value || ""} />
 			</Formfield>
 			<Formfield label="Email">
-				<Input placeholder="Email" type="email" onInput={(e) => email = (e.target as HTMLInputElement).value || ""} />
+				<Input required placeholder="Email" type="email" onInput={(e) => email = (e.target as HTMLInputElement).value || ""} />
 			</Formfield>
 			<Formfield label="Password">
-				<Input placeholder="Password" type="password" onInput={(e) => password = (e.target as HTMLInputElement).value || ""} />
+				<Input required placeholder="Password" type="password" onInput={(e) => password = (e.target as HTMLInputElement).value || ""} />
 			</Formfield>
 			<Button color="primary" width="fit-content">Register</Button>
 		</form>

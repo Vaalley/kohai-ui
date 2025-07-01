@@ -32,14 +32,24 @@
 
 <section class="login">
 	<Card title="Login">
-		<form action="" onsubmit={login}>
+		<form action="" onsubmit={login} aria-label="Login form">
 			<Formfield label="Email">
-				<Input placeholder="Email" type="email" onInput={(e) => email = (e.target as HTMLInputElement).value || ""} />
+				<Input
+					placeholder="Email"
+					type="email"
+					onInput={(e) => email = (e.target as HTMLInputElement).value || ""}
+					required
+				/>
 			</Formfield>
 			<Formfield label="Password">
-				<Input placeholder="Password" type="password" onInput={(e) => password = (e.target as HTMLInputElement).value || ""} />
+				<Input
+					placeholder="Password"
+					type="password"
+					onInput={(e) => password = (e.target as HTMLInputElement).value || ""}
+					required
+				/>
 			</Formfield>
-			<Button color="primary" width="fit-content">Login</Button>
+			<Button type="submit" color="primary" width="fit-content">Login</Button>
 		</form>
 	</Card>
 </section>

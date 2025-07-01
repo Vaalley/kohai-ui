@@ -62,7 +62,7 @@
 </script>
 
 <svelte-head>
-	<title>{game?.name}</title>
+	<title>{game?.name || "Game Details"}</title>
 </svelte-head>
 
 <section class="game">
@@ -72,7 +72,8 @@
 			<img
 				src="//images.igdb.com/igdb/image/upload/t_cover_small_2x/{game
 					.cover.image_id}.jpg"
-				alt={game.name}
+				alt={`Cover art for ${game.name}`}
+				loading="lazy"
 			/>
 			{#if $isMobile}
 				<Separator width="200px" />
@@ -96,8 +97,8 @@
 		</div>
 	{/if}
 
-	<form action="">
-		<div class="tag-inputs">
+	<form action="" aria-label="Tag management">
+		<fieldset class="tag-inputs">
 			<Input
 				onInput={(event) => {
 					handleTagInput(event, 0);
@@ -116,7 +117,7 @@
 				}}
 				placeholder="Add a tag"
 			/>
-		</div>
+		</fieldset>
 		<Button clickAction={updateTags} width="fit-content" color="primary">Update my tags</Button>
 	</form>
 </section>

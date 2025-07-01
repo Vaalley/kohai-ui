@@ -1,12 +1,19 @@
 <script lang="ts">
-	let { items }: { items: string[] } = $props();
+	interface Props {
+		items: string[];
+		label: string;
+	}
+
+	let { items, label }: Props = $props();
 </script>
 
-<ul class="items-list">
-	{#each items as item}
-		<li class="item">{item}</li>
-	{/each}
-</ul>
+<div role="list" aria-label={label}>
+	<ul class="items-list">
+		{#each items as item}
+			<li class="item">{item}</li>
+		{/each}
+	</ul>
+</div>
 
 <style lang="scss">
 	.items-list {

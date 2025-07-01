@@ -1,7 +1,7 @@
 <script lang="ts">
 </script>
 
-<section>
+<section aria-label="Admin dashboard">
 	<h1>Admin Dashboard</h1>
 	<p>Welcome to the admin area. Only authorized users should see this page.</p>
 </section>

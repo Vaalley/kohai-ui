@@ -1,8 +1,12 @@
 <script lang="ts">
-	let { height = "100px" }: { height?: string } = $props();
+	interface Props {
+		height?: string;
+	}
+
+	let { height = "100px" }: Props = $props();
 </script>
 
-<div class="separator" style="--height: {height}"></div>
+<div class="separator" role="separator" style="--height: {height}" aria-orientation="vertical"></div>
 
 <style lang="scss">
 	.separator {

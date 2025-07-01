@@ -78,17 +78,17 @@
 		<section class="stats">
 			<div class="stat">
 				<h2>Most used words</h2>
-				<ItemsList items={mostUsedWords} />
+				<ItemsList items={mostUsedWords} label="Most used words" />
 			</div>
 			<VerticalSeparator height="auto" />
 			<div class="stat">
 				<h2>Historic</h2>
-				<ItemsList items={mostUsedWords} />
+				<ItemsList items={mostUsedWords} label="Historic" />
 			</div>
 			<VerticalSeparator height="auto" />
 			<div class="stat">
 				<h2>Other Statistics</h2>
-				<ItemsList items={mostUsedWords} />
+				<ItemsList items={mostUsedWords} label="Other Statistics" />
 			</div>
 		</section>
 	{:else}
