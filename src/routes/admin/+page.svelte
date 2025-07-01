@@ -22,15 +22,15 @@
 <section class="admin" aria-label="Admin dashboard">
 	<h1 aria-label="Admin dashboard heading">Admin Dashboard</h1>
 	<div class="admin-content" aria-labelledby="admin-dashboard-heading">
-		<section class="user-control" aria-labelledby="user-control-heading">
-			<h2 id="user-control-heading">User Control Panel</h2>
+		<section aria-labelledby="user-control-heading">
+			<h2>User Control Panel</h2>
 			<div class="buttons-container" aria-label="User control buttons">
 				<Input placeholder="Username" onInput={(event) => handleUserSearchInput(event)} />
 				<Button color="primary">Fetch</Button>
 			</div>
-			<h3 id="stats-heading">Stats:</h3>
+			<h3>Stats:</h3>
 			<ItemsList items={stats.map((stat) => stat.value)} label="User Statistics" />
-			<h3 id="actions-heading">Actions:</h3>
+			<h3>Actions:</h3>
 			<div class="buttons-container" aria-label="User action buttons">
 				<Button color="primary">Promote to admin</Button>
 				<Button color="destructive">Delete user account</Button>
@@ -38,7 +38,11 @@
 		</section>
 		<VerticalSeparator height="auto" />
 		<section class="kohai-info" aria-labelledby="kohai-info-heading">
-			<h2 id="kohai-info-heading">Kohai Info</h2>
+			<h2>Kohai Info</h2>
+			<div>
+				<h3>Stats:</h3>
+				<ItemsList items={stats.map((stat) => stat.value)} label="User Statistics" />
+			</div>
 		</section>
 	</div>
 </section>
@@ -60,7 +64,12 @@
 		gap: var(--spacing-lg);
 	}
 
-	.user-control * {
+	h2 {
+		margin-bottom: var(--spacing-xl);
+	}
+
+	h3 {
+		margin-bottom: var(--spacing-md);
 		margin-top: var(--spacing-lg);
 	}
 
