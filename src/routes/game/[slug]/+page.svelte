@@ -161,7 +161,7 @@
 		<Button clickAction={updateTags} width="fit-content" color="primary">Update my tags</Button>
 	</form>
 
-	<div>
+	<div aria-label="Tags">
 		<ItemsList items={tags.map((tag) => `${tag.tag}: ${tag.count}`)} label="Tags" />
 	</div>
 </section>
