@@ -10,8 +10,7 @@
 	let email = $state("");
 	let password = $state("");
 
-	async function register(event: Event) {
-		event.preventDefault();
+	async function register() {
 		await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/register`, {
 			method: "POST",
 			headers: {
@@ -58,7 +57,7 @@
 			<Formfield label="Password">
 				<Input required placeholder="Password" type="password" onInput={(e) => password = (e.target as HTMLInputElement).value || ""} />
 			</Formfield>
-			<Button color="primary" width="fit-content">Register</Button>
+			<Button clickAction={register} color="primary" width="fit-content">Register</Button>
 		</form>
 	</Card>
 </section>

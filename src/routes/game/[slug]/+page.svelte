@@ -5,18 +5,42 @@
 	import VerticalSeparator from "$lib/components/atoms/VerticalSeparator.svelte";
 	import Separator from "$lib/components/atoms/Separator.svelte";
 	import { isMobile } from "$lib/stores.svelte";
+	import { onMount } from "svelte";
+	import ItemsList from "$lib/components/atoms/ItemsList.svelte";
+	import type { Tag } from "$lib/types";
 
 	let { data } = $props<{ data: { slug: string } }>();
 
 	let game: Game | null = $state(null);
-	let tags: string[] = $state([]);
+	let userTags: string[] = $state([]);
+	let tags: Tag[] = $state([]);
 	let isExpanded = $state(false);
 	let displayedSummary = $state("");
 
 	$inspect(game);
+	$inspect(userTags);
 	$inspect(tags);
 
 	const summaryMaxLength = 200;
+
+	onMount(() => {
+		async function fetchTags() {
+			const response = await fetch(
+				`${import.meta.env.VITE_KOHAI_API_URL}/tags/${data.slug}`,
+				{
+					credentials: "include",
+					headers: {
+						"Content-Type": "application/json",
+						"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+					},
+					method: "GET",
+				},
+			);
+			const result = await response.json();
+			tags = result?.data;
+		}
+		fetchTags();
+	});
 
 	// Fetch game data
 	$effect(() => {
@@ -53,11 +77,27 @@
 
 	function handleTagInput(event: Event, index: number) {
 		const target = event.target as HTMLInputElement;
-		tags[index] = target.value;
+		userTags[index] = target.value;
 	}
 
 	function updateTags() {
-		console.log(tags);
+		async function updateTags() {
+			const response = await fetch(
+				`${import.meta.env.VITE_KOHAI_API_URL}/tags/${data.slug}`,
+				{
+					credentials: "include",
+					headers: {
+						"Content-Type": "application/json",
+						"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+					},
+					method: "PUT",
+					body: JSON.stringify({ tags: userTags }),
+				},
+			);
+			const result = await response.json();
+			console.log(result);
+		}
+		updateTags();
 	}
 </script>
 
@@ -120,6 +160,10 @@
 		</fieldset>
 		<Button clickAction={updateTags} width="fit-content" color="primary">Update my tags</Button>
 	</form>
+
+	<div>
+		<ItemsList items={tags.map((tag) => `${tag.tag}: ${tag.count}`)} label="Tags" />
+	</div>
 </section>
 
 <style lang="scss">
