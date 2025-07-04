@@ -8,6 +8,7 @@
 	import { onMount } from "svelte";
 	import ItemsList from "$lib/components/atoms/ItemsList.svelte";
 	import type { Tag } from "$lib/types";
+	import { toast } from "svelte-sonner";
 
 	let { data } = $props<{ data: { slug: string } }>();
 
@@ -16,10 +17,6 @@
 	let tags: Tag[] = $state([]);
 	let isExpanded = $state(false);
 	let displayedSummary = $state("");
-
-	$inspect(game);
-	$inspect(userTags);
-	$inspect(tags);
 
 	const summaryMaxLength = 200;
 
@@ -95,7 +92,11 @@
 				},
 			);
 			const result = await response.json();
-			console.log(result);
+			if (!response.ok) {
+				toast.error(result.message);
+				return;
+			}
+			toast.success("Tags updated successfully");
 		}
 		updateTags();
 	}
