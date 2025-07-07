@@ -9,8 +9,9 @@
 
 ## 🎮 About
 
-Kohai is a web application that enables users to associate descriptive words with video games, creating a crowdsourced tagging system. Users can view aggregated
-popular tags for each game, providing an organic, community-driven description system that helps in discovering games based on their unique characteristics.
+Kohai is a web application that enables users to associate descriptive words with video games, creating a crowdsourced
+tagging system. Users can view aggregated popular tags for each game, providing an organic, community-driven description
+system that helps in discovering games based on their unique characteristics.
 
 ## ✨ Features
 
