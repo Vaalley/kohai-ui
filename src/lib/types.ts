@@ -39,3 +39,8 @@ export interface Game {
 		image_id: string;
 	};
 }
+
+export interface Tag {
+	tag: string;
+	count: number;
+}

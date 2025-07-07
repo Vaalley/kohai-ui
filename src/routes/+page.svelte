@@ -8,8 +8,9 @@
 <section class="hero" aria-label="Hero section">
 	<h1>Welcome to Kohai</h1>
 	<p>
-		Kohai is a web application that enables users to associate descriptive words with video games, creating a crowdsourced tagging system. Users can view
-		aggregated popular tags for each piece of media, providing an organic, community-driven description system.
+		Kohai is a web application that enables users to associate descriptive words with video games, creating a
+		crowdsourced tagging system. Users can view aggregated popular tags for each piece of media, providing an
+		organic, community-driven description system.
 	</p>
 
 	<section class="popular-games" aria-label="Popular games">

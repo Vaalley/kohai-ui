@@ -69,7 +69,8 @@
 		<h1>{user.username}</h1>
 
 		<div class="buttons">
-			<Button clickAction={() => navigator.clipboard.writeText(window.location.href)} color="primary">Copy profile link</Button>
+			<Button clickAction={() => navigator.clipboard.writeText(window.location.href)} color="primary"
+			>Copy profile link</Button>
 			{#if currentUser && currentUser.isadmin}
 				<Button clickAction={() => goto(`/admin`)} color="primary">Admin Panel</Button>
 			{/if}

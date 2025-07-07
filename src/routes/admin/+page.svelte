@@ -15,8 +15,6 @@
 	function handleUserSearchInput(event: Event) {
 		user = (event.target as HTMLInputElement).value;
 	}
-
-	$inspect(user);
 </script>
 
 <section class="admin" aria-label="Admin dashboard">
