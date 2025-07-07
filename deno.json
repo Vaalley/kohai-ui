@@ -2,7 +2,7 @@
 	"fmt": {
 		"indentWidth": 4,
 		"useTabs": true,
-		"lineWidth": 160
+		"lineWidth": 120
 	},
 	"unstable": ["fmt-component"],
 	"imports": {
