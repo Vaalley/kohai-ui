@@ -29,7 +29,7 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
 
 /**
  * Fetches the current user from the API by sending the request with the
- * cookie header.
+ * cookie header. The backend automatically handles token refresh if needed.
  *
  * @param event - The request event
  * @returns The user object or null if the user is not authenticated
@@ -37,20 +37,74 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
 export async function getUser(event: RequestEvent) {
 	const cookieHeader = event.request.headers.get("cookie") || "";
 
-	// We cannot use credentials: "include" because it will not send the cookies
-	// So instead we manually send the cookies
-	const response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/me`, {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-			"Cookie": cookieHeader,
-		},
-	});
+	try {
+		// We cannot use credentials: "include" because it will not send the cookies
+		// So instead we manually send the cookies
+		const apiUrl = import.meta.env.VITE_KOHAI_API_URL;
+		const response = await fetch(`${apiUrl}/auth/me`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				"Cookie": cookieHeader,
+			},
+		});
 
-	if (response.ok) {
-		const data = await response.json();
-		return data.user;
-	} else {
+		if (response.ok) {
+			const data = await response.json();
+			
+			// Forward any Set-Cookie headers from the backend to the client
+			// This handles the case where the backend refreshed tokens
+			const setCookieHeader = response.headers.get('set-cookie');
+			if (setCookieHeader) {
+				// The backend sets cookies in the format: "name=value; HttpOnly; Path=/; Max-Age=900"
+				// We need to parse this and set the cookies in the SvelteKit response
+				const cookies = setCookieHeader.split(/,(?=\s*\w+\s*=)/);
+				
+				for (const cookieStr of cookies) {
+					const parts = cookieStr.trim().split(';');
+					const [nameValue] = parts;
+					const [name, value] = nameValue.split('=');
+					
+					if (name && (name.trim() === 'access_token' || name.trim() === 'refresh_token')) {
+						// Extract cookie options with required defaults
+						const options: {
+							path: string;
+							httpOnly?: boolean;
+							maxAge?: number;
+							secure?: boolean;
+							sameSite?: 'strict' | 'lax' | 'none';
+						} = {
+							path: '/' // Default path required by SvelteKit
+						};
+						
+						for (let i = 1; i < parts.length; i++) {
+							const part = parts[i].trim().toLowerCase();
+							if (part === 'httponly') {
+								options.httpOnly = true;
+							} else if (part === 'secure') {
+								options.secure = true;
+							} else if (part.startsWith('path=')) {
+								options.path = part.split('=')[1] || '/';
+							} else if (part.startsWith('max-age=')) {
+								options.maxAge = parseInt(part.split('=')[1]);
+							} else if (part.startsWith('samesite=')) {
+								options.sameSite = part.split('=')[1] as 'strict' | 'lax' | 'none';
+							}
+						}
+						
+						event.cookies.set(name.trim(), value, options);
+					}
+				}
+			}
+			
+			return data.user;
+		} else {
+			// If the backend returns 401, it means both access token and refresh token are invalid
+			// The backend has already cleared the cookies, so we don't need to do anything
+			return null;
+		}
+	} catch (error) {
+		console.error('Error fetching user:', error);
 		return null;
 	}
 }
