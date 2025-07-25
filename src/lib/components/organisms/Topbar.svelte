@@ -69,7 +69,9 @@
 					"Content-Type": "application/json",
 					Accept: "application/json",
 				},
-				body: `search "${searchQuery.replaceAll('"', '\"')}"; fields name,id; where category = 0; limit 10;`,
+				body: `search "${
+					searchQuery.replaceAll('"', '"')
+				}"; fields name,id; where category = 0; limit 10;`,
 			});
 			const data = await response.json();
 			searchResults.data = data.data;
@@ -116,9 +118,7 @@
 	</div>
 	<dialog id="search" aria-label="Search results">
 		{#each searchResults.data as game}
-			<a onclick={() => searchMenu?.close()} href={`/game/${game.id}`}
-				>{game.name}</a
-			>
+			<a onclick={() => searchMenu?.close()} href={`/game/${game.id}`}>{game.name}</a>
 			{#if game !== searchResults.data[searchResults.data.length - 1]}
 				<Separator width="100%" />
 			{/if}
@@ -130,9 +130,7 @@
 	</Button>
 	<dialog id="profile" aria-label="User menu">
 		{#each profileMenuLinks as link}
-			<a onclick={() => profileMenu?.close()} href={link.url}
-				><link.icon />{link.label}</a
-			>
+			<a onclick={() => profileMenu?.close()} href={link.url}><link.icon />{link.label}</a>
 			{#if link !== profileMenuLinks[profileMenuLinks.length - 1]}
 				<Separator width="100%" />
 			{/if}
