@@ -64,8 +64,7 @@
 			if (isExpanded || game.summary.length <= summaryMaxLength) {
 				displayedSummary = game.summary;
 			} else {
-				displayedSummary =
-					game.summary.substring(0, summaryMaxLength) + "...";
+				displayedSummary = game.summary.substring(0, summaryMaxLength) + "...";
 			}
 		} else {
 			displayedSummary = "";
@@ -160,9 +159,7 @@
 				placeholder="Add a tag"
 			/>
 		</fieldset>
-		<Button clickAction={updateTags} width="fit-content" color="primary"
-			>Update my tags</Button
-		>
+		<Button clickAction={updateTags} width="fit-content" color="primary">Update my tags</Button>
 	</form>
 
 	<div aria-label="Tags">
