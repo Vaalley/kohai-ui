@@ -1,7 +1,3 @@
-<svelte-head>
-	<title>{user?.username}</title>
-</svelte-head>
-
 <script lang="ts">
 	import { page } from "$app/state";
 	import Button from "$lib/components/atoms/Button.svelte";
@@ -12,22 +8,59 @@
 
 	let { data } = $props<{ data: { slug: string } }>();
 	let user: any = $state(null);
+	let stats: any = $state(null);
+	let mostUsedWords: string[] = $state([]);
+	let recentTags: string[] = $state([]);
+	let otherStats: string[] = $state([]);
 	let currentUser: any = $derived(page.data.user);
 	let deleteModal: HTMLDialogElement;
 
 	$effect(() => {
 		async function fetchUserData() {
-			const response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/api/users/${data.slug}`, {
-				credentials: "include",
-				headers: {
-					"Content-Type": "application/json",
-					"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+			const response = await fetch(
+				`${import.meta.env.VITE_KOHAI_API_URL}/api/users/${data.slug}`,
+				{
+					credentials: "include",
+					headers: {
+						"Content-Type": "application/json",
+						"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+					},
 				},
-			});
+			);
 			let userData = await response.json();
 			user = userData.data;
 		}
 
+		async function fetchUserStats() {
+			const response = await fetch(
+				`${import.meta.env.VITE_KOHAI_API_URL}/api/users/${data.slug}/stats`,
+				{
+					credentials: "include",
+					headers: {
+						"Content-Type": "application/json",
+						"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+					},
+				},
+			);
+			stats = await response.json().then((data) => data.data);
+			console.log(stats);
+
+			mostUsedWords = stats.topTags.map((tag: any) => `${tag.tag} - ${tag.count}`);
+
+			recentTags = stats.recentTags.map((tag: any) =>
+				`${tag.tag} - ${tag.timestamp.toLocaleString().split("T")[0]}`
+			);
+
+			otherStats = [
+				`Total contributions: ${stats.totalContributions}`,
+				`Total unique games tagged: ${stats.uniqueGamesTagged}`,
+				`First contribution date: ${stats.firstContributionDate.toLocaleString().split("T")[0]}`,
+				`Last contribution date: ${stats.lastContributionDate.toLocaleString().split("T")[0]}`,
+				`Tag diversity / total unique tags: ${stats.tagDiversity}`,
+			];
+		}
+
+		fetchUserStats();
 		fetchUserData();
 	});
 
@@ -37,19 +70,25 @@
 
 	async function confirmDelete() {
 		deleteModal.close();
-		let response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/api/users/${data.slug}`, {
-			method: "DELETE",
-			credentials: "include",
-			headers: {
-				"Content-Type": "application/json",
-				"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+		let response = await fetch(
+			`${import.meta.env.VITE_KOHAI_API_URL}/api/users/${data.slug}`,
+			{
+				method: "DELETE",
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+					"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+				},
 			},
-		});
+		);
 
-		response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/logout`, {
-			method: "POST",
-			credentials: "include",
-		});
+		response = await fetch(
+			`${import.meta.env.VITE_KOHAI_API_URL}/auth/logout`,
+			{
+				method: "POST",
+				credentials: "include",
+			},
+		);
 
 		if (response.ok) {
 			toast.success("Account deleted");
@@ -60,16 +99,20 @@
 		await invalidateAll();
 		await goto("/");
 	}
-
-	const mostUsedWords = ["hello", "world", "svelte", "kohai"];
 </script>
+
+<svelte-head>
+	<title>{user?.username}</title>
+</svelte-head>
 
 <section class="profile">
 	{#if user}
 		<h1>{user.username}</h1>
 
 		<div class="buttons">
-			<Button clickAction={() => navigator.clipboard.writeText(window.location.href)} color="primary"
+			<Button
+				clickAction={() => navigator.clipboard.writeText(window.location.href)}
+				color="primary"
 			>Copy profile link</Button>
 			{#if currentUser && currentUser.isadmin}
 				<Button clickAction={() => goto(`/admin`)} color="primary">Admin Panel</Button>
@@ -87,12 +130,12 @@
 			<VerticalSeparator height="auto" />
 			<div class="stat">
 				<h2>Historic</h2>
-				<ItemsList items={mostUsedWords} label="Historic" />
+				<ItemsList items={recentTags} label="Historic" />
 			</div>
 			<VerticalSeparator height="auto" />
 			<div class="stat">
 				<h2>Other Statistics</h2>
-				<ItemsList items={mostUsedWords} label="Other Statistics" />
+				<ItemsList items={otherStats} label="Other Statistics" />
 			</div>
 		</section>
 	{:else}
@@ -102,7 +145,9 @@
 
 <dialog id="delete-modal" bind:this={deleteModal}>
 	<h2>Confirm Account Deletion</h2>
-	<p>Are you sure you want to delete your account? This action cannot be undone.</p>
+	<p>
+		Are you sure you want to delete your account? This action cannot be undone.
+	</p>
 	<div class="modal-actions">
 		<Button clickAction={() => deleteModal.close()} color="primary">Cancel</Button>
 		<Button clickAction={confirmDelete} color="destructive">Confirm</Button>

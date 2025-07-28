@@ -69,7 +69,9 @@
 					"Content-Type": "application/json",
 					Accept: "application/json",
 				},
-				body: `search "${searchQuery}"; fields name,id; where category = 0; limit 10;`,
+				body: `search "${
+					searchQuery.replaceAll('"', '"')
+				}"; fields name,id; where category = 0; limit 10;`,
 			});
 			const data = await response.json();
 			searchResults.data = data.data;

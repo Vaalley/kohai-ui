@@ -20,42 +20,41 @@
 
 	const summaryMaxLength = 200;
 
-	onMount(() => {
-		async function fetchTags() {
-			const response = await fetch(
-				`${import.meta.env.VITE_KOHAI_API_URL}/tags/${data.slug}`,
-				{
-					credentials: "include",
-					headers: {
-						"Content-Type": "application/json",
-						"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
-					},
-					method: "GET",
+	async function fetchTags() {
+		const response = await fetch(
+			`${import.meta.env.VITE_KOHAI_API_URL}/tags/${data.slug}`,
+			{
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+					"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
 				},
-			);
-			const result = await response.json();
-			tags = result?.data;
-		}
-		fetchTags();
-	});
+				method: "GET",
+			},
+		);
+		const result = await response.json();
+		tags = result?.data;
+	}
 
-	// Fetch game data
-	$effect(() => {
-		async function fetchGameData() {
-			const response = await fetch(
-				`${import.meta.env.VITE_KOHAI_API_URL}/games/gameInfo/${data.slug}`,
-				{
-					credentials: "include",
-					headers: {
-						"Content-Type": "application/json",
-						"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
-					},
-					method: "GET",
+	async function fetchGameData() {
+		const response = await fetch(
+			`${import.meta.env.VITE_KOHAI_API_URL}/games/gameInfo/${data.slug}`,
+			{
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+					"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
 				},
-			);
-			const result = await response.json();
-			game = result?.data[0];
-		}
+				method: "GET",
+			},
+		);
+		const result = await response.json();
+		game = result?.data[0];
+	}
+
+	// fetch things on page load
+	onMount(() => {
+		fetchTags();
 		fetchGameData();
 	});
 
@@ -97,6 +96,7 @@
 				return;
 			}
 			toast.success("Tags updated successfully");
+			fetchTags(); // Refresh tags list
 		}
 		updateTags();
 	}
@@ -163,7 +163,10 @@
 	</form>
 
 	<div aria-label="Tags">
-		<ItemsList items={tags.map((tag) => `${tag.tag}: ${tag.count}`)} label="Tags" />
+		<ItemsList
+			items={tags.map((tag) => `${tag.tag}: ${tag.count}`)}
+			label="Tags"
+		/>
 	</div>
 </section>
 
