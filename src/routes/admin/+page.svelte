@@ -9,6 +9,7 @@
 
 	// Aggregated strings to show in the stats list
 	let userStats: string[] = $state([]);
+	let appStats: string[] = $state([]);
 
 	function handleUserSearchInput(event: Event) {
 		user = (event.target as HTMLInputElement).value;
@@ -125,6 +126,67 @@
 			toast.error(err?.message ?? "Failed to promote user");
 		}
 	}
+
+	async function fetchAppStats() {
+		try {
+			const response = await fetch(
+				`${import.meta.env.VITE_KOHAI_API_URL}/api/stats`,
+				{
+					credentials: "include",
+					headers: {
+						"Content-Type": "application/json",
+						"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+					},
+				},
+			);
+
+			if (!response.ok) {
+				throw new Error(`Failed to fetch app stats (${response.status})`);
+			}
+
+			const json = await response.json();
+			const stats = json?.data ?? json;
+
+			if (!stats || typeof stats !== "object") {
+				appStats = ["No app stats available."];
+				return;
+			}
+
+			// Show only a couple of key app stats based on provided response
+			const candidates: string[] = [];
+			if ("totalUsers" in stats) candidates.push(`Total users: ${stats.totalUsers}`);
+			if ("adminsCount" in stats) candidates.push(`Admins: ${stats.adminsCount}`);
+			if ("totalContributions" in stats) {
+				candidates.push(`Total contributions: ${stats.totalContributions}`);
+			}
+			if ("uniqueTaggedMediaTotal" in stats) {
+				candidates.push(`Unique tagged media: ${stats.uniqueTaggedMediaTotal}`);
+			}
+			if ("uniqueTagsTotal" in stats) candidates.push(`Unique tags: ${stats.uniqueTagsTotal}`);
+			if ("firstContributionDate" in stats) {
+				candidates.push(
+					`First contribution: ${String(stats.firstContributionDate).split("T")[0]}`,
+				);
+			}
+			if ("lastContributionDate" in stats) {
+				candidates.push(
+					`Last contribution: ${String(stats.lastContributionDate).split("T")[0]}`,
+				);
+			}
+
+			appStats = candidates.length
+				? candidates
+				: Object.entries(stats).map(([k, v]) => `${k}: ${v as any}`);
+		} catch (err: any) {
+			console.error(err);
+			toast.error(err?.message ?? "Failed to fetch app stats");
+		}
+	}
+
+	// Fetch app stats on page load
+	$effect(() => {
+		fetchAppStats();
+	});
 </script>
 
 <section class="admin" aria-label="Admin dashboard">
@@ -149,7 +211,7 @@
 			<h2>Kohai Info</h2>
 			<div>
 				<h3>Stats:</h3>
-				<!-- <ItemsList items={appStats.map((stat) => stat.value)} label="Kohai Statistics" /> -->
+				<ItemsList items={appStats} label="Kohai Statistics" />
 			</div>
 		</section>
 	</div>
