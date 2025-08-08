@@ -3,17 +3,59 @@
 	import Input from "$lib/components/atoms/Input.svelte";
 	import Button from "$lib/components/atoms/Button.svelte";
 	import ItemsList from "$lib/components/atoms/ItemsList.svelte";
+	import { toast } from "svelte-sonner";
 
 	let user: string = $state("");
 
-	const stats = [
-		{ label: "Total Users", value: "100" },
-		{ label: "Active Users", value: "50" },
-		{ label: "Inactive Users", value: "50" },
-	];
+	// Aggregated strings to show in the stats list
+	let userStats: string[] = $state([]);
 
 	function handleUserSearchInput(event: Event) {
 		user = (event.target as HTMLInputElement).value;
+	}
+
+	async function fetchUserStats() {
+		if (!user?.trim()) {
+			toast.error("Please enter a username first");
+			return;
+		}
+
+		try {
+			const response = await fetch(
+				`${import.meta.env.VITE_KOHAI_API_URL}/api/users/${user}/stats`,
+				{
+					credentials: "include",
+					headers: {
+						"Content-Type": "application/json",
+						"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+					},
+				},
+			);
+
+			if (!response.ok) {
+				throw new Error(`Failed to fetch stats (${response.status})`);
+			}
+
+			const data = await response.json();
+			const stats = data?.data;
+
+			if (!stats) {
+				userStats = ["No stats available for this user."];
+				return;
+			}
+
+			toast.success(`Stats fetched successfully for ${user}`);
+
+			// Show only a couple of the user stats on Admin page
+			userStats = [
+				`Total contributions: ${stats.totalContributions}`,
+				`Unique games tagged: ${stats.uniqueGamesTagged}`,
+				`Last contribution: ${String(stats.lastContributionDate).split("T")[0]}`,
+			];
+		} catch (err: any) {
+			console.error(err);
+			toast.error(err?.message ?? "Failed to fetch user stats");
+		}
 	}
 </script>
 
@@ -24,10 +66,10 @@
 			<h2>User Control Panel</h2>
 			<div class="buttons-container" aria-label="User control buttons">
 				<Input placeholder="Username" onInput={(event) => handleUserSearchInput(event)} />
-				<Button color="primary">Fetch</Button>
+				<Button color="primary" clickAction={fetchUserStats}>Fetch</Button>
 			</div>
 			<h3>Stats:</h3>
-			<ItemsList items={stats.map((stat) => stat.value)} label="User Statistics" />
+			<ItemsList items={userStats} label="User Statistics" />
 			<h3>Actions:</h3>
 			<div class="buttons-container" aria-label="User action buttons">
 				<Button color="primary">Promote to admin</Button>
@@ -39,7 +81,7 @@
 			<h2>Kohai Info</h2>
 			<div>
 				<h3>Stats:</h3>
-				<ItemsList items={stats.map((stat) => stat.value)} label="User Statistics" />
+				<!-- <ItemsList items={appStats.map((stat) => stat.value)} label="Kohai Statistics" /> -->
 			</div>
 		</section>
 	</div>
