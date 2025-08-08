@@ -30,7 +30,7 @@
 			profileMenuLinks = [
 				{
 					label: "Profile",
-					url: `/profile/${page.data.user.id}`,
+					url: `/profile/${page.data.user.username}`,
 					icon: User as unknown as Component,
 				},
 				{
