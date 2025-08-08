@@ -57,6 +57,41 @@
 			toast.error(err?.message ?? "Failed to fetch user stats");
 		}
 	}
+
+	async function deleteUser() {
+		if (!user?.trim()) {
+			toast.error("Please enter a username first");
+			return;
+		}
+
+		const confirmed = window.confirm(`Delete user "${user}"? This cannot be undone.`);
+		if (!confirmed) return;
+
+		try {
+			const response = await fetch(
+				`${import.meta.env.VITE_KOHAI_API_URL}/api/users/${user}`,
+				{
+					method: "DELETE",
+					credentials: "include",
+					headers: {
+						"Content-Type": "application/json",
+						"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+					},
+				},
+			);
+
+			if (!response.ok) {
+				throw new Error(`Failed to delete user (${response.status})`);
+			}
+
+			toast.success(`User "${user}" deleted`);
+			userStats = [];
+			user = "";
+		} catch (err: any) {
+			console.error(err);
+			toast.error(err?.message ?? "Failed to delete user");
+		}
+	}
 </script>
 
 <section class="admin" aria-label="Admin dashboard">
@@ -73,7 +108,7 @@
 			<h3>Actions:</h3>
 			<div class="buttons-container" aria-label="User action buttons">
 				<Button color="primary">Promote to admin</Button>
-				<Button color="destructive">Delete user account</Button>
+				<Button color="destructive" clickAction={deleteUser}>Delete user account</Button>
 			</div>
 		</section>
 		<VerticalSeparator height="auto" />
