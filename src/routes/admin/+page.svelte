@@ -92,6 +92,39 @@
 			toast.error(err?.message ?? "Failed to delete user");
 		}
 	}
+
+	async function promoteUser() {
+		if (!user?.trim()) {
+			toast.error("Please enter a username first");
+			return;
+		}
+
+		const confirmed = window.confirm(`Promote user "${user}" to admin?`);
+		if (!confirmed) return;
+
+		try {
+			const response = await fetch(
+				`${import.meta.env.VITE_KOHAI_API_URL}/api/users/${user}/promote`,
+				{
+					method: "PUT",
+					credentials: "include",
+					headers: {
+						"Content-Type": "application/json",
+						"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+					},
+				},
+			);
+
+			if (!response.ok) {
+				throw new Error(`Failed to promote user (${response.status})`);
+			}
+
+			toast.success(`User "${user}" promoted to admin`);
+		} catch (err: any) {
+			console.error(err);
+			toast.error(err?.message ?? "Failed to promote user");
+		}
+	}
 </script>
 
 <section class="admin" aria-label="Admin dashboard">
@@ -107,7 +140,7 @@
 			<ItemsList items={userStats} label="User Statistics" />
 			<h3>Actions:</h3>
 			<div class="buttons-container" aria-label="User action buttons">
-				<Button color="primary">Promote to admin</Button>
+				<Button color="primary" clickAction={promoteUser}>Promote to admin</Button>
 				<Button color="destructive" clickAction={deleteUser}>Delete user account</Button>
 			</div>
 		</section>
