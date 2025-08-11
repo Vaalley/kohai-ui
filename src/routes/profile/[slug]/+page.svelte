@@ -50,8 +50,7 @@
 			);
 
 			recentTags = stats.recentTags.map(
-				(tag: any) =>
-					`${tag.tag} - ${tag.timestamp.toLocaleString().split("T")[0]}`,
+				(tag: any) => `${tag.tag} - ${tag.timestamp.toLocaleString().split("T")[0]}`,
 			);
 
 			otherStats = [
@@ -114,19 +113,14 @@
 
 		<div class="buttons">
 			<Button
-				clickAction={() =>
-					navigator.clipboard.writeText(window.location.href)}
-				color="primary">Copy profile link</Button
-			>
+				clickAction={() => navigator.clipboard.writeText(window.location.href)}
+				color="primary"
+			>Copy profile link</Button>
 			{#if currentUser && currentUser.isadmin}
-				<Button clickAction={() => goto(`/admin`)} color="primary"
-					>Admin Panel</Button
-				>
+				<Button clickAction={() => goto(`/admin`)} color="primary">Admin Panel</Button>
 			{/if}
 			{#if currentUser && currentUser.id === user._id}
-				<Button clickAction={handleDeleteClick} color="destructive"
-					>Delete Account</Button
-				>
+				<Button clickAction={handleDeleteClick} color="destructive">Delete Account</Button>
 			{/if}
 		</div>
 
@@ -154,13 +148,10 @@
 <dialog id="delete-modal" bind:this={deleteModal}>
 	<h2>Confirm Account Deletion</h2>
 	<p>
-		Are you sure you want to delete your account? This action cannot be
-		undone.
+		Are you sure you want to delete your account? This action cannot be undone.
 	</p>
 	<div class="modal-actions">
-		<Button clickAction={() => deleteModal.close()} color="primary"
-			>Cancel</Button
-		>
+		<Button clickAction={() => deleteModal.close()} color="primary">Cancel</Button>
 		<Button clickAction={confirmDelete} color="destructive">Confirm</Button>
 	</div>
 </dialog>
