@@ -38,7 +38,7 @@
 
 	async function fetchGameData() {
 		const response = await fetch(
-			`${import.meta.env.VITE_KOHAI_API_URL}/games/gameInfo/${data.slug}`,
+			`${import.meta.env.VITE_KOHAI_API_URL}/games/${data.slug}`,
 			{
 				credentials: "include",
 				headers: {
@@ -64,7 +64,8 @@
 			if (isExpanded || game.summary.length <= summaryMaxLength) {
 				displayedSummary = game.summary;
 			} else {
-				displayedSummary = game.summary.substring(0, summaryMaxLength) + "...";
+				displayedSummary =
+					game.summary.substring(0, summaryMaxLength) + "...";
 			}
 		} else {
 			displayedSummary = "";
@@ -159,7 +160,9 @@
 				placeholder="Add a tag"
 			/>
 		</fieldset>
-		<Button clickAction={updateTags} width="fit-content" color="primary">Update my tags</Button>
+		<Button clickAction={updateTags} width="fit-content" color="primary"
+			>Update my tags</Button
+		>
 	</form>
 
 	<div aria-label="Tags">
