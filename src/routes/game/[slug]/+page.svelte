@@ -38,7 +38,7 @@
 
 	async function fetchGameData() {
 		const response = await fetch(
-			`${import.meta.env.VITE_KOHAI_API_URL}/games/gameInfo/${data.slug}`,
+			`${import.meta.env.VITE_KOHAI_API_URL}/games/${data.slug}`,
 			{
 				credentials: "include",
 				headers: {
