@@ -45,6 +45,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Register</title>
+</svelte:head>
+
 <section class="register">
 	<Card title="Register">
 		<form action="" onsubmit={register} aria-label="Register form">

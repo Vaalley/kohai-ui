@@ -2,7 +2,7 @@
 </script>
 
 <svelte:head>
-	<title>Kohai</title>
+	<title>Home page</title>
 </svelte:head>
 
 <section class="hero" aria-label="Hero section">

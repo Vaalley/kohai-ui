@@ -20,4 +20,8 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Logout</title>
+</svelte:head>
+
 <p>Logging out...</p>

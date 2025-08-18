@@ -189,6 +189,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Admin Dashboard</title>
+</svelte:head>
+
 <section class="admin" aria-label="Admin dashboard">
 	<h1 aria-label="Admin dashboard heading">Admin Dashboard</h1>
 	<div class="admin-content" aria-labelledby="admin-dashboard-heading">

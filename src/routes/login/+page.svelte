@@ -30,6 +30,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Login</title>
+</svelte:head>
+
 <section class="login">
 	<Card title="Login">
 		<form action="" onsubmit={login} aria-label="Login form">
