@@ -29,7 +29,6 @@ The backend for this application is available at [https://github.com/Vaalley/koh
 - [SvelteKit](https://svelte.dev/) - Web framework
 - [SCSS](https://sass-lang.com/) - Styling with CSS preprocessor
 - [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
-- [IGDB API](https://api-docs.igdb.com/) - Video game database
 - [Deno](https://deno.com/) - JavaScript/TypeScript runtime
 
 ## 📁 Project Structure
