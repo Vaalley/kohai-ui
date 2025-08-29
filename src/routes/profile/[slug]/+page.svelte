@@ -43,7 +43,6 @@
 				},
 			);
 			stats = await response.json().then((data) => data.data);
-			console.log(stats);
 
 			mostUsedWords = stats.topTags.map(
 				(tag: any) => `${tag.tag} - ${tag.count}`,

@@ -103,8 +103,7 @@ export async function getUser(event: RequestEvent) {
 			// The backend has already cleared the cookies, so we don't need to do anything
 			return null;
 		}
-	} catch (error) {
-		console.error("Error fetching user:", error);
+	} catch (_error) {
 		return null;
 	}
 }

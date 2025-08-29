@@ -54,7 +54,6 @@
 				`Last contribution: ${String(stats.lastContributionDate).split("T")[0]}`,
 			];
 		} catch (err: any) {
-			console.error(err);
 			toast.error(err?.message ?? "Failed to fetch user stats");
 		}
 	}
@@ -89,7 +88,6 @@
 			userStats = [];
 			user = "";
 		} catch (err: any) {
-			console.error(err);
 			toast.error(err?.message ?? "Failed to delete user");
 		}
 	}
@@ -122,7 +120,6 @@
 
 			toast.success(`User "${user}" promoted to admin`);
 		} catch (err: any) {
-			console.error(err);
 			toast.error(err?.message ?? "Failed to promote user");
 		}
 	}
@@ -178,7 +175,6 @@
 				? candidates
 				: Object.entries(stats).map(([k, v]) => `${k}: ${v as any}`);
 		} catch (err: any) {
-			console.error(err);
 			toast.error(err?.message ?? "Failed to fetch app stats");
 		}
 	}
