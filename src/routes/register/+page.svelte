@@ -11,10 +11,11 @@
 	let password = $state("");
 
 	async function register() {
-		await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/register`, {
+		await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/api/auth/register`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
 			},
 			body: JSON.stringify({
 				username: username,

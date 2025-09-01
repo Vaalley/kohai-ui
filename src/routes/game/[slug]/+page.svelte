@@ -22,7 +22,7 @@
 
 	async function fetchTags() {
 		const response = await fetch(
-			`${import.meta.env.VITE_KOHAI_API_URL}/tags/${data.slug}`,
+			`${import.meta.env.VITE_KOHAI_API_URL}/api/tags/${data.slug}`,
 			{
 				credentials: "include",
 				headers: {
@@ -38,7 +38,7 @@
 
 	async function fetchGameData() {
 		const response = await fetch(
-			`${import.meta.env.VITE_KOHAI_API_URL}/games/${data.slug}`,
+			`${import.meta.env.VITE_KOHAI_API_URL}/api/games/${data.slug}`,
 			{
 				credentials: "include",
 				headers: {
@@ -79,7 +79,7 @@
 	function updateTags() {
 		async function updateTags() {
 			const response = await fetch(
-				`${import.meta.env.VITE_KOHAI_API_URL}/tags/${data.slug}`,
+				`${import.meta.env.VITE_KOHAI_API_URL}/api/tags/${data.slug}`,
 				{
 					credentials: "include",
 					headers: {

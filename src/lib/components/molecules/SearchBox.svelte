@@ -26,11 +26,11 @@
 
 		isLoading = true;
 		try {
-			const response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/games/search`, {
+			const response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/api/games/search`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					Accept: "application/json",
+					"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
 				},
 				body: `search "${
 					searchQuery.replaceAll('"', '"')

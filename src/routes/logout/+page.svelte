@@ -4,9 +4,13 @@
 	import { toast } from "svelte-sonner";
 
 	onMount(async () => {
-		const response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/logout`, {
+		const response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/api/auth/logout`, {
 			method: "POST",
 			credentials: "include", // Important for sending cookies to the backend
+			headers: {
+				"Content-Type": "application/json",
+				"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+			},
 		});
 
 		if (response.ok) {

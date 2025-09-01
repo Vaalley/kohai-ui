@@ -11,11 +11,12 @@
 
 	async function login(event: Event) {
 		event.preventDefault();
-		await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/login`, {
+		await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/api/auth/login`, {
 			method: "POST",
 			credentials: "include",
 			headers: {
 				"Content-Type": "application/json",
+				"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
 			},
 			body: JSON.stringify({ email, password }),
 		})
