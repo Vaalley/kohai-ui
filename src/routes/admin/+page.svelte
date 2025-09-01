@@ -23,7 +23,7 @@
 
 		try {
 			const response = await fetch(
-				`${import.meta.env.VITE_KOHAI_API_URL}/api/users/${user}/stats`,
+				`${import.meta.env.VITE_KOHAI_API_URL}/api/users/stats/${user}`,
 				{
 					credentials: "include",
 					headers: {
