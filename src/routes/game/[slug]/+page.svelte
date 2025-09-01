@@ -3,7 +3,7 @@
 	import Button from "$lib/components/atoms/Button.svelte";
 	import Input from "$lib/components/atoms/Input.svelte";
 	import VerticalSeparator from "$lib/components/atoms/VerticalSeparator.svelte";
-	import Separator from "$lib/components/atoms/Separator.svelte";
+	import HorizontalSeparator from "$lib/components/atoms/HorizontalSeparator.svelte";
 	import { isMobile } from "$lib/stores.svelte";
 	import { onMount } from "svelte";
 	import ItemsList from "$lib/components/atoms/ItemsList.svelte";
@@ -117,7 +117,7 @@
 				loading="lazy"
 			/>
 			{#if $isMobile}
-				<Separator width="200px" />
+				<HorizontalSeparator width="200px" />
 			{:else}
 				<VerticalSeparator height="200px" />
 			{/if}

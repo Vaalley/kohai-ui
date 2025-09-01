@@ -5,7 +5,7 @@
 	import LogIn from "lucide-svelte/icons/log-in";
 
 	import Button from "$lib/components/atoms/Button.svelte";
-	import Separator from "$lib/components/atoms/Separator.svelte";
+	import HorizontalSeparator from "$lib/components/atoms/HorizontalSeparator.svelte";
 	import SearchBox from "$lib/components/molecules/SearchBox.svelte";
 
 	import { type ProfileMenuLink } from "$lib";
@@ -64,7 +64,7 @@
 		{#each profileMenuLinks as link}
 			<a onclick={() => profileMenu?.close()} href={link.url}><link.icon />{link.label}</a>
 			{#if link !== profileMenuLinks[profileMenuLinks.length - 1]}
-				<Separator width="100%" />
+				<HorizontalSeparator width="100%" />
 			{/if}
 		{/each}
 	</dialog>

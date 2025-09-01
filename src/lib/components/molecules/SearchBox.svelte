@@ -2,7 +2,7 @@
 	import Search from "lucide-svelte/icons/search";
 	import LoaderCircle from "lucide-svelte/icons/loader-circle";
 	import Input from "$lib/components/atoms/Input.svelte";
-	import Separator from "$lib/components/atoms/Separator.svelte";
+	import HorizontalSeparator from "$lib/components/atoms/HorizontalSeparator.svelte";
 	import { searchResults } from "$lib/stores.svelte";
 	import { toast } from "svelte-sonner";
 	import { isMobile } from "$lib/stores.svelte";
@@ -74,7 +74,7 @@
 		{#each searchResults.data as game}
 			<a onclick={() => searchMenu?.close()} href={`/game/${game.id}`}>{game.name}</a>
 			{#if game !== searchResults.data[searchResults.data.length - 1]}
-				<Separator width="100%" />
+				<HorizontalSeparator width="100%" />
 			{/if}
 		{/each}
 	</dialog>
