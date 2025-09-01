@@ -55,6 +55,7 @@
 	<a href="/" aria-label="Home">
 		<img src="/Logo.svg" alt="Kohai Logo" />
 	</a>
+
 	<SearchBox />
 
 	<Button clickAction={handleProfileClick}>

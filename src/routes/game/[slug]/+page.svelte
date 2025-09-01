@@ -6,7 +6,7 @@
 	import HorizontalSeparator from "$lib/components/atoms/HorizontalSeparator.svelte";
 	import { isMobile } from "$lib/stores.svelte";
 	import { onMount } from "svelte";
-	import ItemsList from "$lib/components/atoms/ItemsList.svelte";
+	import ChipCloud from "$lib/components/molecules/ChipCloud.svelte";
 	import type { Tag } from "$lib/types";
 	import { toast } from "svelte-sonner";
 
@@ -163,8 +163,8 @@
 	</form>
 
 	<div aria-label="Tags">
-		<ItemsList
-			items={tags.map((tag) => `${tag.tag}: ${tag.count}`)}
+		<ChipCloud
+			items={tags.map((tag) => ({ label: String(tag.tag ?? ""), value: Number(tag.count ?? 0) }))}
 			label="Tags"
 		/>
 	</div>
