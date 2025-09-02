@@ -64,12 +64,6 @@
 		max-width: 800px;
 	}
 
-	.hero h1 {
-		@media (max-width: 768px) {
-			font-size: var(--font-size-2xl);
-		}
-	}
-
 	.popular-games {
 		display: flex;
 		flex-direction: column;

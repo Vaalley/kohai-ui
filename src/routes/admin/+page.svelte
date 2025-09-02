@@ -232,6 +232,11 @@
 		justify-content: space-evenly;
 		width: 100%;
 		gap: var(--spacing-lg);
+
+		@media (max-width: 768px) {
+			flex-direction: column;
+			align-items: center;
+		}
 	}
 
 	h2 {
@@ -245,6 +250,7 @@
 
 	.buttons-container {
 		display: flex;
+		flex-wrap: wrap;
 		gap: var(--spacing-md);
 	}
 </style>

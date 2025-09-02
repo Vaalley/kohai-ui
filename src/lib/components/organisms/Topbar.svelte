@@ -61,6 +61,7 @@
 	<Button clickAction={handleProfileClick}>
 		<User aria-hidden="true" />
 	</Button>
+
 	<dialog id="profile" aria-label="User menu">
 		{#each profileMenuLinks as link}
 			<a onclick={() => profileMenu?.close()} href={link.url}><link.icon />{link.label}</a>

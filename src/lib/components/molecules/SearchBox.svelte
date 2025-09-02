@@ -3,12 +3,23 @@
 	import LoaderCircle from "lucide-svelte/icons/loader-circle";
 	import Input from "$lib/components/atoms/Input.svelte";
 	import HorizontalSeparator from "$lib/components/atoms/HorizontalSeparator.svelte";
-	import { searchResults } from "$lib/stores.svelte";
+	import { isMobile, searchResults } from "$lib/stores.svelte";
 	import { toast } from "svelte-sonner";
-	import { isMobile } from "$lib/stores.svelte";
 
-	let { placeholder = "Search", size = $isMobile ? "sm" : "md", width = $isMobile ? "100px" : "300px" } =
-		$props();
+	interface Props {
+		placeholder?: string;
+		size?: "sm" | "md" | "lg";
+		width?: string;
+	}
+
+	let {
+		placeholder = "Search",
+		size: propSize = undefined,
+		width: propWidth = undefined,
+	}: Props = $props();
+
+	const size = $derived(propSize ?? ($isMobile ? "sm" : "md"));
+	const width = $derived(propWidth ?? ($isMobile ? "100px" : "300px"));
 
 	let searchQuery = $state("");
 	let isLoading = $state(false);

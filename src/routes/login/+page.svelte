@@ -64,7 +64,8 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		height: 60vh;
+		min-height: 60vh;
+		padding: var(--spacing-xl) 0;
 	}
 
 	form {
