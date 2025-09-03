@@ -1,4 +1,45 @@
 <script lang="ts">
+	import type { RandomTopGame } from "$lib/types.js";
+	import { getImageUrl } from "$lib/utils.js";
+
+	let games = $state<RandomTopGame[]>([]);
+	let loading = $state(true);
+	let error = $state("");
+
+	$effect(() => {
+		async function fetchGames() {
+			try {
+				const response = await fetch(
+					`${import.meta.env.VITE_KOHAI_API_URL}/api/games/top/random?t=${Date.now()}`,
+					{
+						headers: {
+							"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+							"Cache-Control": "no-cache",
+							"Pragma": "no-cache",
+						},
+					},
+				);
+
+				if (response.ok) {
+					const result = await response.json();
+					if (result.success) {
+						games = result.data;
+						loading = false;
+						error = "";
+						return;
+					}
+				}
+				error = "Failed to load games";
+				loading = false;
+			} catch (e) {
+				error = "Failed to load games";
+				loading = false;
+				console.error("Error:", e);
+			}
+		}
+
+		fetchGames();
+	});
 </script>
 
 <svelte:head>
@@ -15,38 +56,29 @@
 
 	<section class="popular-games" aria-label="Popular games">
 		<h2>Popular games:</h2>
-		<div class="images">
-			<a href="/games/breath-of-the-wild">
-				<img src="/images/hero/1.webp" alt="Breath of the Wild cover" />
-			</a>
-			<a href="/games/minecraft">
-				<img src="/images/hero/2.webp" alt="Minecraft cover" />
-			</a>
-			<a href="/games/red-dead-redemption-2">
-				<img
-					src="/images/hero/3.webp"
-					alt="Red Dead Redemption 2 cover"
-				/>
-			</a>
-			<a href="/games/risk-of-rain-2">
-				<img src="/images/hero/4.webp" alt="Risk of Rain 2 cover" />
-			</a>
-			<a href="/games/minecraft">
-				<img src="/images/hero/2.webp" alt="Minecraft cover" />
-			</a>
-			<a href="/games/risk-of-rain-2">
-				<img src="/images/hero/4.webp" alt="Risk of Rain 2 cover" />
-			</a>
-			<a href="/games/breath-of-the-wild">
-				<img src="/images/hero/1.webp" alt="Breath of the Wild cover" />
-			</a>
-			<a href="/games/red-dead-redemption-2">
-				<img
-					src="/images/hero/3.webp"
-					alt="Red Dead Redemption 2 cover"
-				/>
-			</a>
-		</div>
+		{#if loading}
+			<div class="loading">Loading games...</div>
+		{:else if error}
+			<div class="error">{error}</div>
+		{:else}
+			<div class="images">
+				{#each games as game}
+					<a href="/game/{game.id}">
+						{#if game.cover?.image_id}
+							<img
+								src={getImageUrl(game.cover.image_id)}
+								alt="{game.name} cover"
+								loading="lazy"
+							/>
+						{:else}
+							<div class="no-image">
+								<span>{game.name}</span>
+							</div>
+						{/if}
+					</a>
+				{/each}
+			</div>
+		{/if}
 	</section>
 </section>
 
@@ -55,13 +87,12 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
 		margin: var(--spacing-xl) 0;
-	}
 
-	.hero p {
-		text-align: center;
-		max-width: 800px;
+		p {
+			text-align: center;
+			max-width: 800px;
+		}
 	}
 
 	.popular-games {
@@ -70,20 +101,28 @@
 		align-items: center;
 		gap: var(--spacing-xl);
 		margin: var(--spacing-2xl) 0;
-	}
 
-	.images {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: var(--spacing-xl);
+		.images {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: var(--spacing-xl);
 
-		@media (max-width: 768px) {
-			grid-template-columns: repeat(2, 1fr);
+			@media (max-width: 768px) {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			img {
+				width: 150px;
+				object-fit: cover;
+			}
 		}
-	}
 
-	.images img {
-		width: 150px;
-		object-fit: cover;
+		.loading, .error {
+			text-align: center;
+		}
+
+		.error {
+			color: var(--color-error);
+		}
 	}
 </style>

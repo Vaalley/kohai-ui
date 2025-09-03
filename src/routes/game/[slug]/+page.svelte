@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Game } from "$lib";
+	import { type Game, getImageUrl } from "$lib";
 	import Button from "$lib/components/atoms/Button.svelte";
 	import Input from "$lib/components/atoms/Input.svelte";
 	import VerticalSeparator from "$lib/components/atoms/VerticalSeparator.svelte";
@@ -111,8 +111,7 @@
 		<h1>{game.name}</h1>
 		<div class="summary-cover">
 			<img
-				src="//images.igdb.com/igdb/image/upload/t_cover_small_2x/{game
-					.cover.image_id}.jpg"
+				src={getImageUrl(game.cover.image_id, "t_cover_small_2x")}
 				alt={`Cover art for ${game.name}`}
 				loading="lazy"
 			/>

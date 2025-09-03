@@ -108,3 +108,7 @@ export async function getUser(event: RequestEvent) {
 		return null;
 	}
 }
+
+export function getImageUrl(imageId: string, size: string = "t_cover_big"): string {
+	return `https://images.igdb.com/igdb/image/upload/${size}/${imageId}.jpg`;
+}
