@@ -63,7 +63,7 @@
 		{:else}
 			<div class="images">
 				{#each games as game}
-					<a href="/game/{game.id}">
+					<a href="/game/{game.id}" data-sveltekit-preload-data="hover">
 						{#if game.cover?.image_id}
 							<img
 								src={getImageUrl(game.cover.image_id)}
