@@ -11,11 +11,12 @@
 
 	async function login(event: Event) {
 		event.preventDefault();
-		await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/auth/login`, {
+		await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/api/auth/login`, {
 			method: "POST",
 			credentials: "include",
 			headers: {
 				"Content-Type": "application/json",
+				"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
 			},
 			body: JSON.stringify({ email, password }),
 		})
@@ -29,6 +30,10 @@
 			});
 	}
 </script>
+
+<svelte:head>
+	<title>Login</title>
+</svelte:head>
 
 <section class="login">
 	<Card title="Login">
@@ -59,7 +64,8 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		height: 60vh;
+		min-height: 60vh;
+		padding: var(--spacing-xl) 0;
 	}
 
 	form {

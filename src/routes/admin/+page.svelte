@@ -23,7 +23,7 @@
 
 		try {
 			const response = await fetch(
-				`${import.meta.env.VITE_KOHAI_API_URL}/api/users/${user}/stats`,
+				`${import.meta.env.VITE_KOHAI_API_URL}/api/users/stats/${user}`,
 				{
 					credentials: "include",
 					headers: {
@@ -54,7 +54,6 @@
 				`Last contribution: ${String(stats.lastContributionDate).split("T")[0]}`,
 			];
 		} catch (err: any) {
-			console.error(err);
 			toast.error(err?.message ?? "Failed to fetch user stats");
 		}
 	}
@@ -89,7 +88,6 @@
 			userStats = [];
 			user = "";
 		} catch (err: any) {
-			console.error(err);
 			toast.error(err?.message ?? "Failed to delete user");
 		}
 	}
@@ -122,7 +120,6 @@
 
 			toast.success(`User "${user}" promoted to admin`);
 		} catch (err: any) {
-			console.error(err);
 			toast.error(err?.message ?? "Failed to promote user");
 		}
 	}
@@ -178,7 +175,6 @@
 				? candidates
 				: Object.entries(stats).map(([k, v]) => `${k}: ${v as any}`);
 		} catch (err: any) {
-			console.error(err);
 			toast.error(err?.message ?? "Failed to fetch app stats");
 		}
 	}
@@ -188,6 +184,10 @@
 		fetchAppStats();
 	});
 </script>
+
+<svelte:head>
+	<title>Admin Dashboard</title>
+</svelte:head>
 
 <section class="admin" aria-label="Admin dashboard">
 	<h1 aria-label="Admin dashboard heading">Admin Dashboard</h1>
@@ -232,6 +232,11 @@
 		justify-content: space-evenly;
 		width: 100%;
 		gap: var(--spacing-lg);
+
+		@media (max-width: 768px) {
+			flex-direction: column;
+			align-items: center;
+		}
 	}
 
 	h2 {
@@ -245,6 +250,7 @@
 
 	.buttons-container {
 		display: flex;
+		flex-wrap: wrap;
 		gap: var(--spacing-md);
 	}
 </style>

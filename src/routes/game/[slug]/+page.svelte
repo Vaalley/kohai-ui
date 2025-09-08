@@ -1,12 +1,11 @@
 <script lang="ts">
-	import type { Game } from "$lib";
+	import { type Game, getImageUrl } from "$lib";
 	import Button from "$lib/components/atoms/Button.svelte";
 	import Input from "$lib/components/atoms/Input.svelte";
 	import VerticalSeparator from "$lib/components/atoms/VerticalSeparator.svelte";
-	import Separator from "$lib/components/atoms/Separator.svelte";
+	import HorizontalSeparator from "$lib/components/atoms/HorizontalSeparator.svelte";
 	import { isMobile } from "$lib/stores.svelte";
-	import { onMount } from "svelte";
-	import ItemsList from "$lib/components/atoms/ItemsList.svelte";
+	import ChipCloud from "$lib/components/molecules/ChipCloud.svelte";
 	import type { Tag } from "$lib/types";
 	import { toast } from "svelte-sonner";
 
@@ -21,24 +20,37 @@
 	const summaryMaxLength = 200;
 
 	async function fetchTags() {
-		const response = await fetch(
-			`${import.meta.env.VITE_KOHAI_API_URL}/tags/${data.slug}`,
-			{
-				credentials: "include",
-				headers: {
-					"Content-Type": "application/json",
-					"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+		try {
+			const response = await fetch(
+				`${import.meta.env.VITE_KOHAI_API_URL}/api/tags/${data.slug}`,
+				{
+					credentials: "include",
+					headers: {
+						"Content-Type": "application/json",
+						"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+					},
+					method: "GET",
 				},
-				method: "GET",
-			},
-		);
-		const result = await response.json();
-		tags = result?.data;
+			);
+
+			if (!response.ok) {
+				if (response.status === 404) {
+					tags = [];
+					return;
+				}
+				return;
+			}
+
+			const result = await response.json();
+			tags = result?.data || [];
+		} catch (error) {
+			tags = [];
+		}
 	}
 
 	async function fetchGameData() {
 		const response = await fetch(
-			`${import.meta.env.VITE_KOHAI_API_URL}/games/${data.slug}`,
+			`${import.meta.env.VITE_KOHAI_API_URL}/api/games/${data.slug}`,
 			{
 				credentials: "include",
 				headers: {
@@ -52,10 +64,62 @@
 		game = result?.data[0];
 	}
 
-	// fetch things on page load
-	onMount(() => {
-		fetchTags();
-		fetchGameData();
+	function handleTagInput(event: Event, index: number) {
+		const target = event.target as HTMLInputElement;
+		userTags[index] = target.value;
+	}
+
+	function updateTags() {
+		async function updateTags() {
+			try {
+				const response = await fetch(
+					`${import.meta.env.VITE_KOHAI_API_URL}/api/tags/${data.slug}`,
+					{
+						credentials: "include",
+						headers: {
+							"Content-Type": "application/json",
+							"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+						},
+						method: "PUT",
+						body: JSON.stringify({ tags: userTags }),
+					},
+				);
+
+				if (!response.ok) {
+					if (response.status === 401) {
+						toast.error("You need to be logged in to add tags");
+					} else {
+						const errorText = await response.text();
+						toast.error(errorText || "Failed to update tags");
+					}
+					return;
+				}
+
+				const result = await response.json();
+				toast.success("Tags updated successfully");
+				fetchTags();
+			} catch (error) {
+				console.error("Error updating tags:", error);
+				toast.error("Failed to update tags");
+			}
+		}
+		updateTags();
+	}
+
+	// fetch things when slug changes
+	$effect(() => {
+		const slug = data.slug;
+		if (slug) {
+			// reset state when navigating to new game
+			game = null;
+			tags = [];
+			userTags = [];
+			displayedSummary = "";
+
+			// fetch both game data and tags
+			fetchGameData();
+			fetchTags();
+		}
 	});
 
 	// Update displayed summary
@@ -70,36 +134,6 @@
 			displayedSummary = "";
 		}
 	});
-
-	function handleTagInput(event: Event, index: number) {
-		const target = event.target as HTMLInputElement;
-		userTags[index] = target.value;
-	}
-
-	function updateTags() {
-		async function updateTags() {
-			const response = await fetch(
-				`${import.meta.env.VITE_KOHAI_API_URL}/tags/${data.slug}`,
-				{
-					credentials: "include",
-					headers: {
-						"Content-Type": "application/json",
-						"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
-					},
-					method: "PUT",
-					body: JSON.stringify({ tags: userTags }),
-				},
-			);
-			const result = await response.json();
-			if (!response.ok) {
-				toast.error(result.message);
-				return;
-			}
-			toast.success("Tags updated successfully");
-			fetchTags(); // Refresh tags list
-		}
-		updateTags();
-	}
 </script>
 
 <svelte-head>
@@ -111,13 +145,12 @@
 		<h1>{game.name}</h1>
 		<div class="summary-cover">
 			<img
-				src="//images.igdb.com/igdb/image/upload/t_cover_small_2x/{game
-					.cover.image_id}.jpg"
+				src={getImageUrl(game.cover.image_id, "t_cover_small_2x")}
 				alt={`Cover art for ${game.name}`}
 				loading="lazy"
 			/>
 			{#if $isMobile}
-				<Separator width="200px" />
+				<HorizontalSeparator width="200px" />
 			{:else}
 				<VerticalSeparator height="200px" />
 			{/if}
@@ -163,8 +196,8 @@
 	</form>
 
 	<div aria-label="Tags">
-		<ItemsList
-			items={tags.map((tag) => `${tag.tag}: ${tag.count}`)}
+		<ChipCloud
+			items={tags?.map((tag) => ({ label: String(tag.tag ?? ""), value: Number(tag.count ?? 0) })) || []}
 			label="Tags"
 		/>
 	</div>

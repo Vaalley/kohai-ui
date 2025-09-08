@@ -43,7 +43,6 @@
 				},
 			);
 			stats = await response.json().then((data) => data.data);
-			console.log(stats);
 
 			mostUsedWords = stats.topTags.map(
 				(tag: any) => `${tag.tag} - ${tag.count}`,
@@ -85,10 +84,14 @@
 		);
 
 		response = await fetch(
-			`${import.meta.env.VITE_KOHAI_API_URL}/auth/logout`,
+			`${import.meta.env.VITE_KOHAI_API_URL}/api/auth/logout`,
 			{
 				method: "POST",
 				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+					"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+				},
 			},
 		);
 
@@ -167,6 +170,7 @@
 
 	.buttons {
 		display: flex;
+		flex-wrap: wrap;
 		gap: var(--spacing-lg);
 		margin-top: var(--spacing-xl);
 	}
@@ -177,6 +181,11 @@
 		justify-content: space-evenly;
 		width: 100%;
 		gap: var(--spacing-lg);
+
+		@media (max-width: 768px) {
+			flex-direction: column;
+			align-items: center;
+		}
 	}
 
 	.stat {

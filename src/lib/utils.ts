@@ -41,11 +41,12 @@ export async function getUser(event: RequestEvent) {
 		// We cannot use credentials: "include" because it will not send the cookies
 		// So instead we manually send the cookies
 		const apiUrl = import.meta.env.VITE_KOHAI_API_URL;
-		const response = await fetch(`${apiUrl}/auth/me`, {
+		const response = await fetch(`${apiUrl}/api/auth/me`, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
 				"Cookie": cookieHeader,
+				"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
 			},
 		});
 
@@ -103,8 +104,11 @@ export async function getUser(event: RequestEvent) {
 			// The backend has already cleared the cookies, so we don't need to do anything
 			return null;
 		}
-	} catch (error) {
-		console.error("Error fetching user:", error);
+	} catch (_error) {
 		return null;
 	}
+}
+
+export function getImageUrl(imageId: string, size: string = "t_cover_big"): string {
+	return `https://images.igdb.com/igdb/image/upload/${size}/${imageId}.jpg`;
 }

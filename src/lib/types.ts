@@ -44,3 +44,11 @@ export interface Tag {
 	tag: string;
 	count: number;
 }
+
+export interface RandomTopGame {
+	id: number;
+	name: string;
+	cover?: {
+		image_id: string;
+	};
+}

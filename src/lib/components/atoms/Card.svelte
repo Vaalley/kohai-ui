@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
-	import Separator from "$lib/components/atoms/Separator.svelte";
+	import HorizontalSeparator from "$lib/components/atoms/HorizontalSeparator.svelte";
 
 	interface Props {
 		title?: string;
@@ -13,7 +13,7 @@
 <div class="card" role="region">
 	{#if title}
 		<h2 aria-label={title}>{title}</h2>
-		<Separator width="100%" />
+		<HorizontalSeparator width="100%" />
 	{/if}
 	{@render children()}
 </div>
