@@ -66,6 +66,7 @@
 					<a href="/game/{game.id}" data-sveltekit-preload-data="hover">
 						{#if game.cover?.image_id}
 							<img
+								class="game-cover"
 								src={getImageUrl(game.cover.image_id)}
 								alt="{game.name} cover"
 								loading="lazy"
@@ -123,6 +124,14 @@
 
 		.error {
 			color: var(--color-error);
+		}
+	}
+
+	.game-cover {
+		transition: transform 0.1s ease-in-out;
+
+		&:hover {
+			transform: scale(1.05);
 		}
 	}
 </style>
