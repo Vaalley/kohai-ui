@@ -50,6 +50,12 @@ h4 {
 	font-size: var(--font-size-lg);
 }
 
+footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 Inline text semantics
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

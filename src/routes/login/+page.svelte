@@ -11,23 +11,29 @@
 
 	async function login(event: Event) {
 		event.preventDefault();
-		await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/api/auth/login`, {
-			method: "POST",
-			credentials: "include",
-			headers: {
-				"Content-Type": "application/json",
-				"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
-			},
-			body: JSON.stringify({ email, password }),
-		})
-			.then(async () => {
+		try {
+			const response = await fetch(`${import.meta.env.VITE_KOHAI_API_URL}/api/auth/login`, {
+				method: "POST",
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+					"x-api-key": import.meta.env.VITE_KOHAI_API_KEY,
+				},
+				body: JSON.stringify({ email, password }),
+			});
+
+			const data = await response.json();
+
+			if (data.success) {
 				toast.success("Login successful");
 				await invalidateAll();
 				await goto("/");
-			})
-			.catch(() => {
-				toast.error("Login failed");
-			});
+			} else {
+				toast.error(data.message || "Login failed");
+			}
+		} catch (e) {
+			toast.error(`Login failed: ${e}`);
+		}
 	}
 </script>
 

@@ -144,11 +144,15 @@
 	{#if game}
 		<h1>{game.name}</h1>
 		<div class="summary-cover">
-			<img
-				src={getImageUrl(game.cover.image_id, "t_cover_small_2x")}
-				alt={`Cover art for ${game.name}`}
-				loading="lazy"
-			/>
+			{#if game.cover?.image_id}
+				<img
+					src={getImageUrl(game.cover.image_id, "t_cover_small_2x")}
+					alt={`Cover art for ${game.name}`}
+					loading="lazy"
+				/>
+			{:else}
+				<p class="no-image">{game.name}</p>
+			{/if}
 			{#if $isMobile}
 				<HorizontalSeparator width="200px" />
 			{:else}
